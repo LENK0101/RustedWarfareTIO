@@ -1,0 +1,80 @@
+[core]
+copyFrom: ROOT:/MOBA/.MobaDATA/localization/buyConsumablesLocalization.template
+
+[template_buyConsumables]
+isVisible: if self.resource.select == 2
+isLocked: if self.resource.consumablesNum >= 6
+isLockedMessage: Your Inventory Is Full!
+isLockedAlt: if not self.numberOfUnitsInTeam(withTag='hero', withinRange=280, greaterThan=0) and self.hasUnitInTeam(withTag="hero")
+isLockedAltMessage: Your hero must be near the Cristal!
+buildSpeed: 0s
+pos:1
+displayType: none
+addResources: consumablesNum = 1
+playSoundToPlayer:ROOT:/Moba/.MobaDATA/audio/buy.ogg:0.6
+allowMultipleInQueue: false
+
+[template_buyAbyssalSkills]
+@copyFromSection: template_buyConsumables
+isLockedAlt2: if self.resource.abyssalSkillBuyCD > 0
+isLockedAlt2Message: Resupplying, please come back in %{self.resource.abyssalSkillBuyCD}s!
+displayType: upgrade
+addResources: consumablesNum = 1, abyssalSkill = 1
+
+[action_buyHpPotion]
+@copyFromSection: template_buyConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Hp Potion.png
+price: Gold=50
+text: Hp Potion
+description:Restore a total of 100 Hp in 10 seconds
+addResourcesWithLogic: hpPotion = 1
+
+[action_buyManaPotion]
+@copyFromSection: template_buyConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Mana Potion.png
+price: Gold=50
+text: Mana Potion
+description:Restore a total of 100 Mana in 10 seconds
+addResourcesWithLogic: manaPotion = 1
+
+[action_buyVisionPotion]
+@copyFromSection: template_buyConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Vision Potion.png
+price: Gold=100
+text: Vision Potion
+description:Gain the ability to see invisible units for 10 seconds
+addResourcesWithLogic: visionPotion = 1
+
+[action_buyArrivalStone]
+@copyFromSection: template_buyConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Arrival Stone.png
+isVisible: if self.resource.select == 2 and self.resource.totemUpgrade42 == 1
+isLockedAlt2: if self.resource.arrivalStone >= 1
+isLockedAlt2Message: Your can only have one Arrival Stone at a time!
+price: Gold=100
+text: Arrival Stone
+description: Teleport to a totem
+addResourcesWithLogic: arrivalStone = 1
+
+
+#--------Buy Abyssal Skills--------
+
+[action_buyShadowleap]
+@copyFromSection: template_buyAbyssalSkills
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Shadowleap.png
+isVisible: if self.resource.select == 2
+price: Gold=200
+text: Shadowleap
+description: Leap yourself to the selected location
+addResourcesWithLogic: shadowleap = 1, abyssalSkillBuyCD = 120
+
+#--------Buy Abyssal Skills CD--------
+[hiddenAction_abyssalSkillBuyCDCounter]
+autoTrigger: if self.resource.abyssalSkillBuyCD > 0 and self.resource.abyssalSkill == 0
+addResources: abyssalSkillBuyCD = -1
+
+[resource_abyssalSkillBuyCD]
+hidden:true
+
+
+

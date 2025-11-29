@@ -1,0 +1,8 @@
+[core]
+armourMinDamageToKeep:5
+hideScorchMark: true
+
+[graphics]
+disableLowHpFire: true
+disableLowHpSmoke: true
+image_shield:  ROOT:/DATA/total/null.png

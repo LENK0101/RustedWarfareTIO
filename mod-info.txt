@@ -1,0 +1,13 @@
+[mod]
+title: Three In One
+title_zh: 三位一体
+description: Version: 0.96b2, mod contain: MOBA, Red Alert 2 (Original creator: Xinxiu Haoqi), Starcraft 1 (Original creator: Artyom Khlopko), and Rusted Warfare (Some units come from mod ProTech). This mod author is LENK
+description_zh: 版本0.96b2，该mod内含：Moba阵容，红色警戒2阵容（原作者：新锈好奇），星际争霸1阵容（原作者：Artyom Khlopko），以及略微改动过的原版阵容（部分单位来自模组ProTech）。该mod的作者为LENK
+
+minVersion: v1.15
+tags: moba, infantry, buildings, units, fantasy, gameplay, total conversion
+thumbnail: TIO.png
+
+[music]
+sourceFolder: music/
+whenUsingUnitsFromThisMod_playExclusively: true

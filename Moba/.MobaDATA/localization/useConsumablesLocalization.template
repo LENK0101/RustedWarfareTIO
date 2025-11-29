@@ -1,0 +1,25 @@
+[action_useHpPotion1]
+text_zh: 生命药瓶
+description_zh:10秒内总共恢复100点生命
+
+[action_useManaPotion1]
+text_zh: 魔力药瓶
+description_zh:10秒内总共恢复100点魔力
+
+[action_useVisionPotion1]
+text_zh: 视野药瓶
+description_zh:获得反隐能力，持续10秒
+
+
+
+[action_useHpPotion1]
+text_ru: Зелье здоровья
+description_ru: Восстанавливает 100 здоровья за 10 секунд
+
+[action_useManaPotion1]
+text_ru: Зелье маны
+description_ru: Восстанавливает 100 маны за 10 секунд
+
+[action_useVisionPotion1]
+text_ru: Зелье зрения
+description_ru: Обнаружение невидимок на 10 секунд

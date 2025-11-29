@@ -1,0 +1,171 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\维修2.template, ROOT:\共享文件\3类\炸弹限制.template, ROOT:\共享文件\3类\生命保险.template, ROOT:\共享文件\3类\临时救援.template, ROOT:\共享文件\3类\力场护盾.template, ROOT:\共享文件\3类\血溅.template, ROOT:\共享文件\3类\铁幕保护.template
+soundOnDeath: ROOT:\音频\语音+音效\bgendiea.wav, ROOT:\音频\语音+音效\bgendieb.wav, ROOT:\音频\语音+音效\bgendiec.wav, ROOT:\音频\语音+音效\bgendied.wav, ROOT:\音频\语音+音效\bgendiee.wav, ROOT:\音频\语音+音效\bgendief.wav
+explodeOnDeath: false
+
+
+[attack]
+canOnlyAttackUnitsWithoutTags: 伪装, 驾驶
+
+[placementRule_建造规则]
+searchTags: 非防御建筑
+searchTeam: own
+searchDistance: 340
+cannotPlaceMessage: 不能放置！
+minCount: 1
+
+
+[placementRule_建造规则3]
+searchTags: 非防御建筑
+searchTeam: ally
+searchDistance: 340
+cannotPlaceMessage: 不能放置！
+minCount: 1
+
+
+[action_入侵计时]
+text: Unlock countdown
+text_zh: 解锁倒计时
+pos: 0
+price: 入侵计时=1
+displayRemainingStockpile: true
+displayType: rally
+isActive: false
+isVisible: if not self.resource(type='入侵计时', empty=true)
+autoTrigger: if not self.resource(type='入侵计时', empty=true)
+addResources: 入侵计时=-1
+
+
+[action_卖钱]
+description: Sell? Return 50% of funds
+description_zh: 卖钱，按照价格50%售卖
+isVisible: if not self.hasFlag(id=30) and not self.hasFlag(id=29) and not self.hasFlag(id=14)
+pos: -0.9
+buildSpeed: 0s
+iconImage: ROOT:\共享文件\1类\图标-钱.png
+isActive: if self.queueSize(empty=true)
+allowMultipleInQueue: false
+highPriorityQueue: true
+ai_isDisabled: true
+resetCustomTimer: true
+addResources: setFlag=30, setFlag=14
+alwaysSinglePress: true
+
+[action_卖钱2]
+@copyFromSection: action_卖钱
+description: Decide?
+description_zh: 卖定了
+isVisible: if self.hasFlag(id=30) and self.queueSize(empty=true)
+isActive: if self.queueSize(empty=true)
+addResources: unsetFlag=30, setFlag=29
+alsoQueueAction: 卖钱4
+alwaysSinglePress: true
+
+[hiddenAction_重置卖钱]
+autoTrigger: if self.customTimer() > 2 and self.customTimer() < 3
+addResources: unsetFlag=30, unsetFlag=14
+
+[movement]
+moveSpeed:0
+
+[hiddenAction_卖钱4]
+buildSpeed: 1s
+whenBuilding_triggerAction: 卖声
+addResources: 资金=${int(template_zijin.price*0.5)}
+deleteSelf: true
+
+
+[hiddenAction_卖声]
+playSoundAtUnit: ROOT:\音频\语音+音效\uselbuil.wav
+
+
+[hiddenAction_缺电显示]
+autoTrigger: if not self.resource(type='电力', greaterThan=0) and not self.tags(includes='电力') and not self.hasFlag(id=29)
+spawnEffects: CUSTOM:电力
+
+
+[hiddenAction_恢复保存电力]
+autoTrigger: if numberOfUnitsInAggressiveTeam(withTag='恢复保存电力', greaterThan=0) and not self.tags(includes='停止')
+temporarilyAddTags: 停止
+addResources: 电力=${dianli}
+
+
+[hiddenAction_建造声]
+autoTriggerOnEvent: created
+playSoundAtUnit: ROOT:\音频\语音+音效\uplace.wav:0.3
+alsoTriggerAction: 新创建
+
+[hiddenAction_生命保险计时3]
+autoTrigger: if (self.resource(type='生命保险计时', empty=true) or self.hasFlag(id=29)) and self.tags(includes='生命保险')
+
+[hiddenAction_新创建]
+setResourcesWithLogic: 新建筑 = 0
+
+[hiddenAction_基地遭受进攻]
+requireConditional: if self.resource(type='基地遭受进攻',lessThan=1)
+autoTriggerOnEvent: tookDamage
+resourceAmount: 基地遭受进攻
+resourceAmount_setValue: 15
+
+[movement]
+moveYAxisScaling: 0.9
+
+
+[effect_电力]
+image: ROOT:\共享文件\1类\电力.png
+life:120
+scaleFrom: 1
+scaleTo: 1
+#xOffsetRelative: 0
+#yOffsetRelative: 0
+alwayStartDirAtZero: true
+attachedToUnit: true
+liveAfterAttachedDies: false
+drawUnderUnits: false
+
+
+[effect_土坑]
+image: ROOT:\共享文件\1类\土坑12.png
+life: 1200
+scaleFrom: 1.02
+scaleTo: 1.02
+alpha: 0.5
+xOffsetRelative: 0
+yOffsetRelative: -15
+spawnChance: 0.3
+ifSpawnFailsEmitEffects: CUSTOM:土坑4
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits: true
+alwayStartDirAtZero: true
+
+
+[effect_土坑2]
+@copyFromSection: effect_土坑
+image: ROOT:\共享文件\1类\土坑10.png
+xOffsetRelativeRandom:  30
+yOffsetRelativeRandom:  30
+spawnChance: 0.5
+ifSpawnFailsEmitEffects: NONE
+
+
+[effect_土坑3]
+@copyFromSection: effect_土坑2
+image: ROOT:\共享文件\1类\土坑02.png
+
+
+[effect_土坑4]
+@copyFromSection: effect_土坑
+image: ROOT:\共享文件\1类\土坑11.png
+spawnChance: 1
+ifSpawnFailsEmitEffects: NONE
+
+
+[resource_入侵计时]
+displayName: Timing
+displayName_zh: 计时
+
+
+[template_zijin]
+price: 0
+@global dianli: 0

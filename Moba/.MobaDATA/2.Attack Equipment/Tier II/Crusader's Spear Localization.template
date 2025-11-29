@@ -1,0 +1,16 @@
+[core]
+displayText_zh:十字军矛
+displayDescription_zh:+20攻击强度 \n+15%暴击率
+
+[action_upgrade]
+text_zh:神圣长枪
+description_zh: +50攻击强度\n+30%暴击率 \n\n-----唯一被动-----\n制裁: 暴击伤害提升40%
+
+
+[core]
+displayText_ru: Копьё крестоносца
+displayDescription_ru: +20 к силе атаки \n+15% к шансу крита
+
+[action_upgrade]
+text_ru: Божественное копьё
+description_ru: +50 к силе атаки\n+30% к шансу крита \n\n-----Уникальный пассив-----\nВозмездие: Урон от критических ударов увеличен на 40%

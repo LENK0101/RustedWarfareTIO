@@ -1,0 +1,61 @@
+
+[hiddenAction_临时救援] 
+autoTrigger: if self.tags(includes='生物') and not self.hp(full=true) and (hasUnitInTeam(withTag='救援', withinRange=150, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='救援', withinRange=150, greaterThan=0))
+addResources: hp=${int(core.maxHp*0.05)}
+spawnEffects: CUSTOM:生命+
+
+
+[hiddenAction_临时救援2] 
+autoTrigger: if (self.tags(includes='装甲') or self.tags(includes='建筑')) and not self.hp(full=true) and (hasUnitInTeam(withTag='救援', withinRange=150, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='救援', withinRange=150, greaterThan=0))
+addResources: hp=${int(core.maxHp*0.05)}
+spawnEffects: CUSTOM:维修0
+
+
+[hiddenAction_临时救援-Ai] 
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='临时救援Ai') and not self.tags(includes='救援Ai') and not self.hp(full=true)
+temporarilyAddTags: 救援Ai
+
+
+[hiddenAction_临时救援-Ai2] 
+autoTrigger: if (self.noUnitInTeam(withTag='临时救援Ai') or self.hp(full=true)) and self.tags(includes='救援Ai')
+temporarilyRemoveTags: 救援Ai
+
+
+[effect_生命+]
+image: ROOT:\共享文件\1类\生命+.png
+priority: high
+life: 300
+scaleFrom: 1.05
+scaleTo: 1.05
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 10
+animateFrameSpeed: 0.2
+fadeOut: false
+attachedToUnit: true
+drawUnderUnits: false
+alwayStartDirAtZero: true
+
+
+[effect_维修0]
+image: ROOT:\共享文件\1类\维修.png
+priority: high
+life: 30
+scaleFrom: 1.02
+scaleTo: 1.02
+dirOffset: 200
+dirSpeed: 3
+fadeOut: false
+drawUnderUnits:false
+alwayStartDirAtZero: true
+attachedToUnit: true
+liveAfterAttachedDies: false
+alsoEmitEffectsOnDeath: CUSTOM:维修1
+
+
+[effect_维修1]
+@copyFromSection: effect_维修0
+life: 32
+dirOffset: 290
+dirSpeed: -3
+alsoEmitEffectsOnDeath: NONE

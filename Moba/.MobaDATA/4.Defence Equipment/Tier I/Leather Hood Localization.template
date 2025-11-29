@@ -1,0 +1,11 @@
+[core]
+displayText_zh:皮革帽
+displayDescription_zh:+80最大生命值
+
+[action_upgrade]
+text_zh:铁头盔
+description_zh:+350最大生命值
+
+[action_upgrade2]
+text_zh:魔法兜帽
+description_zh:+350最大生命值

@@ -1,0 +1,18 @@
+
+[core]
+displayText_zh:钢弩
+displayDescription_zh: +30攻击强度 \n+10%攻击速度
+
+[action_upgrade]
+text_zh:夜火十字弩
+description_zh:+60攻击强度 \n+15%攻击速度 \n\n-----唯一被动-----\n破甲箭:普通攻击对高护甲单位造成更高伤害
+
+
+
+[core]
+displayText_ru: Стальной арбалет
+displayDescription_ru: +30 к силе атаки \n+10% к скорости атаки
+
+[action_upgrade]
+text_ru: Арбалет ночного пламени
+description_ru: +60 к силе атаки \n+15% к скорости атаки \n\n-----Уникальный пассив-----\nБронебойные стрелы: Обычные атаки наносят повышенный урон целям с высокой защитой

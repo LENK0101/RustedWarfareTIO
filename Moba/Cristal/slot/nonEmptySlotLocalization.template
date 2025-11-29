@@ -1,0 +1,20 @@
+#--------------Chinese Localization--------------
+[action_sellItem]
+isLockedMessage_zh:你的英雄必须在水晶旁边！
+text_zh:出售
+description_zh:将返还${int(template_price.price*0.6)}黄金
+
+[template_equipmentInfo]
+isLockedMessage_zh:你的英雄必须在水晶旁边！
+
+
+
+
+#--------------Russian Localization--------------
+[action_sellItem]
+isLockedMessage_ru: Ваш герой должен находиться рядом с кристаллом!
+text_ru: Продать
+description_ru: Возвращает ${int(template_price.price*0.6)} золота
+
+[template_equipmentInfo]
+isLockedMessage_ru: Ваш герой должен находиться рядом с кристаллом!

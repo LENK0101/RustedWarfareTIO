@@ -1,0 +1,10 @@
+[hiddenAction_禁入]
+autoTrigger: if numberOfUnitsInEnemyTeam(withTag='恐怖机器人', withinRange=10, greaterThan=0) and not self.tags(includes='禁入')
+temporarilyAddTags: 禁入
+#showMessageToAllPlayers: 禁入
+
+
+[hiddenAction_禁入2]
+autoTrigger: if not numberOfUnitsInEnemyTeam(withTag='恐怖机器人', withinRange=10, greaterThan=0) and self.tags(includes='禁入')
+temporarilyRemoveTags: 禁入
+#showMessageToAllPlayers: 禁入2

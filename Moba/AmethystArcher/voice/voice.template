@@ -1,0 +1,355 @@
+#---------Spawn Voice------------
+[hiddenAction_spawnVoice]
+autoTriggerOnEvent: created
+requireConditional: if not (self.customTarget1 == NULL)
+setResourcesWithLogic: selectedVoice = int(rnd(1, 4))
+alsoTriggerAction: spawnVoice1, spawnVoice2, spawnVoice3
+
+[hiddenAction_spawnVoice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Spawn1.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_spawnVoice2]
+requireConditional: if self.resource.selectedVoice == 2
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Spawn2.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_spawnVoice3]
+requireConditional: if self.resource.selectedVoice == 3
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Spawn3.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+
+#---------Idle Voice------------
+[hiddenAction_idleVoice]
+autoTrigger: if self.resource.lastVoiceTimer <= 0 and (self.hasActiveWaypoint(type='move') or self.hasActiveWaypoint(type='attackMove') or self.hasActiveWaypoint(type='attack'))
+setResourcesWithLogic: selectedVoice = int(rnd(1, 18))
+alsoTriggerAction: idleVoiceNext1, idleVoiceNext2
+
+[hiddenAction_idleVoiceNext1]
+requireConditional: if (self.resource.selectedVoice == self.resource.selectedVoiceLast) and self.resource.lastVoiceTimer <= 0
+setResourcesWithLogic: isSelectedVoiceEqual = 1
+alsoTriggerAction: idleVoice
+
+[hiddenAction_idleVoiceNext2]
+requireConditional: if not (self.resource.selectedVoice == self.resource.selectedVoiceLast) and self.resource.lastVoiceTimer <= 0
+alsoTriggerAction: """
+idleVoice1,
+idleVoice2,
+idleVoice3,
+idleVoice4,
+idleVoice5,
+idleVoice6,
+idleVoice7,
+idleVoice8,
+idleVoice9,
+idleVoice10,
+idleVoice11,
+idleVoice12,
+idleVoice13,
+idleVoice14,
+idleVoice15,
+idleVoice16,
+idleVoice17
+"""
+
+[hiddenAction_idleVoice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle1.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice2]
+requireConditional: if self.resource.selectedVoice == 2
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle2.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice3]
+requireConditional: if self.resource.selectedVoice == 3
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle3.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice4]
+requireConditional: if self.resource.selectedVoice == 4
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle4.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice5]
+requireConditional: if self.resource.selectedVoice == 5
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle5.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice6]
+requireConditional: if self.resource.selectedVoice == 6
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle6.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice7]
+requireConditional: if self.resource.selectedVoice == 7
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle7.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice8]
+requireConditional: if self.resource.selectedVoice == 8
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle8.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice9]
+requireConditional: if self.resource.selectedVoice == 9
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle9.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice10]
+requireConditional: if self.resource.selectedVoice == 10
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle10.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice11]
+requireConditional: if self.resource.selectedVoice == 11
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle11.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice12]
+requireConditional: if self.resource.selectedVoice == 12
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle12.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice13]
+requireConditional: if self.resource.selectedVoice == 13
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle13.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice14]
+requireConditional: if self.resource.selectedVoice == 14
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle14.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice15]
+requireConditional: if self.resource.selectedVoice == 15
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle15.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice16]
+requireConditional: if self.resource.selectedVoice == 16
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle16.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+[hiddenAction_idleVoice17]
+requireConditional: if self.resource.selectedVoice == 17
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Idle17.ogg:1
+@copyFromSection: template_voiceFinalSet
+
+#---------Attack Voice------------
+[hiddenAction_attackVoice]
+requireConditional: if self.resource.lastVoiceTimer < 9 and self.resource.attackVoiceTimer <= 0
+setResourcesWithLogic: selectedVoice = int(rnd(1, 11))
+alsoTriggerAction: attackVoice1, attackVoice2
+
+[hiddenAction_attackVoice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Attack1.ogg:1
+setResourcesWithLogic: attackVoiceTimer = 5, lastVoiceTimer = select(self.resource.lastVoiceTimer > 3, self.resource.lastVoiceTimer, 3)
+
+[hiddenAction_attackVoice2]
+requireConditional: if self.resource.selectedVoice == 2
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Attack2.ogg:0.5
+setResourcesWithLogic: attackVoiceTimer = 5, lastVoiceTimer = select(self.resource.lastVoiceTimer > 3, self.resource.lastVoiceTimer, 3)
+
+[turret_baseAttack]
+onShoot_triggerActions:attackVoice
+
+[turret_baseAttackS]
+onShoot_triggerActions:attackVoice
+
+[turret_baseAttackL]
+onShoot_triggerActions:attackVoice
+
+[turret_baseAttackS+L]
+onShoot_triggerActions:attackVoice
+
+
+#---------Skill Voice------------
+
+[hiddenAction_skill1Voice]
+requireConditional: if self.resource.lastVoiceTimer < 11 and self.resource.skillVoiceTimer <= 0
+setResourcesWithLogic: selectedVoice = int(rnd(1, 2))
+alsoTriggerAction: skill1Voice1
+
+[hiddenAction_skill1Voice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Skill1.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), skillVoiceTimer = 2, selectedVoice = 0
+
+[hiddenAction_skill2Voice]
+requireConditional: if self.resource.lastVoiceTimer < 11 and self.resource.skillVoiceTimer <= 0
+setResourcesWithLogic: selectedVoice = int(rnd(1, 2))
+alsoTriggerAction: skill2Voice1
+
+[hiddenAction_skill2Voice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Skill2.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), skillVoiceTimer = 2, selectedVoice = 0
+
+[hiddenAction_skill3Voice]
+requireConditional: if self.resource.lastVoiceTimer < 11 and self.resource.skillVoiceTimer <= 0
+setResourcesWithLogic: selectedVoice = int(rnd(1, 3))
+alsoTriggerAction: skill3Voice1, skill3Voice2
+
+[hiddenAction_skill3Voice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Ult1.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), skillVoiceTimer = 2, selectedVoice = 0
+
+[hiddenAction_skill3Voice2]
+requireConditional: if self.resource.selectedVoice == 2
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Ult2.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), skillVoiceTimer = 2, selectedVoice = 0
+
+#---------Kill------------
+[hiddenAction_earnGold&XP2]
+alsoTriggerAction: killVoice
+
+[hiddenAction_killVoice]
+requireConditional: if self.resource.lastVoiceTimer < 11 and self.resource.killVoiceTimer <= 0
+setResourcesWithLogic: selectedVoice = int(rnd(1, 4))
+alsoTriggerAction: killVoice1, killVoice2, killVoice3
+
+[hiddenAction_killVoice1]
+requireConditional: if self.resource.selectedVoice == 1
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Kill1.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0, killVoiceTimer = 30
+
+[hiddenAction_killVoice2]
+requireConditional: if self.resource.selectedVoice == 2
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Kill2.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0, killVoiceTimer = 30
+
+[hiddenAction_killVoice3]
+requireConditional: if self.resource.selectedVoice == 3
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Kill3.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0, killVoiceTimer = 30
+
+
+#---------Buy Equipment------------
+[hiddenAction_buyEquipmentVoice]
+autoTrigger: if self.resource.mobaBuyEquipment == 1
+setResourcesWithLogic: mobaBuyEquipment = 0, selectedVoice = int(rnd(1, 3))
+alsoTriggerAction:buyEquipmentVoice1, buyEquipmentVoice2
+
+[hiddenAction_buyEquipmentVoice1]
+requireConditional: if self.resource.selectedVoice == 1 and self.resource.lastVoiceTimer < 11
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Buy1.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0
+
+[hiddenAction_buyEquipmentVoice2]
+requireConditional: if self.resource.selectedVoice == 2 and self.resource.lastVoiceTimer < 11
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Buy2.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0
+
+#---------Recall------------
+[hiddenAction_recall3]
+setResourcesWithLogic: selectedVoice = int(rnd(1, 3))
+alsoTriggerAction: recallVoice1, recallVoice2
+
+[hiddenAction_recallVoice1]
+requireConditional: if self.resource.selectedVoice == 1 and self.resource.lastVoiceTimer < 11
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Recall1.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0
+
+[hiddenAction_recallVoice2]
+requireConditional: if self.resource.selectedVoice == 2 and self.resource.lastVoiceTimer < 11
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Recall2.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), selectedVoice = 0
+
+#---------First Meet------------
+[hiddenAction_firstMeetVoice]
+autoTrigger: if (self.isAttacking() or self.hasTakenDamage(withinSeconds=1)) and self.resource.firstMeet == 0 and self.resource.lastVoiceTimer < 11
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=150, greaterThan = 0)
+alsoTriggerAction: firstMeetVoiceMachine, firstMeetVoiceBug, firstMeetVoiceAllied, firstMeetVoiceSoviet, firstMeetVoiceTerran, firstMeetVoiceProtoss, firstMeetVoiceNightBorne
+
+[hiddenAction_firstMeetVoiceMachine]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'machine', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Machine.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceBug]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'bug', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Bug.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceAllied]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'allied', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Allied.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceSoviet]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'soviet', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Soviet.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceTerran]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'terran', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Terran.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceProtoss]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'protoss', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Protoss.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceZerg]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'zerg', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy Zerg.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+[hiddenAction_firstMeetVoiceNightBorne]
+requireConditional: if self.numberOfUnitsInEnemyTeam(withinRange=160, withTag = 'NightBorne', greaterThan = 0)
+playSoundAtUnit: ROOT:/Moba/AmethystArcher/voice/Enemy NightBorne.ogg:1
+setResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, self.resource.lastVoiceTimer, 5), firstMeet = 1
+
+#---------Revive------------
+[hiddenAction_respawnHeroNormal]
+addResourcesWithLogic: lastVoiceTimer = select(self.resource.lastVoiceTimer > 5, 0, 5)
+playSoundToPlayer: ROOT:/Moba/AmethystArcher/voice/Revive.ogg:1
+
+#---------Other------------
+[template_voiceFinalSet]
+setResourcesWithLogic: selectedVoiceLast = self.resource.selectedVoice, lastVoiceTimer = 15, selectedVoice = 0
+
+[hiddenAction_lastVoiceTimerCounter]
+autoTrigger: if self.resource.lastVoiceTimer > 0
+addResourcesWithLogic: lastVoiceTimer = -1
+
+[hiddenAction_attackVoiceTimerCounter]
+autoTrigger: if self.resource.attackVoiceTimer > 0
+addResourcesWithLogic: attackVoiceTimer = -1
+
+[hiddenAction_skillVoiceTimerCounter]
+autoTrigger: if self.resource.skillVoiceTimer > 0
+addResourcesWithLogic: skillVoiceTimer = -1
+
+[hiddenAction_killVoiceTimerCounter]
+autoTrigger: if self.resource.killVoiceTimer > 0
+addResourcesWithLogic: killVoiceTimer = -1
+
+
+[resource_selectedVoice]
+hidden: true
+
+[resource_selectedVoiceLast]
+hidden: true
+
+[resource_isSelectedVoiceEqual]
+hidden: true
+
+[resource_lastVoiceTimer]
+hidden: true
+
+[resource_attackVoiceTimer]
+hidden: true
+
+[resource_skillVoiceTimer]
+hidden: true
+
+[resource_killVoiceTimer]
+hidden: true

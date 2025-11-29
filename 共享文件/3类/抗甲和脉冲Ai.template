@@ -1,0 +1,20 @@
+[hiddenAction_Ai抗甲粒子跟随]
+autoTrigger: if not self.tags(includes='战机') and not self.tags(includes='矿车') and self.hasUnitInTeam(withTag='抗甲引子') and not self.tags(includes='抗甲跟随Ai')
+temporarilyAddTags: 抗甲跟随Ai
+
+
+[hiddenAction_Ai抗甲粒子跟随2]
+autoTrigger: if self.tags(includes='抗甲跟随Ai') and not self.hasUnitInTeam(withTag='抗甲引子')
+temporarilyRemoveTags: 抗甲跟随Ai
+
+
+[hiddenAction_Ai电磁脉冲跟随]
+autoTrigger: if not self.tags(includes='战机') and not self.tags(includes='矿车') and self.hasUnitInTeam(withTag='电磁脉冲引子') and not self.tags(includes='脉冲跟随Ai')
+temporarilyAddTags: 脉冲跟随Ai
+#showMessageToAllPlayers: 产生跟随Ai
+
+
+[hiddenAction_Ai电磁脉冲跟随2]
+autoTrigger: if self.tags(includes='脉冲跟随Ai') and not self.hasUnitInTeam(withTag='电磁脉冲引子')
+temporarilyRemoveTags: 脉冲跟随Ai
+#showMessageToAllPlayers: 取消跟随Ai

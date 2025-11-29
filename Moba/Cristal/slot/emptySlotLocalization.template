@@ -1,0 +1,9 @@
+#--------------Chinese Localization--------------
+[core]
+displayText_zh:空装备栏
+displayDescription_zh:点击打开装备购买界面
+
+#--------------Russian Localization--------------
+[core]
+displayText_ru: Пустой слот экипировки
+displayDescription_ru: Нажмите для открытия меню покупки снаряжения

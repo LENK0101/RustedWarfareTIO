@@ -1,0 +1,1496 @@
+[core]
+@global hpPerLevel, regenPerLevel, defencePerLevel, manaPerLevel, manaRegenPerLevel, attackPowerPerLevel, attackSpeedPerLevel, baseAttack1, baseAttack2, attackRange
+@global skillHasteFuction: 1 - (self.resource.SkillHaste / (self.resource.SkillHaste + 100) )
+copyFrom: ROOT:/MOBA/.MobaDATA/stats.template, ROOT:/MOBA/.MobaDATA/buffCommon.template, ROOT:/MOBA/.MobaDATA/stats.template, ROOT:/MOBA/.MobaDATA/useConsumables.template, ROOT:/MOBA/.MobaDATA/localization/heroCommonLocalization.template
+
+defineUnitMemory: """
+float skillCD1, 
+float skillCD2, 
+float skillCD3, 
+float shieldDecal,
+float ironhideBootsCD, 
+float ironhideBootsDuration,
+float gildedSerpentRingCD,
+float celestialMantleCD,
+float celestialMantleDuration,
+float crimsonAegisCD
+"""
+
+updateUnitMemory: """
+skillCD1 = memory.skillCD1 - select(memory.skillCD1>0,0.1,0), 
+skillCD2 = memory.skillCD2 - select(memory.skillCD2>0,0.1,0), 
+skillCD3 = memory.skillCD3 - select(memory.skillCD3>0,0.1,0), 
+shieldDecal = memory.shieldDecal + 0.1,
+ironhideBootsCD = memory.ironhideBootsCD - select(memory.ironhideBootsCD>0,0.1,0), 
+ironhideBootsDuration = memory.ironhideBootsDuration - select(memory.ironhideBootsDuration>0,0.1,0),
+gildedSerpentRingCD = memory.gildedSerpentRingCD - select(memory.gildedSerpentRingCD>0,0.1,0),
+celestialMantleCD = memory.celestialMantleCD - select(memory.celestialMantleCD > 0 ,0.1,0),
+celestialMantleDuration = memory.celestialMantleDuration - select(memory.celestialMantleDuration>0,0.1,0),
+crimsonAegisCD = memory.crimsonAegisCD - select(memory.crimsonAegisCD > 0, 0.1, 0)
+"""
+
+updateUnitMemoryRate: 0.1s
+disableDeathOnZeroHp: true
+shieldRegen: 0
+energyRegen: 0
+fogOfWarSightRange: 20
+
+price: Gold = 200
+maxHp: 100
+mass: 1000000
+energyMax:0
+armour:0
+isBuilder:true
+techLevel: 1
+buildSpeed: 0
+radius: 15
+uiTargetRadius: 25
+isBuilding: false
+experimental: true
+
+[graphics]
+showHealthBar:false
+showEnergyBar:false
+showShieldBar:false
+
+#---
+
+[hiddenAction_reciveChange]
+autoTriggerOnEvent:newMessage(withTag='statsChange')
+alsoTriggerAction: initialize
+
+#---
+
+[hiddenAction_created]
+autoTriggerOnEvent: created
+alsoTriggerAction: initialize, fullHP&ManaWhenSpawn
+
+[hiddenAction_initialize]
+alsoTriggerAction: updateBasic, updateForSkill
+
+[hiddenAction_updateBasic]
+setResourcesWithLogic: """
+MaxHP = self.resource.MaxHP + (self.resource.Level-1) * ${hpPerLevel}, 
+HPRegen = self.resource.HPRegen + (self.resource.Level-1) * ${regenPerLevel},
+Defence = self.resource.Defence + int((self.resource.Level-1) * ${defencePerLevel}), 
+MaxMana = self.resource.MaxMana  + (self.resource.Level-1)*${manaPerLevel}, 
+ManaRegen = self.resource.ManaRegen  + (self.resource.Level-1) * ${manaRegenPerLevel}, 
+MovementSpeed = self.resource.MovementSpeed,
+AttackSpeed = self.resource.AttackSpeed  + (self.resource.Level-1)*${attackSpeedPerLevel}, 
+AttackPower = int(self.resource.AttackPower + (self.resource.Level-1)*${attackPowerPerLevel}), 
+LifeSteal = self.resource.LifeSteal,
+CriticalChance = self.resource.CriticalChance,
+CriticalPower = self.resource.CriticalPower,
+SkillPower = self.resource.SkillPower,
+SkillHaste = self.resource.SkillHaste,
+SkillVamp = self.resource.SkillVamp
+"""
+alsoTriggerAction: updatePassive
+
+[hiddenAction_updatePassive]
+setResourcesWithLogic: """
+AdditionalAttackPower = 0,
+AdditionalAttackSpeed = 0,
+AdditionalMovementSpeed = 0,
+AdditionalShield = 0,
+AdditionalHPRegen = 0,
+AdditionalManaRegen = 0,
+AdditionalMaxHP = 0,
+AdditionalMaxMana = 0,
+AdditionalDefence = 0,
+AdditionalSkillPower = 0,
+AdditionalSkillHaste = 0,
+AdditionalCriticalChance = 0,
+AdditionalCriticalPower = 0,
+AdditionalLifeSteal = 0,
+AdditionalSkillVamp = 0,
+BoostedMovementSpeed = select(customTarget1.resource.velocityBoots>=1, 0.1, 0),
+BoostedAttackRange = select(customTarget1.resource.heavenFeather>=1, 0.15, 0),
+BoostedExtraAttackPower = select(customTarget1.resource.bladeOfDoom>=1, 0.3, 0),
+BoostedSkillPower = select(customTarget1.resource.grimoireOfEternity>=1, 0.45, 0),
+BoostedAttackSpeed = 0
+"""
+alsoTriggerAction: updateSkill
+
+[hiddenAction_updateSkill]
+alsoTriggerAction: updateBuff
+
+[hiddenAction_updateBuff]
+alsoTriggerAction: updateExtra
+
+[hiddenAction_updateExtra]
+setResourcesWithLogic: """
+ExtraMaxHP = customTarget1.resource.MaxHP + self.resource.AdditionalMaxHP + select(customTarget1.resource.crimsonAegis>=1, self.resource.crimsonAegisStacks, 0), 
+ExtraHPRegen = customTarget1.resource.HPRegen + self.resource.AdditionalHPRegen,
+ExtraDefence = customTarget1.resource.Defence + self.resource.AdditionalDefence,
+ExtraMaxMana = customTarget1.resource.MaxMana + self.resource.AdditionalMaxMana,
+ExtraManaRegen = customTarget1.resource.ManaRegen + self.resource.AdditionalManaRegen,
+ExtraMovementSpeed = int(customTarget1.resource.MovementSpeed + self.resource.AdditionalMovementSpeed + (self.resource.MovementSpeed + customTarget1.resource.MovementSpeed + self.resource.AdditionalMovementSpeed) * self.resource.BoostedMovementSpeed),
+ExtraAttackSpeed = customTarget1.resource.AttackSpeed + self.resource.AdditionalAttackSpeed + (self.resource.AttackSpeed + customTarget1.resource.AttackSpeed  + self.resource.AdditionalAttackSpeed) * self.resource.BoostedAttackSpeed, 
+ExtraAttackPower = int(customTarget1.resource.AttackPower + self.resource.AdditionalAttackPower + (customTarget1.resource.AttackPower + self.resource.AdditionalAttackPower) * self.resource.BoostedExtraAttackPower), 
+ExtraAttackRange = ${attackRange} * self.resource.BoostedAttackRange,
+ExtraLifeSteal = customTarget1.resource.LifeSteal + self.resource.AdditionalLifeSteal + select(customTarget1.resource.berserkerFury>=1, 0.1, 0),
+ExtraCriticalChance = customTarget1.resource.CriticalChance + self.resource.AdditionalCriticalChance,
+ExtraCriticalPower = customTarget1.resource.CriticalPower + self.resource.AdditionalCriticalPower + select(customTarget1.resource.divinePlume>=1, 0.4, 0),
+ExtraSkillPower = customTarget1.resource.SkillPower + self.resource.AdditionalSkillPower + (customTarget1.resource.SkillPower + self.resource.AdditionalSkillPower) * self.resource.BoostedSkillPower,
+ExtraSkillHaste = customTarget1.resource.SkillHaste + self.resource.AdditionalSkillHaste,
+ExtraSkillVamp = customTarget1.resource.SkillVamp + self.resource.AdditionalSkillVamp + select(customTarget1.resource.infernoScepter>=1, 0.1, 0)
+"""
+alsoTriggerAction: updateFinal
+
+[hiddenAction_updateForSkill]
+setResourcesWithLogic: """
+hpPerLevel = ${hpPerLevel}, 
+manaPerLevel = ${manaPerLevel}, 
+attackPowerPerLevel = ${attackPowerPerLevel}, 
+attackSpeedPerLevel = ${attackSpeedPerLevel}, 
+defencePerLevel = ${defencePerLevel},
+technoArcaneScepter = customTarget1.resource.technoArcaneScepter, 
+mysticBoots = customTarget1.resource.mysticBoots, 
+skill1CDCount = (${cd1} - (self.resource.Level-2)*${cdLevel1}) * (1 - (self.resource.TotalSkillHaste / (self.resource.TotalSkillHaste + 100))) - select(customTarget1.resource.codexOfTheArcane>=1, 1, 0),
+skill2CDCount = (${cd2} - (self.resource.Level-3)*${cdLevel2}) * (1 - (self.resource.TotalSkillHaste / (self.resource.TotalSkillHaste + 100))) - select(customTarget1.resource.codexOfTheArcane>=1, 1, 0),
+skill3CDCount = (${cd3} - (self.resource.Level-6)*${cdLevel3}) * (1 - (self.resource.TotalSkillHaste / (self.resource.TotalSkillHaste + 100))) - select(customTarget1.resource.codexOfTheArcane>=1, 1, 0)
+"""
+
+[hiddenAction_updateFinal]
+setResourcesWithLogic: """
+TotalMaxHP = int(self.resource.MaxHP +  self.resource.ExtraMaxHP),
+TotalHPRegen = self.resource.HPRegen + self.resource.ExtraHPRegen, 
+TotalDefence = int(self.resource.Defence + self.resource.ExtraDefence), 
+TotalAttackPower = int(self.resource.AttackPower + self.resource.ExtraAttackPower),
+TotalAttackSpeed = self.resource.AttackSpeed + self.resource.ExtraAttackSpeed,
+TotalMaxMana = int(self.resource.MaxMana + self.resource.ExtraMaxMana), 
+TotalManaRegen = self.resource.ManaRegen + self.resource.ExtraManaRegen,
+TotalMovementSpeed = int(self.resource.MovementSpeed + self.resource.ExtraMovementSpeed),
+TotalMaxAttackRange = ${attackRange} + self.resource.ExtraAttackRange,
+TotalLifeSteal = self.resource.LifeSteal + self.resource.ExtraLifeSteal,
+TotalCriticalChance = self.resource.CriticalChance + self.resource.ExtraCriticalChance,
+TotalCriticalPower = self.resource.CriticalPower + self.resource.ExtraCriticalPower,
+TotalSkillHaste = self.resource.SkillHaste + self.resource.ExtraSkillHaste,
+TotalSkillPower = int(self.resource.SkillPower + self.resource.ExtraSkillPower),
+TotalSkillVamp = self.resource.SkillVamp + self.resource.ExtraSkillVamp
+"""
+alsoTriggerAction: updateShield, updateFinal2
+
+[hiddenAction_updateShield]
+setResourcesWithLogic: """
+TotalMaxShield =  int(select(customTarget1.resource.frostboundOrb>=1, self.resource.TotalMaxMana/2, 0) + select(self.resource.ironhideBootsPassiveActivate==1, self.resource.ironhideBootsPassiveAmount, 0) + self.resource.AdditionalShield)
+"""
+
+[hiddenAction_updateFinal2]
+setUnitStats: """
+maxHp = self.resource.TotalMaxHP, 
+selfRegenRate = self.resource.TotalHPRegen / 60, 
+armour = self.resource.TotalDefence, 
+maxEnergy = self.resource.TotalMaxMana, 
+moveSpeed = (self.resource.TotalMovementSpeed/200) * select(self.resource.gildedSerpentRingActivate==1, 0, 1), 
+shootDamageMultiplier = self.resource.TotalAttackPower * (1 + select(self.resource.TotalCriticalChance > 1, 1, self.resource.TotalCriticalChance) * (self.resource.TotalCriticalPower-1)) / 100, 
+shootDelayMultiplier = 1 /self.resource.TotalAttackSpeed,
+maxAttackRange = int(self.resource.TotalMaxAttackRange * 20),
+maxShield = self.resource.TotalMaxShield
+"""
+alsoTriggerAction: updateArmourLight, updateArmourMedium, updateArmourHigh
+
+[hiddenAction_updateArmourLight]
+requireConditional: if (self.resource.TotalDefence) < 10
+temporarilyAddTags: 步兵轻甲
+temporarilyRemoveTags: 步兵中甲, 步兵重甲
+
+[hiddenAction_updateArmourMedium]
+requireConditional: if (self.resource.TotalDefence) >= 10 and (self.resource.TotalDefence) < 20
+temporarilyAddTags: 步兵中甲
+temporarilyRemoveTags: 步兵轻甲, 步兵重甲
+
+[hiddenAction_updateArmourHigh]
+requireConditional: if (self.resource.TotalDefence) >= 20
+temporarilyAddTags: 步兵重甲
+temporarilyRemoveTags: 步兵轻甲, 步兵中甲
+
+#---------
+
+[hiddenAction_manaRegen]
+autoTrigger: if not self.isEnergyFull() and (self.resource.ManaRegen > 0 or ${manaRegenPerLevel} > 0)
+setUnitStats: energy = self.energy() + self.resource.TotalManaRegen
+
+[hiddenAction_totalRegen]
+autoTrigger: if self.numberOfUnitsInTeam(withTag='Cristal', withinRange=280, greaterThan=0) and (not (self.hp() == self.maxHp()) or not self.isEnergyFull())
+setUnitStats: hp = self.hp() + select(self.isAttacking(), self.maxHp()/20, self.maxHp()/10) + select(self.resource.cristalUpgrade12 == 1, self.maxHp()/20, 0), energy = self.energy() + select(self.isAttacking(), self.maxEnergy()/20, self.maxEnergy()/10) + select(self.resource.cristalUpgrade12 == 1, self.maxEnergy()/20, 0)
+
+[hiddenAction_earnGold&XP]
+requireConditional: if eventData(name='price',type='float') < 2000 and eventData(name='price',type='float') > 0 
+autoTriggerOnEvent:newMessage(withTag='deadPrice')
+addResourcesWithLogic:Gold = int(eventData(name='price',type='float')*0.1), XP = int(eventData(name='price',type='float')*0.15)
+spawnEffects: CUSTOM:gold
+playSoundToPlayer:ROOT:/Moba/.MobaDATA/sfx/getGold.ogg:0.15
+addResources: mobaCreepScore = 1
+
+[hiddenAction_earnGold&XP2]
+requireConditional: if eventData(name='price',type='float') >= 2000
+autoTriggerOnEvent:newMessage(withTag='deadPrice')
+addResourcesWithLogic:Gold = int(eventData(name='price',type='float')*0.1), XP = int(eventData(name='price',type='float')*0.15)
+spawnEffects: CUSTOM:gold2
+playSoundToPlayer:ROOT:/Moba/.MobaDATA/sfx/getGold.ogg:0.2
+addResources: mobaKill = 1, mobaKillCount = 1, mobaKillStreak = 1
+setResourcesWithLogic: isKillingStreak = 1
+
+[hiddenAction_levelUP]
+autoTrigger: if (self.resource.XP>= 65.36*(self.resource.Level+1)*self.resource.Level) and self.resource.Level<18
+addResources: Level = 1
+alsoTriggerAction: levelUPSound
+
+[hiddenAction_levelUPSound]
+requireConditional: if self.resource.Level > 1
+playSoundToPlayer: ROOT:/Moba/.MobaDATA/sfx/levelup.ogg:0.5
+
+[hiddenAction_LevelUpStats]
+autoTrigger: if self.resource.currentLevel < self.resource.Level
+setResourcesWithLogic: diffLevel = self.resource.Level - self.resource.currentLevel, currentLevel = self.resource.Level
+alsoTriggerAction: initialize, updateForSkill, LevelUpHeal
+
+[hiddenAction_LevelUpHeal]
+setUnitStats: hp = self.hp() + self.resource.diffLevel * ${hpPerLevel}, energy = self.energy() + self.resource.diffLevel * ${manaPerLevel}
+
+[hiddenAction_fullHP&ManaWhenSpawn]
+setUnitStats: hp = self.maxHp(), energy = self.maxEnergy()
+
+#---------Custom Shield------
+[hiddenAction_shieldDecalRestart]
+autoTrigger: if memory.shieldDecal >= 4
+setUnitMemory: shieldDecal = 0
+
+#---------Custom Death------
+[hiddenAction_checkDeath]
+autoTriggerOnEvent: tookDamage
+requireConditional: if self.hp() <= 0
+alsoTriggerAction: normalDeath, otherDeath
+
+[hiddenAction_normalDeath]  
+requireConditional:  if not (self.customTarget1 == NULL)
+setResourcesWithLogic: heroRespawnTime = self.resource.Level + ((self.resource.tenMinute-0.1)*10) + (self.resource.minute-0.1)
+sendMessageTo:customTarget2
+sendMessageWithTags: deathDetectorCheck
+alsoTriggerAction: confirmDeathNightBorne, confirmDeathAmethystArcher, confirmDeathNecroMancer
+
+[hiddenAction_otherDeath]
+requireConditional: if self.customTarget1 == NULL
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: deadPrice
+sendMessageWithData: price=${template_price.price}
+deleteSelf: true
+
+[hiddenAction_confirmDeathNightBorne]
+requireConditional: if self.globalTeamTags(includes="NightBorne")
+clearAllWaypoints: true
+convertTo: NightBorneDeadMark
+convertTo_keepCurrentTags: true
+convertTo_keepCurrentFields: maxHp, maxShield, maxEnergy, shieldRegen, armour, shootDelayMultiplier, moveSpeed, maxAttackRange, selfRegenRate
+
+[hiddenAction_confirmDeathAmethystArcher]
+requireConditional: if self.globalTeamTags(includes="AmethystArcher")
+clearAllWaypoints: true
+convertTo: AmethystArcherDeadMark
+convertTo_keepCurrentTags: true
+convertTo_keepCurrentFields: maxHp, maxShield, maxEnergy, shieldRegen, armour, shootDelayMultiplier, moveSpeed, maxAttackRange, selfRegenRate
+
+[hiddenAction_confirmDeathNecroMancer]
+requireConditional: if self.globalTeamTags(includes="NecroMancer")
+clearAllWaypoints: true
+convertTo: NecroMancerDeadMark
+convertTo_keepCurrentTags: true
+convertTo_keepCurrentFields: maxHp, maxShield, maxEnergy, shieldRegen, armour, shootDelayMultiplier, moveSpeed, maxAttackRange, selfRegenRate
+
+[hiddenAction_initDeathDetector]
+autoTriggerOnEvent:newMessage(withTag='deathDetector')
+setCustomTarget2: self.attachment(withTag='deathDetector')
+
+[attachment_deathDetector]
+x:0
+y:0
+onCreateSpawnUnitOf:deathDetector
+setDrawLayerOnTop: false
+lockLegMovement:false
+canBeAttackedAndDamaged: false
+isUnselectable: true
+showAllActionsFrom: false
+lockRotation: true
+createIncompleteIfParentIs: false
+setDrawLayerOnBottom: true
+
+#---------LifeSteal---------
+[hiddenAction_reciveLifeSteal1] 
+autoTriggerOnEvent: newMessage(withTag="LifeSteal1")
+requireConditional: if not (self.hp() == self.maxHp()) and (self.resource.TotalLifeSteal > 0)
+setUnitStats: hp = self.hp() + ( (self.resource.TotalAttackPower*(1+self.resource.TotalCriticalChance*(self.resource.TotalCriticalPower-1))) )*${baseAttack1}*self.resource.TotalLifeSteal/100
+
+[hiddenAction_reciveLifeSteal2] 
+autoTriggerOnEvent: newMessage(withTag="LifeSteal2")
+requireConditional: if not (self.hp() == self.maxHp()) and (self.resource.TotalLifeSteal > 0)
+setUnitStats: hp = self.hp() + ( (self.resource.TotalAttackPower*(1+self.resource.TotalCriticalChance*(self.resource.TotalCriticalPower-1))) )*${baseAttack2}*self.resource.TotalLifeSteal/100
+
+[hiddenAction_reciveSkillVamp1] 
+autoTriggerOnEvent: newMessage(withTag="SkillVamp1")
+requireConditional: if not (self.hp() == self.maxHp()) and (self.resource.TotalSkillVamp > 0)
+setUnitStats: hp = self.hp() + eventData(name = 'SkillVamp1', type = 'float')*self.resource.TotalskillVamp
+
+[hiddenAction_reciveSkillVamp2] 
+autoTriggerOnEvent: newMessage(withTag="SkillVamp2")
+requireConditional: if not (self.hp() == self.maxHp()) and (self.resource.TotalSkillVamp > 0)
+setUnitStats: hp = self.hp() + eventData(name = 'SkillVamp2', type = 'float')*self.resource.TotalskillVamp
+
+[hiddenAction_reciveSkillVamp3] 
+autoTriggerOnEvent: newMessage(withTag="SkillVamp3")
+requireConditional: if not (self.hp() == self.maxHp()) and (self.resource.TotalSkillVamp > 0)
+setUnitStats: hp = self.hp() + eventData(name = 'SkillVamp3', type = 'float')*self.resource.TotalskillVamp
+
+[effect_gold]
+yOffsetAbsolute: -40
+xOffsetRelativeRandom:10
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 40
+alpha: 1
+image: ROOT:/Moba/.MobaDATA/effect/coin.png
+priority: critical
+drawUnderUnits: false
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:6
+animateFrameSpeed:0.166
+frame_width:  8
+frame_height: 16
+
+scaleFrom: 2
+scaleTo: 2
+
+[effect_gold2]
+yOffsetAbsolute: -40
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 40
+alpha: 1
+image: ROOT:/Moba/.MobaDATA/effect/coin2.png
+priority: critical
+drawUnderUnits: false
+total_frames:6
+animateFrameStart:0
+animateFrameEnd:6
+animateFrameSpeed:0.166
+frame_width:  16
+frame_height: 32
+
+scaleFrom: 1.5
+scaleTo: 1.5
+
+#--------------Basic Fuction--------------
+[action_recall]
+isVisible: if self.resource.inventoryState == 0
+iconImage: ROOT:/MOBA/.MobaDATA/icon/skill/recall.png
+text:Recall
+description:Recall to Cristal after 6s
+alwaysSinglePress: true
+clearAllWaypoints:true
+pos:2
+buildSpeed:0s
+alsoTriggerAction: recall2
+
+[hiddenAction_recall2]
+requireConditional: if numberOfUnitsInTeam(withTag='recallMark', equalTo=0)
+setResourcesWithLogic: interruptRecall = 0
+spawnUnits: recallMark
+
+[hiddenAction_recall3]
+autoTriggerOnEvent:newMessage(withTag='recallComplete')
+teleportTo: customTarget1.getOffsetRelative(y=-100)
+setHeight: 300
+
+[hiddenAction_interrupt1]
+autoTriggerOnEvent:newWaypointGivenByPlayer
+alsoTriggerAction:interruptRecall
+
+[hiddenAction_interrupt2]
+autoTriggerOnEvent: tookDamage
+alsoTriggerAction:interruptRecall
+
+[hiddenAction_interrupt3]
+autoTrigger: if self.speed > 0.1
+alsoTriggerAction:interruptRecall
+
+[hiddenAction_interruptRecall]
+requireConditional: if self.resource.interruptRecall == 0
+setResourcesWithLogic: interruptRecall = 1
+
+[resource_interruptRecall]
+hidden: true
+
+#-----Active Slots-----
+[action_activeSlots]
+isLocked: true
+isVisible: if customTarget1.resource.activeEquipmentNum == 0 and self.resource.abyssalSkill == 0 and self.resource.inventoryState == 0
+text:Empty
+description: You don't have any active equipment yet!
+pos:3
+
+#---Totem--
+[canBuild_Totem]
+isVisible: if self.resource.inventoryState == 0
+isLocked: if not (self.resource.inventoryState == 0)
+name: Totem
+pos:4
+price: totem=1
+isGuiBlinking: if self.resource.totem == 1
+
+
+#---Inventory--
+[action_inventoryOpen]
+text:Inventory
+description: Click to open Inventory
+iconImage: ROOT:/MOBA/.MobaDATA/icon/UI/Inventory.png
+isVisible: if self.resource.inventoryState == 0
+alwaysSinglePress: true
+setResourcesWithLogic: inventoryState = 1
+setUnitStats: nanoRange = 99999
+pos:5
+buildSpeed:0s
+
+[action_changeInventoryToAutoClose]
+text:Inventory: Keep Open
+description: Keep Inventory Open after using consumables
+isVisible: if self.resource.inventoryState == 1 and self.resource.inventoryKeepOpen == 1 
+alwaysSinglePress: true
+setResourcesWithLogic: inventoryKeepOpen = 0
+pos:3
+buildSpeed:0s
+
+[action_changeInventoryToKeepOpen]
+text:Inventory: Auto Close
+description: Auto Close Inventory after using consumables
+isVisible: if self.resource.inventoryState == 1 and self.resource.inventoryKeepOpen == 0
+alwaysSinglePress: true
+setResourcesWithLogic: inventoryKeepOpen = 1
+pos:3
+buildSpeed:0s
+
+[action_inventoryClose]
+text:Close
+description: Click to close Inventory
+iconImage: ROOT:/MOBA/.MobaDATA/icon/UI/back.png
+isVisible: if self.resource.inventoryState == 1
+alwaysSinglePress: true
+setResourcesWithLogic: inventoryState = 0
+setUnitStats: nanoRange = 85
+pos:4
+buildSpeed:0s
+
+[hiddenAction_inventoryAutoClose]
+requireConditional: if self.resource.inventoryKeepOpen == 0
+setResourcesWithLogic: inventoryState = 0
+setUnitStats: nanoRange = 85
+
+[resource_inventoryState]
+hidden: true
+
+[resource_inventoryKeepOpen]
+hidden: true
+
+#---------Equipment Passive----------
+[action_ironhideBootsPassive]
+isVisible: if customTarget1.resource.ironhideBoots >= 1 and self.resource.inventoryState == 0
+isLocked: if memory.ironhideBootsCD > 0
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Equipment/Ironhide Boots.png
+alwaysSinglePress: true
+text:Fortress Guard (%{int(select(memory.ironhideBootsCD>0, memory.ironhideBootsCD+1, 0))})
+description:Activate to gain a shield equal to 50-900 (+10% maximum health) for 5 seconds. (Cooldown 120 seconds)
+pos:3
+buildSpeed:0s
+setUnitMemory: ironhideBootsCD = 120, ironhideBootsDuration = 5
+alsoTriggerAction: ironhideBootsPassiveOn
+
+[hiddenAction_ironhideBootsPassiveOn]
+setResourcesWithLogic: ironhideBootsPassiveAmount = self.resource.Level * 50 + self.maxHp()/10, ironhideBootsPassiveActivate = 1
+playSoundAtUnit: ROOT:/Moba/.MobaDATA/sfx/ironhideBootsPassive.ogg:0.8
+alsoTriggerAction: initialize, ironhideBootsPassiveOn2
+
+[hiddenAction_ironhideBootsPassiveOn2]
+setUnitStats: shield = self.shield() + self.resource.ironhideBootsPassiveAmount
+
+[hiddenAction_ironhideBootsPassiveOff]
+autoTrigger: if self.resource.ironhideBootsPassiveActivate == 1 and memory.ironhideBootsDuration <= 0
+setResourcesWithLogic: ironhideBootsPassiveActivate = 0
+setUnitStats: shield = self.shield() - self.resource.ironhideBootsPassiveAmount
+alsoTriggerAction: initialize
+
+[resource_ironhideBootsPassiveActivate]
+hidden:true
+
+[resource_ironhideBootsPassiveAmount]
+hidden:true
+
+
+#------
+
+[action_gildedSerpentRing]
+isVisible: if customTarget1.resource.gildedSerpentRing >= 1 and self.resource.gildedSerpentRingActivateStack == 0 and self.resource.inventoryState == 0
+isLocked: if self.resource.gildedSerpentRingActivate == 1
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Equipment/Gilded Serpent Ring.png
+alwaysSinglePress: true
+price: energy = 300
+text:Midas Touch (%{int(select(memory.gildedSerpentRingCD>0, memory.gildedSerpentRingCD+1, 0))})
+description:Transform yourself into a golden body that can not move, becoming untargetable and immune to all damage for 1 seconds (Cooldown 150 seconds, cost 300 Mana). (Can be used multiple times during the cooldown period, but each time will increase the mana cost by 2 times)
+pos:3
+buildSpeed:0s
+alsoTriggerAction: gildedSerpentRingOn, interruptRecall
+
+[action_gildedSerpentRing2]
+@copyFromSection: action_gildedSerpentRing
+isVisible: if customTarget1.resource.gildedSerpentRing >= 1 and self.resource.gildedSerpentRingActivateStack == 1 and self.resource.inventoryState == 0
+price: energy = 600
+
+[action_gildedSerpentRing3]
+@copyFromSection: action_gildedSerpentRing
+isVisible: if customTarget1.resource.gildedSerpentRing >= 1 and self.resource.gildedSerpentRingActivateStack == 2 and self.resource.inventoryState == 0
+price: energy = 1200
+
+[action_gildedSerpentRing4]
+@copyFromSection: action_gildedSerpentRing
+isVisible: if customTarget1.resource.gildedSerpentRing >= 1 and self.resource.gildedSerpentRingActivateStack >= 3 and self.resource.inventoryState == 0
+price: energy = 2400
+
+[hiddenAction_gildedSerpentRingOn]
+setResourcesWithLogic: gildedSerpentRingActivate = 1
+addResourcesWithLogic: gildedSerpentRingActivateStack = 1
+setUnitMemory: gildedSerpentRingCD = 150
+spawnUnits: gildedSerpentRingMark
+playSoundAtUnit: ROOT:/Moba/.MobaDATA/sfx/Gilded Serpent Ring SFX.ogg:0.8
+alsoTriggerAction: initialize, gildedSerpentRingOn2
+
+[hiddenAction_gildedSerpentRingOn2]
+convertTo:gildedSerpentRingMark
+convertTo_keepCurrentTags: true
+convertTo_keepCurrentFields: maxHp, maxShield, maxEnergy, shieldRegen, armour, shootDelayMultiplier, moveSpeed, maxAttackRange, selfRegenRate
+
+[hiddenAction_gildedSerpentRingStackReset]
+autoTrigger: if memory.gildedSerpentRingCD <= 0
+setResourcesWithLogic: gildedSerpentRingActivateStack = 0
+
+
+#-----
+[hiddenAction_convertAqua]
+autoTrigger: if customTarget1.resource.aquaWalker == 1
+convertTo:
+convertTo_keepCurrentTags: true
+convertTo_keepCurrentFields: maxHp, maxShield, maxEnergy, shieldRegen, armour, shootDelayMultiplier, moveSpeed, maxAttackRange, selfRegenRate
+
+#-----
+[hiddenAction_frostboundOrbPassive]
+autoTrigger: if self.isEnergyFull() and customTarget1.resource.frostboundOrb >= 1
+setUnitStats: shield = self.shield() + self.resource.TotalManaRegen
+
+#-----
+[hiddenAction_helmofGloryPassive]
+autoTrigger: if not (self.hp() == self.maxHp()) and customTarget1.resource.helmofGlory >= 1 and not self.hasTakenDamage(withinSeconds=5)
+setUnitStats: hp = self.hp() + (self.maxHp()/40)
+spawnEffects: CUSTOM:heal*3
+
+#-----
+[hiddenAction_etherealCowlPassive]
+autoTrigger: if customTarget1.resource.etherealCowl >= 1
+fireTurretXAtGround: etherealCowlPassive
+fireTurretXAtGround_withProjectile:etherealCowlPassive
+spawnEffects: CUSTOM:etherealCowlPassive
+
+[turret_etherealCowlPassive]
+x: 0
+y: 0
+shoot_sound: NONE
+shoot_sound_vol:0
+shoot_flame:NONE
+canAttackCondition: false
+limitingRange:9999
+
+[projectile_etherealCowlPassive]
+areaDamage: 0
+areaRadius:0
+life: 0
+speed: 0
+explodeOnEndOfLife:true
+explodeEffect: NONE
+spawnUnit:etherealCowlPassive(offsetX=0, offsetY=0, offsetDir=-0)
+
+#-----
+[hiddenAction_dragonScaleArmorPassive]
+autoTrigger: if self.resource.dragonScaleArmorCD > 0
+addResourcesWithLogic: dragonScaleArmorCD = -1
+
+#----
+[action_activeCelestialMantle]
+isVisible: if customTarget1.resource.celestialMantle >= 1 and self.resource.inventoryState == 0
+isLocked: if memory.celestialMantleCD > 0
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Equipment/Celestial Mantle.png
+alwaysSinglePress: true
+text:Astral Reprisal (%{int(select(memory.celestialMantleCD>0, memory.celestialMantleCD+1, 0))})
+description:Enter Counterattack Mode for 5 seconds. While active, any incoming damage will trigger a retaliation, dealing 10 (+200% Defense) (+1% Max HP) true damage to the attacker. (120s cooldown)
+pos:3
+buildSpeed:0s
+setUnitMemory: celestialMantleCD = 90, celestialMantleDuration = 5
+sendMessageTo: self.attachment(withTag='celestialMantle')
+sendMessageWithTags: celestialMantlePassiveActive
+playSoundAtUnit: ROOT:/Moba/.MobaDATA/sfx/celestialMantlePassive.ogg:0.25
+
+[hiddenAction_celestialMantlePassiveAttack]
+autoTriggerOnEvent: tookDamage
+requireConditional: if memory.celestialMantleDuration > 0 and not lastDamagedBy.tags(includes='skills') and not lastDamagedBy.tags(includes='celestialMantle')
+sendMessageTo: self.attachment(withTag='celestialMantle')
+sendMessageWithTags: celestialMantlePassiveAttack
+
+[hiddenAction_celestialMantlePassiveSkill]
+autoTriggerOnEvent: tookDamage
+requireConditional: if memory.celestialMantleDuration > 0 and lastDamagedBy.tags(includes='skills') and not lastDamagedBy.tags(includes='celestialMantle')
+sendMessageTo: self.attachment(withTag='celestialMantle')
+sendMessageWithTags: celestialMantlePassiveSkill
+
+[attachment_celestialMantlePassive]
+x:0
+y:0
+onCreateSpawnUnitOf:celestialMantlePassive
+setDrawLayerOnTop: false
+lockLegMovement:false
+canBeAttackedAndDamaged: false
+isUnselectable: true
+showAllActionsFrom: false
+lockRotation: true
+createIncompleteIfParentIs: false
+setDrawLayerOnBottom: true
+
+#-----
+
+[hiddenAction_crimsonAegisPassive]
+@define baseHeal: 3
+@define defenceFactor: 0.2
+autoTriggerOnEvent: newMessage(withTag='LifeSteal1')
+requireConditional: if customTarget1.resource.crimsonAegis > 0 and memory.crimsonAegisCD <= 0
+setUnitMemory: crimsonAegisCD = 10
+setUnitStats: hp = self.hp() + self.maxHp() * (${baseHeal} + (self.resource.Defence + (self.resource.Level-1) * self.resource.defencePerLevel)* ${defenceFactor})/100
+addResourcesWithLogic: crimsonAegisStacks = 2
+spawnEffects: CUSTOM:heal2
+alsoTriggerAction: initialize
+
+[hiddenAction_crimsonAegisPassive2]
+autoTriggerOnEvent: tookDamage
+requireConditional: if customTarget1.resource.crimsonAegis > 0 and memory.crimsonAegisCD > 0
+setUnitMemory: crimsonAegisCD = memory.crimsonAegisCD - 0.5
+
+#-----
+[hiddenAction_wailingWardPassive]
+autoTriggerOnEvent: newMessage(withTag='LifeSteal1')
+requireConditional: if customTarget1.resource.wailingWard > 0 and self.resource.wailingWardCount >= 10
+setResourcesWithLogic: wailingWardCount = 0
+fireTurretXAtGround: wailingWardPassive
+fireTurretXAtGround_withProjectile:wailingWardPassive
+spawnEffects: CUSTOM:wailingWardPassive
+
+[hiddenAction_wailingWardPassive2]
+autoTriggerOnEvent: tookDamage
+requireConditional: if customTarget1.resource.wailingWard > 0 and self.resource.wailingWardCount < 10
+addResourcesWithLogic: wailingWardCount = 1
+
+[hiddenAction_wailingWardPassiveReset]
+autoTrigger: if self.hasTakenDamage(laterThanSeconds=5) and self.resource.wailingWardCount > 0
+setResourcesWithLogic: wailingWardCount = 0
+
+[turret_wailingWardPassive]
+x: 0
+y: 0
+shoot_sound: NONE
+shoot_sound_vol:0
+shoot_flame:NONE
+canAttackCondition: false
+limitingRange:9999
+
+[projectile_wailingWardPassive]
+areaDamage: 0
+areaRadius:0
+life: 0
+speed: 0
+explodeOnEndOfLife:true
+explodeEffect: NONE
+spawnUnit:wailingWardPassive(offsetX=0, offsetY=0, offsetDir=-0)
+
+
+#---------BaseAttack---------
+[attack]
+meleeEngangementDistance: 120
+canAttack: true
+canAttackFlyingUnits: true
+canAttackLandUnits:   true
+canAttackUnderwaterUnits: true
+disablePassiveTargeting: true
+isFixedFiring: true
+aimOffsetSpread:0
+turretSize: 0
+turretTurnSpeed: 999
+isMelee: true
+shootDelay: 1s
+
+[movement]
+movementType: LAND
+moveSpeed: 1
+moveAccelerationSpeed: 20
+moveDecelerationSpeed: 20
+maxTurnSpeed: 50
+turnAcceleration: 50
+fallingAcceleration:15
+moveSlidingMode :false
+moveIgnoringBody:false
+reverseSpeedPercentage:0
+joinsGroupFormations: false
+
+[turret_baseAttack]
+
+x: 0
+y: 0
+canAttackCondition:if customTarget1.resource.moltenFang == 0 and customTarget1.resource.nightfireCrossbow == 0 and numberOfUnitsInTeam(withTag='recallMark', equalTo=0)
+onShoot_freezeBodyMovementFor: 0.2s
+shoot_sound:firing3
+shoot_sound_vol:0.5
+shoot_flame:NONE
+shoot_light:#FFEECCCC
+#idleSpin: 0.8
+projectile: baseAttack
+
+#-----
+#This is same as in LOL:
+#Light Pen = 30 armour pen, Heavy Pen = 40% armour pen 
+#Light = 40 armour point (100/140 = 29% damage deduction), Medium = 80 armour point (100/180 = 45% damage deduction), Heavy = 160 armour point (100/180 = 62% damage deduction)
+[projectile_baseAttack]
+life:120
+tags: attack1
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.71
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.55
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.38
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.71
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.55
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.38
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.71
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.55
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.38
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.71
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.55
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.38
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.71
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.55
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.38
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.71
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.55
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.38
+
+mutator42_ifUnitWithTags: monsterDamageUp
+mutator42_directDamageMultiplier: 1.2
+mutator43_ifUnitWithTags: monsterDamageUp
+mutator43_areaDamageMultiplier: 1.2
+
+[turret_baseAttackS]
+
+x: 0
+y: 0
+copyFrom: baseAttack
+canAttackCondition:if customTarget1.resource.moltenFang >= 1 and customTarget1.resource.nightfireCrossbow == 0 and numberOfUnitsInTeam(withTag='recallMark', equalTo=0)
+projectile: baseAttackS
+
+#Light = 40-30 = 10 armour point (100/110 = 9% damage deduction), Medium = 50 armour point (100/150 = 33% damage deduction), Heavy = 130 armour point (100/180 = 57% damage deduction)
+[projectile_baseAttackS]
+@copyFromSection: projectile_baseAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.91
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.67
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.43
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.91
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.67
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.43
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.91
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.67
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.43
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.91
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.67
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.43
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.91
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.67
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.43
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.91
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.67
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.43
+
+
+[turret_baseAttackL]
+
+x: 0
+y: 0
+copyFrom: baseAttack
+canAttackCondition:if customTarget1.resource.moltenFang == 0 and customTarget1.resource.nightfireCrossbow >= 1 and numberOfUnitsInTeam(withTag='recallMark', equalTo=0)
+projectile: baseAttackL
+
+#Light = 40*60% = 24 armour point (100/124 = 19% damage deduction), Medium = 48 armour point (100/148 = 32% damage deduction), Heavy = 96 armour point (100/196 = 49% damage deduction)
+[projectile_baseAttackL]
+@copyFromSection: projectile_baseAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.81
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.68
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.51
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.81
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.68
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.51
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.81
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.68
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.51
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.81
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.68
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.51
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.81
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.68
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.51
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.81
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.68
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.51
+
+
+[turret_baseAttackS+L]
+
+x: 0
+y: 0
+copyFrom: baseAttack
+canAttackCondition:if customTarget1.resource.moltenFang >= 1 and customTarget1.resource.nightfireCrossbow >=1 and numberOfUnitsInTeam(withTag='recallMark', equalTo=0)
+projectile: baseAttackS+L
+
+#Light = 40*60%-30 = -6 armour point (100/94 = 6% damage increment), Medium = 18 armour point (100/118 = 15% damage deduction), Heavy = 66 armour point (100/166 = 40% damage deduction)
+[projectile_baseAttackS+L]
+@copyFromSection: projectile_baseAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 1.06
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.85
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.6
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 1.06
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.85
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.6
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 1.06
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.85
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.6
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 1.06
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.85
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.6
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 1.06
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.85
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.6
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 1.06
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.85
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.6
+
+[projectile_baseAttack2]
+areaDamage: 0
+life:0
+tags: attack2
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.71
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.55
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.38
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.71
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.55
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.38
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.71
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.55
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.38
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.71
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.55
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.38
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.71
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.55
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.38
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.71
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.55
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.38
+
+
+mutator42_ifUnitWithTags: monsterDamageUp
+mutator42_directDamageMultiplier: 1.2
+mutator43_ifUnitWithTags: monsterDamageUp
+mutator43_areaDamageMultiplier: 1.2
+
+[projectile_baseAttack2S]
+@copyFromSection: projectile_baseAttack2
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.91
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.67
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.43
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.91
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.67
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.43
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.91
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.67
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.43
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.91
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.67
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.43
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.91
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.67
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.43
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.91
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.67
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.43
+
+
+[projectile_baseAttack2L]
+@copyFromSection: projectile_baseAttack2
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.81
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.68
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.51
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.81
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.68
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.51
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.81
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.68
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.51
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.81
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.68
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.51
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.81
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.68
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.51
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.81
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.68
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.51
+
+
+[projectile_baseAttack2S+L]
+@copyFromSection: projectile_baseAttack2
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 1.06
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.85
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.6
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 1.06
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.85
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.6
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 1.06
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.85
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.6
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 1.06
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.85
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.6
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 1.06
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.85
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.6
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 1.06
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.85
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.6
+
+
+#---------Skill---------
+[action_basicAttack]
+alwaysSinglePress: true
+
+[action_skill1]
+@global cd1: 0
+@global cdLevel1: 0
+@global baseDamage1:0
+@global levelDamage1: 0
+@global multiplierBasicAttack1: 0
+@global multiplierSkillPower1: 0
+@global mana1: 0
+@global manaLevel1: 0
+alwaysSinglePress: true
+isLockedAlt2: if self.energy < (${mana1} - ${manaLevel1}*(self.resource.Level-2))
+setUnitStats: energy = self.energy() - (${mana1} - ${manaLevel1}*(self.resource.Level-2))
+setUnitMemory: skillCD1 = self.resource.skill1CDCount
+alsoTriggerAction:interruptRecall
+
+[action_skill2]
+@global cd2: 0
+@global cdLevel2: 0
+@global baseDamage2:0
+@global levelDamage2: 0
+@global multiplierBasicAttack2: 0
+@global multiplierSkillPower2: 0
+@global mana2: 0
+@global manaLevel2: 0
+alwaysSinglePress: true
+isLockedAlt2: if self.energy < (${mana2} - ${manaLevel2}*(self.resource.Level-3))
+setUnitStats: energy = self.energy() - (${mana2} - ${manaLevel2}*(self.resource.Level-3))
+setUnitMemory: skillCD2 = self.resource.skill2CDCount
+alsoTriggerAction:interruptRecall
+
+[action_skill3]
+@global cd3: 0
+@global cdLevel3: 0
+@global baseDamage3:0
+@global levelDamage3: 0
+@global multiplierBasicAttack3: 0
+@global multiplierSkillPower3: 0
+@global mana3: 0
+@global manaLevel3: 0
+alwaysSinglePress: true
+isLockedAlt2: if self.energy < (${mana3} - ${manaLevel3}*(self.resource.Level-6))
+setUnitStats: energy = self.energy() - (${mana3} - ${manaLevel3}*(self.resource.Level-6))
+setUnitMemory: skillCD3 = self.resource.skill3CDCount
+alsoTriggerAction:interruptRecall
+
+#---------HealthBar&More---------
+
+[template_customBar]
+layer: beforeUI
+order:1
+onlyWhenSelectedByAnyPlayer:false
+onlyOnNonPreview:true
+alwaysStartDirAtZero:true
+teamColors:false
+onlyWhileAlive: true
+
+[decal_customShield]
+@copyFromSection: template_customBar
+@define totalFrames:16
+image: ROOT:/Moba/.MobaDATA/effect/shield.png
+frame_width:40
+frame_height:40
+isVisible: if self.shield > 0 and self.hp > 0
+frame: int(memory.shieldDecal*10 - 16 * int((memory.shieldDecal*10 - 1)/16)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+alpha: select(self.shield < 150, 0.15, 0.075 + self.shield/2000)
+
+[decal_shieldBar]
+@copyFromSection: template_customBar
+@define totalFrames:26
+image: ROOT:/Moba/.MobaDATA/effect/ShieldBar.png
+frame_width:52
+frame_height:3
+isVisible: if self.maxShield > 0 and self.hp > 0
+frame:int((1 - (self.shield/self.maxShield)) * (${totalFrames}-1))
+yOffsetAbsolute:-49
+xOffsetAbsolute: 3
+
+
+[decal_hpBar]
+@copyFromSection: template_customBar
+@define totalFrames:25
+image: ROOT:/Moba/.MobaDATA/effect/HealthBar.png
+frame_width:52
+frame_height:6	
+isVisible: if self.hp > 0
+frame:int((1 - (self.hp/self.maxHp)) * ${totalFrames})
+teamColors:true
+yOffsetAbsolute:-45
+
+
+[decal_manaBar]
+@copyFromSection: template_customBar
+@define totalFrames:26
+image: ROOT:/Moba/.MobaDATA/effect/ManaBar.png
+frame_width:52
+frame_height:4
+isVisible: if self.maxEnergy > 0 and self.hp > 0
+frame:int((1 - (self.energy/self.maxEnergy)) * (${totalFrames}-1))
+yOffsetAbsolute:-41
+xOffsetAbsolute: -3
+
+
+[decal_dragonScaleArmorPassive]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/dragonScaleArmorPassive.png
+isVisible: if customTarget1.resource.dragonScaleArmor > 0 and self.resource.dragonScaleArmorCD == 0
+yOffsetAbsolute:-45.5
+xOffsetAbsolute: -34
+imageScale: 0.20
+
+[decal_level]
+@copyFromSection: template_customBar
+@define totalFrames:18
+image: ROOT:/Moba/.MobaDATA/effect/LevelBar.png
+frame_width:92
+frame_height:58
+isVisible: if self.resource.Level > 0 and self.hp > 0
+frame: self.resource.Level - 1
+yOffsetAbsolute:-44.5
+xOffsetAbsolute: -33
+imageScale: 0.20
+
+[decal_exp]
+@copyFromSection: template_customBar
+@define totalFrames:20
+image: ROOT:/Moba/.MobaDATA/effect/EXPBar.png
+frame_width:86
+frame_height:52
+isVisible: if self.resource.Level < 18 and self.hp > 0
+frame: int( ((self.resource.XP - 65.36*self.resource.Level*(self.resource.Level-1))/(65.36*self.resource.Level*2)) * ${totalFrames} )
+yOffsetAbsolute:-44.5
+xOffsetAbsolute: -33
+imageScale: 0.20
+
+[decal_attackMedium]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/AttackPassive.png
+isVisible: if customTarget1.resource.moltenFang >= 1
+frame_width:16
+frame_height:16
+frame: 0
+yOffsetAbsolute: 20
+xOffsetAbsolute: 32
+imageScale: 1
+
+[decal_attackHeavy]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/AttackPassive.png
+isVisible: if customTarget1.resource.nightfireCrossbow >= 1
+frame_width:16
+frame_height:16
+frame: 1
+yOffsetAbsolute: 20
+xOffsetAbsolute: 32
+imageScale: 1
+
+[decal_skillMedium]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/SkillPassive.png
+isVisible: if customTarget1.resource.mysticBoots >= 1
+frame_width:16
+frame_height:16
+frame: 0
+yOffsetAbsolute: 10
+xOffsetAbsolute: 32
+imageScale: 1
+
+[decal_skillHeavy]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/SkillPassive.png
+isVisible: if customTarget1.resource.technoArcaneScepter >= 1
+frame_width:16
+frame_height:16
+frame: 1
+yOffsetAbsolute: 10
+xOffsetAbsolute: 32
+imageScale: 1
+
+[decal_armourMedium]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/ArmourMedium.png
+isVisible: if self.resource.TotalDefence >= 10 and self.resource.TotalDefence < 20
+yOffsetAbsolute: -45
+xOffsetAbsolute: 32
+imageScale: 0.07
+
+[decal_armourHeavy]
+@copyFromSection: template_customBar
+image: ROOT:/Moba/.MobaDATA/effect/ArmourHeavy.png
+isVisible: if self.resource.TotalDefence >= 20
+yOffsetAbsolute: -45
+xOffsetAbsolute: 32
+imageScale: 0.07
+
+[decal_recallback]
+@copyFromSection: template_customBar
+layer: beforeBody
+image: ROOT:/Moba/.MobaDATA/effect/recall_back.png
+frame_width:48
+frame_height:48
+isVisible: if numberOfUnitsInTeam(withTag='recallMark', equalTo=1)
+frame: (self.resource.recallCountDown - 10 * int((self.resource.recallCountDown - 1)/10)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+
+[decal_recallFront]
+@copyFromSection: template_customBar
+layer: afterBody
+image: ROOT:/Moba/.MobaDATA/effect/recall_front.png
+frame_width:48
+frame_height:48
+isVisible: if numberOfUnitsInTeam(withTag='recallMark', equalTo=1)
+frame: (self.resource.recallCountDown - 10 * int((self.resource.recallCountDown - 1)/10)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+
+[decal_arrivalback]
+@copyFromSection: template_customBar
+layer: beforeBody
+image: ROOT:/Moba/.MobaDATA/effect/arrival_back.png
+frame_width:48
+frame_height:48
+isVisible: if numberOfUnitsInTeam(withTag='arrivalMark', equalTo=1) and self.resource.arrivalCountDown > 0
+frame: (self.resource.arrivalCountDown - 10 * int((self.resource.arrivalCountDown - 1)/10)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+
+[decal_arrivalFront]
+@copyFromSection: template_customBar
+layer: afterBody
+image: ROOT:/Moba/.MobaDATA/effect/arrival_front.png
+frame_width:48
+frame_height:48
+isVisible: if numberOfUnitsInTeam(withTag='arrivalMark', equalTo=1) and self.resource.arrivalCountDown > 0
+frame: (self.resource.arrivalCountDown - 10 * int((self.resource.arrivalCountDown - 1)/10)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+
+[decal_celestialMantlePassive]
+@copyFromSection: template_customBar
+layer: afterBody
+image: ROOT:/Moba/.MobaDATA/effect/celestialMantlePassive.png
+frame_width:32
+frame_height:32
+isVisible: if memory.celestialMantleDuration > 0
+frame: int(memory.celestialMantleDuration*10 - 4 * int((memory.celestialMantleDuration*10 - 1)/4)) - 1
+yOffsetAbsolute:0
+xOffsetAbsolute:0
+imageScale: 2
+alpha: 0.8
+
+[effect_dragonScaleArmorPassive]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 90
+alpha: 2
+image:ROOT:/Moba/.MobaDATA/effect/revive.png
+alsoPlaySound: ROOT:/Moba/.MobaDATA/sfx/revive.ogg:0.8
+priority: veryhigh
+drawUnderUnits: false
+total_frames:16
+animateFrameStart:0	
+animateFrameEnd:16
+animateFrameSpeed:0.2 
+frame_width:  224
+frame_height: 224
+fadeOut: false
+scaleFrom: 1
+scaleTo: 1
+
+[effect_etherealCowlPassive]
+alwayStartDirAtZero:true
+attachedToUnit: true
+life: 30
+alpha: 0.5
+image:ROOT:/Moba/.MobaDATA/effect/etherealCowlPassive.png
+priority: veryhigh
+drawUnderUnits: true
+total_frames:10
+animateFrameStart:0	
+animateFrameEnd:10
+animateFrameSpeed:0.2
+frame_width:  64
+frame_height: 32
+yOffsetAbsolute: 25
+scaleFrom: 1.8	
+scaleTo: 1.8
+
+[effect_wailingWardPassive]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 60
+alpha: 0.8
+image:ROOT:/Moba/.MobaDATA/effect/wailingWardPassive.png
+priority: veryhigh
+drawUnderUnits: true
+total_frames:12
+animateFrameStart:0	
+animateFrameEnd:12
+animateFrameSpeed:0.3
+frame_width:  64
+frame_height: 64
+scaleFrom: 4	
+scaleTo: 10
+
+[effect_heal]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 30
+alpha: 0.8
+image:ROOT:/Moba/.MobaDATA/effect/healEffect.png
+priority: veryhigh
+drawUnderUnits: false
+total_frames:7
+animateFrameStart:0	
+animateFrameEnd:7
+animateFrameSpeed:0.4
+frame_width:  32
+frame_height: 32
+yOffsetAbsolute: -10
+xOffsetRelativeRandom: 15
+yOffsetRelativeRandom: 15
+scaleFrom: 0.6	
+scaleTo: 0.6
+
+[effect_heal2]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 45
+alpha: 1
+image:ROOT:/Moba/.MobaDATA/effect/healEffect.png
+priority: veryhigh
+drawUnderUnits: false
+total_frames:7
+animateFrameStart:0	
+animateFrameEnd:7
+animateFrameSpeed:0.3
+frame_width:  32
+frame_height: 32
+yOffsetAbsolute: -10
+xOffsetRelativeRandom: 5
+yOffsetRelativeRandom: 5
+color: #ff0000
+scaleFrom: 2	
+scaleTo: 2
+
+
+[resource_gildedSerpentRingActivate]
+hidden: true
+
+[resource_gildedSerpentRingActivateStack]
+hidden: true
+
+[resource_skill1CDCount]
+hidden: true
+
+[resource_skill2CDCount]
+hidden: true
+
+[resource_skill3CDCount]
+hidden: true
+
+[template_price]
+price: 2000 + (self.resource.mobaKillCount*500)

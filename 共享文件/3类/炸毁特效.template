@@ -1,0 +1,96 @@
+[turret_炸毁特效]
+x: 0
+y: 0
+
+canShoot: false
+projectile: 炸毁特效
+
+
+[projectile_炸毁特效]
+areaDamage: 0
+life: 60
+
+areaRadius: 0
+instant: true
+explodeEffect: CUSTOM:炸毁特效
+targetGroundSpread: 15
+
+
+[hiddenAction_炸毁特效]
+autoTriggerOnEvent: destroyed
+fireTurretXAtGround: 炸毁特效
+fireTurretXAtGround_count: 10
+fireTurretXAtGround_withProjectile: 炸毁特效
+fireTurretXAtGround_withOffset:0,0
+spawnEffects: CUSTOM:炸毁映射
+
+
+[effect_炸毁映射]
+image: ROOT:\共享文件\1类\映射.png
+scaleFrom: 2
+scaleTo: 2
+alpha: 0.2
+life: 60
+hOffset: -10
+attachedToUnit: true
+drawUnderUnits: true
+alwayStartDirAtZero: true
+#priority: critical
+priority: veryhigh
+
+
+[effect_炸毁特效]
+alsoEmitEffects: CUSTOM:炸毁特效4, CUSTOM:炸毁特效3, CUSTOM:炸毁特效2
+createWhenZoomedOut: false
+stripIndex: effects
+frameIndex: 0
+color: #FFFFFFFF
+fadeInTime: 11
+scaleFrom: 1.6
+scaleTo: 0
+alpha: 0.75
+life: 120
+dirOffsetRandom:180
+xSpeedAbsoluteRandom: 0.1
+ySpeedAbsoluteRandom: 0.1
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits:false
+shadow: true
+#priority: critical
+priority: veryhigh
+
+
+[effect_炸毁特效2]
+@copyFromSection: effect_炸毁特效
+alsoEmitEffects: NONE
+color: #FFFFFF00
+scaleFrom: 1.7
+life: 150
+delayedStartTimer: 10
+priority: critical
+#priority: veryhigh
+
+
+[effect_炸毁特效3]
+@copyFromSection: effect_炸毁特效
+alsoEmitEffects: NONE
+color: #FFFF0000
+scaleFrom: 1.8
+life: 210
+delayedStartTimer: 20
+#priority: critical
+priority: veryhigh
+#high
+
+
+[effect_炸毁特效4]
+@copyFromSection: effect_炸毁特效
+alsoEmitEffects: NONE
+color: #FF000000
+scaleFrom: 1
+scaleTo: 2
+life: 330
+delayedStartTimer: 30
+priority: critical
+#priority: veryhigh

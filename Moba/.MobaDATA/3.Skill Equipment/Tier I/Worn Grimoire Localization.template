@@ -1,0 +1,25 @@
+
+[core]
+displayText_zh:破旧魔导书
+displayDescription_zh:+25技能强度
+
+[action_upgrade]
+text_zh:巫师的魔导书
+description_zh:+85技能强度
+
+[action_upgrade2]
+text_zh:精通法典
+description_zh:+30技能强度 \n+15技能急速
+
+
+[core]
+displayText_ru: Потрёпанный гримуар
+displayDescription_ru: +25 к силе умений
+
+[action_upgrade]
+text_ru: Гримуар чародея
+description_ru: +85 к силе умений
+
+[action_upgrade2]
+text_ru: Кодекс мастерства
+description_ru: +30 к силе умений \n+15 к скорости умений

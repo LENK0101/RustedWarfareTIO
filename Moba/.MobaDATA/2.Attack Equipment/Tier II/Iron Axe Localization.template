@@ -1,0 +1,16 @@
+[core]
+displayText_zh:铁斧
+displayDescription_zh:+15攻击强度 \n+10%暴击率 \n+2.5%攻击吸血
+
+[action_upgrade]
+text_zh:狂战士之怒
+description_zh:+40攻击强度 \n+20%暴击率 \n\n-----唯一被动-----\n嗜血:获得10%的攻击吸血
+
+
+[core]
+displayText_ru: Железный топор
+displayDescription_ru: +15 к силе атаки \n+10% к шансу крита \n+2.5% вампиризма атаки
+
+[action_upgrade]
+text_ru: Ярость берсерка
+description_ru: +40 к силе атаки \n+20% к шансу крита \n\n-----Уникальный пассив-----\nКровавая жажда: +10% вампиризма атаки

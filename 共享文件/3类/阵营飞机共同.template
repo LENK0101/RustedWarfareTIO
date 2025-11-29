@@ -1,0 +1,78 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\禁入.template, ROOT:\共享文件\3类\炸弹限制.template, ROOT:\共享文件\3类\生命保险.template, ROOT:\共享文件\3类\临时救援.template, ROOT:\共享文件\3类\单位停留.template, ROOT:\共享文件\3类\抗甲和脉冲Ai.template, ROOT:/DATA/total/debuffs.template
+softCollisionOnAll: 5
+
+
+[hiddenAction_重置方向]
+autoTriggerOnEvent: created
+setBodyRotation: 45
+
+
+[hiddenAction_Ai被动移动]
+autoTrigger: if self.isControlledByAI() and not self.isAttacking() and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='guard') and not self.hasActiveWaypoint(type='loadInto') and not self.isMoving() and not self.hasParent() and self.hasTakenDamage(withinSeconds=1) and not hasUnitInTeam(withTag='救援', withinRange=150, greaterThan=0) and not hasUnitInTeam(withTag='生命+满', withinRange=50, greaterThan=0) and not self.tags(includes='铁幕保护')
+addWaypoint_type: attackMove
+addWaypoint_prepend: true
+addWaypoint_maxTime: 2s 
+addWaypoint_position_randomOffsetFromSelf: 100,100
+
+
+[hiddenAction_Ai原地守卫]
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='Ai守卫点', withinRange=50) and not self.hasActiveWaypoint(type='guard') and not self.hasParent()
+clearActiveWaypoint: true
+addWaypoint_type: guard
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: Ai守卫点
+
+
+[hiddenAction_跟随-移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.tags(includes='驾驶')
+clearActiveWaypoint: true
+addWaypoint_type: move
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 跟随-移动
+addWaypoint_target_mapMustBeReachable: false
+
+
+[hiddenAction_跟随-攻击移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.tags(includes='驾驶')
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: attackMove
+addWaypoint_target_nearestUnit_tagged: 跟随-攻击移动
+
+
+[hiddenAction_跟随-守卫]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='guard') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.tags(includes='驾驶')
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: guard
+addWaypoint_target_nearestUnit_tagged: 跟随-守卫
+
+
+[hiddenAction_临时救援-Ai] 
+autoTrigger: false
+
+
+[hiddenAction_临时救援-Ai2] 
+autoTrigger: false
+
+
+[hiddenAction_生命保险-Ai] 
+autoTrigger: false
+
+
+[hiddenAction_生命保险-Ai2] 
+autoTrigger: false
+
+[hiddenAction_创建]
+autoTriggerOnEvent: created
+alsoTriggerAction: 创建2
+
+[hiddenAction_创建2]
+requireConditional: if numberOfUnitsInTeam(withTag='生产建筑', greaterThan=0, withinRange=60)
+setResourcesWithLogic: 单位变化 = 1
+
+[hiddenAction_消失]
+autoTriggerOnEvent: destroyed
+setResourcesWithLogic: 单位变化 = -1
+
+[movement]
+moveYAxisScaling: 0.9

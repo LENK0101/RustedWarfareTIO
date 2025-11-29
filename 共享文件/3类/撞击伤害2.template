@@ -1,0 +1,24 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\撞击伤害.template
+
+
+[hiddenAction_撞击]
+autoTrigger: if (self.hasActiveWaypoint(type='move') or self.hasActiveWaypoint(type='touchTarget')) and (numberOfUnitsInEnemyTeam(withTag='小型', greaterThan=0, withinRange=50) or numberOfUnitsInAggressiveTeam(withTag='小型', greaterThan=0, withinRange=50) or numberOfUnitsInEnemyTeam(withTag='被碾压', greaterThan=0, withinRange=50) or numberOfUnitsInAggressiveTeam(withTag='被碾压', greaterThan=0, withinRange=50)) and not self.tags(includes='撞击2')
+temporarilyAddTags: 撞击2
+#showMessageToAllPlayers: 触发3
+
+
+[hiddenAction_撞击2]
+autoTrigger: if ((not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='touchTarget')) or (not numberOfUnitsInEnemyTeam(withTag='小型', greaterThan=0, withinRange=50) and not numberOfUnitsInAggressiveTeam(withTag='小型', greaterThan=0, withinRange=50) and not numberOfUnitsInEnemyTeam(withTag='被碾压', greaterThan=0, withinRange=50) and not numberOfUnitsInAggressiveTeam(withTag='被碾压', greaterThan=0, withinRange=50))) and self.tags(includes='撞击2')
+temporarilyRemoveTags: 撞击2
+#showMessageToAllPlayers: 触发4
+
+
+[hiddenAction_Ai自动碾压3] 
+autoTrigger: if self.isControlledByAI() and (numberOfUnitsInEnemyTeam(withTag='小型', greaterThan=0, withinRange=${turret_1.limitingRange}) or numberOfUnitsInAggressiveTeam(withTag='小型', greaterThan=0, withinRange=${turret_1.limitingRange})) and not numberOfUnitsInEnemyTeam(withTag='建筑', greaterThan=0, withinRange=250) and self.hp(greaterThan=${core.maxHp*0.25}) and not self.hasActiveWaypoint(type='touchTarget') and not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='attack')
+@copyFromSection: hiddenAction_Ai自动碾压
+addWaypoint_target_nearestUnit_tagged: 小型
+
+
+[hiddenAction_Ai自动碾压消] 
+autoTrigger: if self.isControlledByAI() and self.hasActiveWaypoint(type='touchTarget') and (numberOfUnitsInEnemyTeam(withTag='建筑', greaterThan=0, withinRange=250) or not self.hp(greaterThan=${core.maxHp*0.25}) or self.hasActiveWaypoint(type='move') or self.hasActiveWaypoint(type='attack'))

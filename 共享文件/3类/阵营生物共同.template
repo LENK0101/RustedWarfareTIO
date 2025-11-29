@@ -1,0 +1,145 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\炸弹限制.template, ROOT:\共享文件\3类\生命保险.template, ROOT:\共享文件\3类\临时救援.template, ROOT:\共享文件\3类\驾驶空载具.template, ROOT:\共享文件\3类\血溅.template, ROOT:\共享文件\3类\单位停留.template, ROOT:\共享文件\3类\抗甲和脉冲Ai.template, ROOT:/DATA/total/debuffs.template
+displayRadius: 8
+softCollisionOnAll: 10
+
+
+[hiddenAction_重置方向]
+autoTriggerOnEvent: created
+setBodyRotation: 45
+
+
+[hiddenAction_医疗] 
+autoTrigger: if not self.hp(full=true) and hasUnitInTeam(withTag='医疗', withinRange=200, greaterThan=0) and not self.hasParent()
+addResources: hp=${int(core.maxHp*0.05)}
+spawnEffects: CUSTOM:生命+
+
+
+[hiddenAction_医疗2]
+autoTrigger: if hasUnitInTeam(withTag='医疗') and not self.hasParent()
+addResources: hp=${int(core.maxHp*0.025)}
+spawnEffects: CUSTOM:医疗
+
+
+[hiddenAction_坠亡]
+autoTrigger: if not self.hasParent() and not self.tags(includes='坠亡') and self.isFlying()
+temporarilyAddTags: 坠亡
+
+
+[hiddenAction_坠亡2]
+autoTrigger: if self.tags(includes='坠亡') and not self.isFlying()
+addResources: hp=-99999
+
+
+[hiddenAction_水上自杀]
+autoTrigger: if self.isOverLiquid() and not self.tags(includes='空军') and not self.tags(includes='两栖') and not self.tags(includes='水下') and not self.hasParent()
+addResources: hp=-9999
+spawnEffects: CUSTOM:小水花
+
+
+[hiddenAction_被黏杀]
+autoTrigger: if (numberOfUnitsInEnemyTeam(withTag='撞击', greaterThan=0, withinRange=30) or numberOfUnitsInEnemyTeam(withTag='撞击2', greaterThan=0, withinRange=40) or numberOfUnitsInEnemyTeam(withTag='撞击3', greaterThan=0, withinRange=40)) and not self.isInWater() and not self.isFlying() and not self.hasParent()
+addResources: hp=-9999
+spawnEffects: CUSTOM:血溅
+
+
+[hiddenAction_Ai入战斗要塞]
+autoTrigger: if self.isControlledByAI() and numberOfUnitsInTeam(withTag='Ai驻守', withinRange=200, greaterThan=0) and not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='loadInto') and not self.isAttacking() and not self.hasParent() and not self.isFlying() and not self.isInWater()
+addWaypoint_type: loadInto
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: Ai驻守
+addWaypoint_maxTime: 2s
+
+
+[hiddenAction_Ai被动移动]
+autoTrigger: if self.isControlledByAI() and not self.isAttacking() and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='guard') and not self.isMoving() and not self.hasParent() and self.hasTakenDamage(withinSeconds=1) and not hasUnitInTeam(withTag='救援', withinRange=150, greaterThan=0) and not hasUnitInTeam(withTag='生命+满', withinRange=50, greaterThan=0)
+addWaypoint_type: attackMove
+addWaypoint_prepend: true
+addWaypoint_maxTime: 1s 
+addWaypoint_position_randomOffsetFromSelf: 100,100
+
+
+[hiddenAction_Ai原地守卫]
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='Ai守卫点', withinRange=50) and not self.hasActiveWaypoint(type='guard') and not self.hasParent()
+clearActiveWaypoint: true
+addWaypoint_type: guard
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: Ai守卫点
+
+
+[hiddenAction_跟随-移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent()
+clearActiveWaypoint: true
+addWaypoint_type: move
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 跟随-移动
+addWaypoint_target_mapMustBeReachable: false
+
+
+[hiddenAction_跟随-攻击移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent()
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: attackMove
+addWaypoint_target_nearestUnit_tagged: 跟随-攻击移动
+
+
+[hiddenAction_跟随-守卫]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='guard') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent()
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: guard
+addWaypoint_target_nearestUnit_tagged: 跟随-守卫
+
+[hiddenAction_创建]
+autoTriggerOnEvent: created
+alsoTriggerAction: 创建2
+
+[hiddenAction_创建2]
+requireConditional: if numberOfUnitsInTeam(withTag='生产建筑', greaterThan=0, withinRange=60)
+setResourcesWithLogic: 单位变化 = 1
+
+[hiddenAction_消失]
+autoTriggerOnEvent: destroyed
+setResourcesWithLogic: 单位变化 = -1
+
+[movement]
+moveYAxisScaling: 0.9
+
+[effect_医疗]
+image: ROOT:\共享文件\1类\图标-医疗.png
+scaleFrom: 0.35
+scaleTo: 0.35
+alpha: 1.2
+life: 180
+hOffset: 30
+fadeInTime: 20
+fadeOut: true
+attachedToUnit: true
+drawUnderUnits: false
+alwayStartDirAtZero: true
+liveAfterAttachedDies: false
+
+
+[effect_小水花]
+image: ROOT:\共享文件\1类\灰.png
+createWhenOverLiquid: true
+createWhenOverLand: false
+color: #FFFFFFFF
+scaleFrom: 0.6
+scaleTo: 6
+alpha: 1.2
+life: 60
+hSpeed: 0.6
+hOffsetRandom: 0.2
+dirOffsetRandom: 180
+xSpeedAbsoluteRandom: 0.1
+ySpeedAbsoluteRandom: 0.1
+#xOffsetRelative: 0
+#yOffsetRelative: 0
+fadeInTime: 0
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits: false
+createWhenZoomedOut: false
+physics: true
+physicsGravity: 0.2
+atmospheric:true

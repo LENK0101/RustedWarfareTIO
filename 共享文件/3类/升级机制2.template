@@ -1,0 +1,42 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\升级机制.template
+
+
+[turret_1]
+canAttackCondition: if not self.tags(includes='1级') and not self.tags(includes='2级') 
+projectile: 1
+
+
+[turret_1级]
+x: ${turret_1.x}
+y: ${turret_1.y}
+
+copyFrom: 1
+canAttackCondition: if self.tags(includes='1级') and not self.tags(includes='2级') 
+projectile: 1级
+
+
+[turret_2级]
+x: ${turret_1.x}
+y: ${turret_1.y}
+
+copyFrom: 1
+canAttackCondition: if self.tags(includes='2级')
+projectile: 2级
+
+
+[projectile_1]
+directDamage: 0
+areaDamage: 0
+
+[projectile_1级]
+@copyFromSection: projectile_1
+
+[projectile_2级]
+@copyFromSection: projectile_1
+
+[hiddenAction_升1级] 
+autoTrigger: if ((self.resource(type='经验值') >= ${template_price.price} * 3) or self.hasFlag(id=29) or (self.hasParent(withTag='1级') and not self.hasParent(withTag='空军') and not self.tags(includes='生物')) or (numberOfUnitsInTeam(withTag='升级+1', greaterThan=0, withinRange=50) and self.resource(type='闪时', empty=true))) and not self.tags(includes='1级') and not self.tags(includes='2级') 
+
+[hiddenAction_升2级] 
+autoTrigger: if ((self.resource(type='经验值') >= ${template_price.price} * 6) or (self.hasParent(withTag='2级') and not self.hasParent(withTag='空军') and not self.tags(includes='生物')) or (numberOfUnitsInTeam(withTag='升级+1', greaterThan=0, withinRange=50) and self.tags(includes='1级') and self.resource(type='闪时', empty=true))) and not self.tags(includes='2级') 

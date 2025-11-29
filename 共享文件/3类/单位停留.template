@@ -1,0 +1,28 @@
+
+[action_单位停留]
+text: Stay+1s
+text_zh: 停留时间＋1s
+description: Unit residence time increased by 1s
+description_zh: 单位停留时间增加1s
+pos: 0
+displayType: upgrade
+buildSpeed: 1s
+isVisible: if self.hasUnitInTeam(withTag='沙盒控制')
+whenBuilding_cannotMove: true
+
+
+[action_单位停留2]
+text: Stay+60s
+text_zh: 停留时间＋60s
+description: Unit dwell time increased by 60s, convenient and quick setting
+description_zh: 单位停留时间增加60s，方便快速设置
+pos: 0
+displayType: upgrade
+buildSpeed: 60s
+isVisible: if self.hasUnitInTeam(withTag='沙盒控制')
+whenBuilding_cannotMove: true
+
+
+[hiddenAction_单位停留卸载]
+autoTrigger: if self.isOnNeutralTeam() and not self.transportingCount(empty=true) and not self.hasActiveWaypoint(type='move') and self.queueSize(empty=true)
+startUnloadingTransport: true

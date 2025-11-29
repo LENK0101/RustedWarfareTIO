@@ -1,0 +1,35 @@
+[core]
+effectOnDeath: CUSTOM:血
+hideScorchMark: true
+
+
+[effect_血]
+image: ROOT:\共享文件\1类\血.png
+scaleFrom: 1
+scaleTo: 1
+spawnChance: 0.25
+ifSpawnFailsEmitEffects: CUSTOM:血2
+life: 1200
+fadeInTime: 0
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits: true
+alwayStartDirAtZero: true
+
+
+[effect_血2]
+@copyFromSection: effect_血
+image: ROOT:\共享文件\1类\血2.png
+ifSpawnFailsEmitEffects: CUSTOM:血3
+
+
+[effect_血3]
+@copyFromSection: effect_血
+image: ROOT:\共享文件\1类\血3.png
+ifSpawnFailsEmitEffects: CUSTOM:血4
+
+
+[effect_血4]
+@copyFromSection: effect_血
+image: ROOT:\共享文件\1类\血4.png
+spawnChance: 1

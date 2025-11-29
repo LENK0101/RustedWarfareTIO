@@ -1,0 +1,114 @@
+#--------------Chinese Localization--------------
+[core]
+displayText_zh: 死灵法师
+displayDescription_zh:与死者签订契约的法师
+
+[action_basicAttack]
+text_zh:普通攻击
+description_zh:"""
+普通攻击会召唤一个追踪目标的法术，造成150% (%{(self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel}))*1.5}) 攻击强度和100% (%{self.resource.SkillPower}) 技能强度的范围伤害，但来自装备的攻击速度加成减少至 50%。\n
+击杀单位会获得“死灵值”，“死灵值”可用于快速释法或者增强技能。\n
+-等级:%{self.resource.Level} \n
+-生命值: %{${core.maxHp} + self.resource.MaxHp + ((self.resource.Level-1) * ${hpPerLevel})} (%{self.resource.HPRegen + ((self.resource.Level-1) * ${regenPerLevel})}/秒)\n 
+-魔力值: %{self.resource.MaxMana + ${core.energyMax} + (self.resource.Level-1)*${manaPerLevel}} (%{self.resource.ManaRegen + ((self.resource.Level-1) * ${manaRegenPerLevel})}/秒)\n 
+-防御力: %{${core.armour} + self.resource.Defence + ((self.resource.Level-1)*${defencePerLevel})}\n 
+-攻击强度: %{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel})}\n 
+-攻击速度: %{(self.resource.AttackSpeed + ((self.resource.Level-1)*${attackSpeedPerLevel}))*100}%\n 
+-攻击吸血: %{self.resource.LifeSteal*100}%\n
+-技能强度: %{self.resource.SkillPower}\n 
+-技能急速: %{self.resource.SkillHaste}\n 
+-技能吸血: %{self.resource.SkillVamp*100}%\n
+-暴击率: %{self.resource.CriticalChance*100}%\n 
+-暴击伤害: %{self.resource.CriticalPower*100}%\n 
+-移动速度: %{self.resource.MovementSpeed}\n
+"""
+
+[action_skill1Description]
+text_zh:魔瞳契约
+description_zh:在指定区域召唤两个眼睛，眼睛会跟随召唤师作战，持续10秒。眼睛继承召唤师的部分属性。\n 眼睛造成%{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 16} (+%{${multiplierBasicAttack1}*100}% 攻击强度) (+%{${multiplierSkillPower1}*100}% 技能强度)的伤害\n -冷却时间: ${cd1}秒 \n-魔力消耗: ${mana1}
+
+[action_skill1]
+text_zh:魔瞳契约 (%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_zh:在指定区域召唤两个眼睛，眼睛会跟随召唤师作战，持续10秒。眼睛继承召唤师的部分属性。 \n眼睛造成 %{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower})点伤害. \n -冷却时间: %{self.resource.skill1CDCount}秒 \n-魔力消耗: %{${mana1} - ${manaLevel1}*(self.resource.Level-2)}
+
+[action_skill1Alt]
+text_zh:魔瞳契约 (%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_zh:在指定区域召唤两个眼睛，眼睛会跟随召唤师作战，持续10秒。眼睛继承召唤师的部分属性。 \n眼睛造成 %{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower})点伤害. \n -冷却时间: %{self.resource.skill1CDCount}秒 \n-魔力消耗: %{${mana1} - ${manaLevel1}*(self.resource.Level-2)}
+
+[action_skill2Description]
+text_zh:禁行法阵
+description_zh:在指定区域召唤法阵，法阵将持续击退周围的非飞行敌人，并造成%{${baseDamage2}}-%{${baseDamage2} + ${levelDamage2} * 15} (+%{${multiplierSkillPower2}*100}% 技能强度)的伤害，持续5秒。\n -冷却时间: ${cd2}秒 \n-魔力消耗: ${mana2}
+
+[action_skill2]
+text_zh:禁行法阵 (%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_zh:在指定区域召唤法阵，法阵将持续击退周围的非飞行敌人，并造成 %{${baseDamage2} + ${levelDamage2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower})点伤害，持续5秒。\n -冷却时间: %{self.resource.skill2CDCount}秒 \n-魔力消耗: %{${mana2} - ${manaLevel2}*(self.resource.Level-3)}
+
+[action_skill2Alt]
+text_zh:禁行法阵 (%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_zh:在指定区域召唤法阵，法阵将持续击退周围的非飞行敌人，并造成 %{${baseDamage2} + ${levelDamage2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower})点伤害，持续5秒。\n -冷却时间: %{self.resource.skill2CDCount}秒 \n-魔力消耗: %{${mana2} - ${manaLevel2}*(self.resource.Level-3)}
+
+[action_skill3Description]
+text_zh:深渊之门
+description_zh:在指定区域召唤传送门，传送门将持续召唤眼睛，持续10秒。召唤门存在期间，眼睛将会自动寻找敌人进行作战。\n(每1%的死灵值将提升1%传送门持续的时间，100%的死灵值将强化传送门)\n -冷却时间: ${cd3}秒 \n-魔力消耗: ${mana3}
+
+[action_skill3]
+text_zh:深渊之门 (%{int(select(memory.skillCD3>0, memory.skillCD3+1, 0))})
+description_zh:在指定区域召唤传送门，传送门将持续召唤眼睛，持续10秒。召唤门存在期间，眼睛将会自动寻找敌人进行作战。\n(每1%的死灵值将提升1%传送门持续的时间，100%的死灵值将强化传送门)\n -冷却时间: %{self.resource.skill3CDCount}秒 \n-魔力消耗: %{${mana3} - ${manaLevel3}*(self.resource.Level-6)}
+
+
+#--------------Russian Localization--------------
+[core]
+displayText_ru: Некромант
+displayDescription_ru: Маг, заключивший договор с мертвыми
+
+[action_basicAttack]
+text_ru: Обычная атака
+description_ru:"""
+Обычная атака вызывает преследующую цель магическую сферу, наносящую 150% (%{(self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel}))*1.5}) силы атаки и 100% (%{self.resource.SkillPower}) силы умений в радиусе. Бонус скорости атаки от снаряжения снижен до 50%. \n
+При убийстве юнитов накапливается "Энергия некроманта", которую можно использовать для мгновенного применения или усиления способностей.\n
+-Уровень: %{self.resource.Level} \n
+-Здоровье: %{${core.maxHp} + self.resource.MaxHp + ((self.resource.Level-1) * ${hpPerLevel})} (%{self.resource.HPRegen + ((self.resource.Level-1) * ${regenPerLevel})}/сек)\n
+-Мана: %{self.resource.MaxMana + ${core.energyMax} + (self.resource.Level-1)*${manaPerLevel}} (%{self.resource.ManaRegen + ((self.resource.Level-1) * ${manaRegenPerLevel})}/сек)\n
+-Защита: %{${core.armour} + self.resource.Defence + ((self.resource.Level-1)*${defencePerLevel})}\n
+-Сила атаки: %{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel})}\n
+-Скорость атаки: %{(self.resource.AttackSpeed + ((self.resource.Level-1)*${attackSpeedPerLevel}))*100}%\n
+-Вампиризм атаки: %{self.resource.LifeSteal*100}%\n
+-Сила умений: %{self.resource.SkillPower}\n
+-Скорость умений: %{self.resource.SkillHaste}\n
+-Вампиризм умений: %{self.resource.SkillVamp*100}%\n
+-Шанс крита: %{self.resource.CriticalChance*100}%\n
+-Урон крита: %{self.resource.CriticalPower*100}%\n
+-Скорость передвижения: %{self.resource.MovementSpeed}\n
+"""
+
+[action_skill1Description]
+text_ru: Договор магического ока
+description_ru: Призывает в зоне два магических ока, которые следуют за заклинателем 10 секунд. Ока наследуют часть характеристик заклинателя.\n Наносят урон от %{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 16} (+%{${multiplierBasicAttack1}*100}% силы атаки) (+%{${multiplierSkillPower1}*100}% силы умений)\n -Перезарядка: ${cd1} сек \n-Расход маны: ${mana1}
+
+[action_skill1]
+text_ru: Договор магического ока (%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_ru: Призывает в зоне два магических ока, которые следуют за заклинателем 10 секунд. Ока наследуют часть характеристик.\n Наносят %{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower}) урона.\n -Перезарядка: %{self.resource.skill1CDCount} сек \n-Расход маны: %{${mana1} - ${manaLevel1}*(self.resource.Level-2)}
+
+[action_skill1Alt]
+text_ru: Договор магического ока (%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_ru: Призывает в зоне два магических ока, которые следуют за заклинателем 10 секунд. Ока наследуют часть характеристик.\n Наносят %{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower}) урона.\n -Перезарядка: %{self.resource.skill1CDCount} сек \n-Расход маны: %{${mana1} - ${manaLevel1}*(self.resource.Level-2)}
+
+[action_skill2Description]
+text_ru: Запретная руна
+description_ru: Создает магическую руну в зоне, которая отталкивает нелетающих врагов и наносит %{${baseDamage2}}-%{${baseDamage2} + ${levelDamage2} * 15} (+%{${multiplierSkillPower2}*100}% силы умений) урона в течение 5 секунд.\n -Перезарядка: ${cd2} сек \n-Расход маны: ${mana2}
+
+[action_skill2]
+text_ru: Запретная руна (%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_ru: Создает магическую руну в зоне, которая отталкивает нелетающих врагов и наносит %{${baseDamage2} + ${levelDamage2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower}) урона в течение 5 секунд.\n -Перезарядка: %{self.resource.skill2CDCount} сек \n-Расход маны: %{${mana2} - ${manaLevel2}*(self.resource.Level-3)}
+
+[action_skill2Alt]
+text_ru: Запретная руна (%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_ru: Создает магическую руну в зоне, которая отталкивает нелетающих врагов и наносит %{${baseDamage2} + ${levelDamage2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower}) урона в течение 5 секунд.\n -Перезарядка: %{self.resource.skill2CDCount} сек \n-Расход маны: %{${mana2} - ${manaLevel2}*(self.resource.Level-3)}
+
+[action_skill3Description]
+text_ru: Врата Бездны
+description_ru: Открывает портал, который призывает магические очи в течение 10 секунд. Очи автоматически атакуют врагов.\n(Каждый 1% энергии некроманта увеличивает длительность портала на 1%. При 100% энергии портал усиливается)\n -Перезарядка: ${cd3} сек \n-Расход маны: ${mana3}
+
+[action_skill3]
+text_ru: Врата Бездны (%{int(select(memory.skillCD3>0, memory.skillCD3+1, 0))})
+description_ru: Открывает портал, который призывает магические очи в течение 10 секунд. Очи автоматически атакуют врагов.\n(Каждый 1% энергии некроманта увеличивает длительность на 1%. При 100% - усиливает портал)\n -Перезарядка: %{self.resource.skill3CDCount} сек \n-Расход маны: %{${mana3} - ${manaLevel3}*(self.resource.Level-6)}

@@ -1,0 +1,62 @@
+[core]
+@global baseDamage: 1
+@global levelDamage: 1
+
+copyFrom: ROOT:/Moba/.MobaDATA/stats.template
+hideScorchMark: true
+showInEditor: false
+price: 0
+maxHp:1
+mass: 3000
+radius:0
+displayRadius:0
+disableAllUnitCollisions: true
+canNotBeDamaged:true
+canNotBeDirectlyAttacked:true
+isUnselectable:true
+fogOfWarSightRange:4
+showOnMinimap:false
+techLevel: 1
+explodeOnDeath:false
+isBio: false
+
+[graphics]
+disableLowHpFire: true
+disableLowHpSmoke: true
+
+[attack]
+canAttack: false
+canAttackFlyingUnits: false
+canAttackLandUnits: false
+canAttackUnderwaterUnits: false
+isFixedFiring: false
+turretMultiTargeting: true
+turretSize: 0
+turretTurnSpeed: 999
+maxAttackRange: 0
+shootDelay: 1s
+
+
+[hiddenAction_timeUp]
+autoTrigger: if self.isEnergyEmpty()
+convertTo:SkillMark
+
+[hiddenAction_notify]
+autoTriggerOnEvent:newMessage(withTag='deadPrice')
+sendMessageTo:customTarget1
+sendMessageWithTags:deadPrice
+sendMessageWithData: price = eventData(name='price',type='float')
+
+[movement]
+movementType: NONE
+targetHeight:1
+targetHeightDrift:0
+reverseSpeedPercentage: 0
+moveSpeed:0
+moveAccelerationSpeed:0
+moveDecelerationSpeed:0
+maxTurnSpeed:0
+turnAcceleration:8999
+moveSlidingMode :true
+moveIgnoringBody:false
+moveSlidingDir:  181

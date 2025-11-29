@@ -1,0 +1,38 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\升级机制3.template
+
+
+[turret_3]
+canAttackCondition: if not self.tags(includes='1级') and not self.tags(includes='2级')
+projectile: 3
+
+
+[turret_1级3]
+x: ${turret_3.x}
+y: ${turret_3.y}
+
+copyFrom: 3
+canAttackCondition: if self.tags(includes='1级') and not self.tags(includes='2级')
+projectile: 1级3
+
+
+[turret_2级3]
+x: ${turret_3.x}
+y: ${turret_3.y}
+
+copyFrom: 3
+canAttackCondition: if self.tags(includes='2级')
+projectile: 2级3
+
+
+[projectile_3]
+directDamage: 0
+areaDamage: 0
+
+
+[projectile_1级3]
+@copyFromSection: projectile_3
+
+
+[projectile_2级3]
+@copyFromSection: projectile_3

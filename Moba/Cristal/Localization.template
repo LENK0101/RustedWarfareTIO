@@ -1,0 +1,68 @@
+#--------------Chinese Localization--------------
+[core]
+displayText_zh: 水晶
+
+[action_FromMainToShop]
+text_zh:商店
+
+[action_FromMainToConsumables]
+text_zh:消耗品
+
+[action_FromMainToUpgrade]
+text_zh:升级
+
+[action_useMoneyToRespawn]
+text_zh:重生时间-10秒
+
+[action_useMoneyToRespawn2]
+text_zh:重生时间-10秒
+
+[action_useMoneyToRebuildProtector]
+text_zh:复活守护者%{self.resource.protectorRespawnTime}
+
+[action_GoBack]
+text_zh:返回
+
+[action_FromShopToMain]
+text_zh:返回
+
+[action_FromConsumablesToMain]
+text_zh:返回
+
+[action_FromUpgradeToMain]
+text_zh:返回
+
+
+#--------------Russian Localization--------------
+[core]
+displayText_ru: Кристалл
+
+[action_FromMainToShop]
+text_ru: Магазин
+
+[action_FromMainToConsumables]
+text_ru: Расходники
+
+[action_FromMainToUpgrade]
+text_ru: Улучшение
+
+[action_useMoneyToRespawn]
+text_ru: Сократить время возрождения: -10 сек.
+
+[action_useMoneyToRespawn2]
+text_ru: Сократить время возрождения: -10 сек.
+
+[action_useMoneyToRebuildProtector]
+text_ru: Возродить защитника (%{self.resource.protectorRespawnTime})
+
+[action_GoBack]
+text_ru: Назад
+
+[action_FromShopToMain]
+text_ru: Назад
+
+[action_FromConsumablesToMain]
+text_ru: Назад
+
+[action_FromUpgradeToMain]
+text_ru: Назад

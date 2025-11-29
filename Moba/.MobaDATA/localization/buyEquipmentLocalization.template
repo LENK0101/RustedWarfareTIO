@@ -1,0 +1,294 @@
+[template_equipmentInfo]
+isLockedMessage_zh: 你的英雄必须在水晶旁边！
+
+[template_bootInfo]
+isLockedAltMessage_zh: 一次只能拥有一个靴子！
+
+
+[action_leatherBoots]
+text_zh:皮革靴
+description_zh:+40移动速度 
+
+[action_smallDagger]
+text_zh:小刀
+description_zh:+10攻击强度
+
+[action_bow]
+text_zh:弓
+description_zh:+10%攻击速度
+
+[action_spear]
+text_zh:长矛
+description_zh:+10%暴击率
+
+[action_woodenWand]
+text_zh:木制魔杖
+description_zh:+20技能强度 \n+5移动速度
+
+[action_wornGrimoire]
+text_zh:破旧魔导书
+description_zh:+25技能强度
+
+[action_ironRing]
+text_zh:钢铁指环
+description_zh:+2魔力恢复
+
+[action_aquaWalker]
+text_zh:水神靴
+description_zh:+40移动速度\n\n-----唯一被动-----\n水上行走: 获得可以在水面上行动的能力
+
+[action_rapidBoots]
+text_zh:急迫之靴
+description_zh:+35%攻击速度\n+50移动速度
+
+[action_velocityBoots]
+text_zh:速度之靴
+description_zh:+55移动速度\n\n-----唯一被动-----\n冲刺: 提升10%的移动速度
+
+[action_mysticBoots]
+text_zh:神秘之靴
+description_zh:+10技能急速\n+45移动速度\n\n-----唯一被动-----\n洞穿: 技能对低护甲的单位造成更高的伤害
+
+[action_roguesDagger]
+text_zh:盗贼匕首
+description_zh:+35攻击强度 \n+10移动速度
+
+[action_sharpBlade]
+text_zh:锐利之刃
+description_zh:+50攻击强度
+
+[action_recurveBow]
+text_zh:反曲弓
+description_zh:+20攻击强度 \n+25%攻击速度
+
+[action_steelCrossbow]
+text_zh:钢弩
+description_zh:+30攻击强度 \n+10%攻击速度
+
+[action_crusaderSpear]
+text_zh:十字军矛
+description_zh:+20攻击强度 \n+15%暴击率
+
+[action_ironAxe]
+text_zh:铁斧
+description_zh:+15攻击强度 \n+10%暴击率 \n+2.5%攻击吸血
+
+[action_mysticWand]
+text_zh:神秘魔杖
+description_zh:+45技能强度 \n+10移动速度 \n+3%技能吸血
+
+[action_steeltippedWand]
+text_zh:钢尖魔杖
+description_zh:+60技能强度 \n+5移动速度
+
+[action_sorcererGrimoire]
+text_zh:巫师的魔导书
+description_zh:+85技能强度
+
+[action_adeptCodex]
+text_zh:精通法典
+description_zh:+30技能强度 \n+15技能急速
+
+[action_mithrilGemRing]
+text_zh:秘银宝石指环
+description_zh:+150魔力值 \n+5技能急速 \n+2魔力恢复
+
+[action_enchanterEarrings]
+text_zh:附魔师耳环
+description_zh:+200魔力值 \n+5魔力恢复
+
+[action_moltenFang]
+text_zh:烈焰熔牙
+description_zh:+55攻击强度 \n+20移动速度\n\n-----唯一被动-----\n破裂: 普通攻击对低护甲的单位造成更高伤害
+
+[action_bladeOfDoom]
+text_zh:灾厄之剑
+description_zh: +90攻击强度 \n\n-----唯一被动-----\n毁灭:从装备获得的攻击强度提升30%
+
+[action_heavenFeather]
+text_zh:天堂之羽
+description_zh:+20攻击强度\n +45%攻击速度\n+15移动速度\n\n-----唯一被动-----\n鹰眼: 增加普通攻击范围15%
+
+[action_nightfireCrossbow]
+text_zh:夜火十字弩
+description_zh:+60攻击强度 \n+15%攻击速度 \n\n-----唯一被动-----\n破甲箭:普通攻击对高护甲单位造成更高伤害
+
+[action_divinePlume]
+text_zh:神圣长枪
+description_zh: +50攻击强度\n+30%暴击率 \n\n-----唯一被动-----\n制裁: 暴击伤害提升40%
+
+[action_berserkerFury]
+text_zh:狂战士之怒
+description_zh:+40攻击强度 \n+20%暴击率 \n\n-----唯一被动-----\n嗜血:获得10%的攻击吸血
+
+[action_infernoScepter]
+text_zh:炼狱权杖
+description_zh:+70技能强度 \n+10技能急速\n+20移动速度\n\n-----唯一被动-----\n吞噬火焰: 获得10%的技能吸血
+
+[action_technoArcaneScepter]
+text_zh:科技奥术权杖
+description_zh:+100技能强度\n+5移动速度 \n\n-----唯一被动-----\n量子冲击: 技能对高护甲单位的伤害提升
+
+[action_grimoireOfEternity]
+text_zh:永恒魔典
+description_zh:+165技能强度 \n\n-----唯一被动-----\n永恒: 提升45%的总技能强度
+
+[action_codexOfTheArcane]
+text_zh:秘法宝典
+description_zh:+40技能强度 \n+40技能急速 \n\n-----唯一被动-----\n超载: 降低全技能1秒冷却 (在技能急速后计算)
+
+[action_gildedSerpentRing]
+text_zh:金蛇指环
+description_zh:+40技能强度 \n+10技能急速 \n+300魔力值 \n+2魔力恢复 \n\n-----唯一被动-----\n点石成金 (主动): 将自己化为金身，无法移动，期间免疫一切伤害且无法被选中为目标，持续1秒(冷却时间150秒，消耗300魔力)\n(冷却时间内可继续使用，但每次使用将使魔力消耗翻倍)
+
+[action_frostboundOrb]
+text_zh:霜封宝珠
+description_zh:+500魔力值\n +10魔力恢复\n\n-----唯一被动-----\n魔力盾: 获得一个相当于50%你的魔力值的盾。 当你的魔力值为满时, 盾将会基于你的魔力恢复速度进行恢复
+
+
+#--------------Russian Localization--------------
+[template_equipmentInfo]
+isLockedMessage_ru: Ваш герой должен находиться рядом с кристаллом!
+
+[template_bootInfo]
+isLockedAltMessage_ru: Можно экипировать только одни ботинки!
+
+[action_leatherBoots]
+text_ru: Кожаные ботинки
+description_ru: +40 к скорости передвижения
+
+[action_smallDagger]
+text_ru: Кортик
+description_ru: +10 к силе атаки
+
+[action_bow]
+text_ru: Лук
+description_ru: +10% к скорости атаки
+
+[action_spear]
+text_ru: Копьё
+description_ru: +10% к шансу крита
+
+[action_woodenWand]
+text_ru: Деревянный посох
+description_ru: +20 к силе умений \n+5 к скорости передвижения
+
+[action_wornGrimoire]
+text_ru: Потрёпанный гримуар
+description_ru: +25 к силе умений
+
+[action_ironRing]
+text_ru: Стальное кольцо
+description_ru: +2 к восстановлению маны
+
+[action_aquaWalker]
+text_ru: Сапоги Водного духа
+description_ru: +40 к скорости передвижения\n\n-----Уникальный пассив-----\nХождение по воде: Позволяет перемещаться по водной поверхности
+
+[action_rapidBoots]
+text_ru: Поспешные ботфорты
+description_ru: +35% к скорости атаки\n+50 к скорости передвижения
+
+[action_velocityBoots]
+text_ru: Ботинки скорости
+description_ru: +55 к скорости передвижения\n\n-----Уникальный пассив-----\nРывок: Увеличивает скорость передвижения на 10%
+
+[action_mysticBoots]
+text_ru: Мистические сандалии
+description_ru: +10 к скорости умений\n+45 к скорости передвижения\n\n-----Уникальный пассив-----\nПробивание: Умения наносят повышенный урон целям с низкой защитой
+
+[action_roguesDagger]
+text_ru: Кинжал разбойника
+description_ru: +35 к силе атаки \n+10 к скорости передвижения
+
+[action_sharpBlade]
+text_ru: Острый клинок
+description_ru: +50 к силе атаки
+
+[action_recurveBow]
+text_ru: Рефлексный лук
+description_ru: +20 к силе атаки \n+25% к скорости атаки
+
+[action_steelCrossbow]
+text_ru: Стальной арбалет
+description_ru: +30 к силе атаки \n+10% к скорости атаки
+
+[action_crusaderSpear]
+text_ru: Копьё крестоносца
+description_ru: +20 к силе атаки \n+15% к шансу крита
+
+[action_ironAxe]
+text_ru: Железный топор
+description_ru: +15 к силе атаки \n+10% к шансу крита \n+2.5% вампиризма атаки
+
+[action_mysticWand]
+text_ru: Мистический посох
+description_ru: +45 к силе умений \n+10 к скорости передвижения \n+3% вампиризма умений
+
+[action_steeltippedWand]
+text_ru: Стальной жезл
+description_ru: +60 к силе умений \n+5 к скорости передвижения
+
+[action_sorcererGrimoire]
+text_ru: Гримуар чародея
+description_ru: +85 к силе умений
+
+[action_adeptCodex]
+text_ru: Кодекс мастерства
+description_ru: +30 к силе умений \n+15 к скорости умений
+
+[action_mithrilGemRing]
+text_ru: Мифриловое кольцо с камнем
+description_ru: +150 к мане \n+5 к скорости умений \n+2 к восстановлению маны
+
+[action_enchanterEarrings]
+text_ru: Серьги зачарователя
+description_ru: +200 к мане \n+5 к восстановлению маны
+
+[action_moltenFang]
+text_ru: Пламенный клык
+description_ru: +55 к силе атаки \n+20 к скорости передвижения\n\n-----Уникальный пассив-----\nРаскалывание: Обычные атаки наносят повышенный урон целям с низкой защитой
+
+[action_bladeOfDoom]
+text_ru: Меч Рока
+description_ru: +90 к силе атаки \n\n-----Уникальный пассив-----\nРазрушение: Бонус силы атаки от снаряжения увеличен на 30%
+
+[action_heavenFeather]
+text_ru: Перо небес
+description_ru: +20 к силе атаки\n +45% к скорости атаки\n+15 к скорости передвижения\n\n-----Уникальный пассив-----\nОрлиный глаз: Увеличивает дальность обычных атак на 15%
+
+[action_nightfireCrossbow]
+text_ru: Арбалет ночного пламени
+description_ru: +60 к силе атаки \n+15% к скорости атаки \n\n-----Уникальный пассив-----\nБронебойные стрелы: Обычные атаки наносят повышенный урон целям с высокой защитой
+
+[action_divinePlume]
+text_ru: Божественное копьё
+description_ru: +50 к силе атаки\n+30% к шансу крита \n\n-----Уникальный пассив-----\nВозмездие: Урон от критических ударов увеличен на 40%
+
+[action_berserkerFury]
+text_ru: Ярость берсерка
+description_ru: +40 к силе атаки \n+20% к шансу крита \n\n-----Уникальный пассив-----\nКровавая жажда: +10% вампиризма атаки
+
+[action_infernoScepter]
+text_ru: Скипетр преисподней
+description_ru: +70 к силе умений \n+10 к скорости умений\n+20 к скорости передвижения\n\n-----Уникальный пассив-----\nПожирающее пламя: +10% вампиризма умений
+
+[action_technoArcaneScepter]
+text_ru: Техно-арканический скипетр
+description_ru: +100 к силе умений\n+5 к скорости передвижения \n\n-----Уникальный пассив-----\nКвантовый удар: Умения наносят повышенный урон целям с высокой защитой
+
+[action_grimoireOfEternity]
+text_ru: Гримуар Вечности
+description_ru: +165 к силе умений \n\n-----Уникальный пассив-----\nБессмертие: Общая сила умений увеличена на 45%
+
+[action_codexOfTheArcane]
+text_ru: Кодекс Арканы
+description_ru: +40 к силе умений \n+40 к скорости умений \n\n-----Уникальный пассив-----\nПерегрузка: Снижает время перезарядки всех умений на 1 сек (после учёта скорости умений)
+
+[action_gildedSerpentRing]
+text_ru: Золотое змеиное кольцо
+description_ru: +40 к силе умений \n+10 к скорости умений \n+300 к мане \n+2 к восстановлению маны \n\n-----Уникальный пассив-----\nЗолотое прикосновение (Актив): Превращает в золотую статую на 1 сек, давая неуязвимость и иммунитет к выбору цели (Перезарядка: 150 сек, расход: 300 маны)\n(При использовании во время перезарядки расход маны удваивается)
+
+[action_frostboundOrb]
+text_ru: Ледяная сфера
+description_ru: +500 к мане\n +10 к восстановлению маны\n\n-----Уникальный пассив-----\nМагический щит: Создаёт щит равный 50% вашей маны. При полной мане щит восстанавливается со скоростью вашего восстановления маны

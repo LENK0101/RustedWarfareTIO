@@ -1,0 +1,56 @@
+
+[hiddenAction_铁幕保护计时]
+autoTrigger: if (hasUnitInTeam(withTag='铁幕', withinRange=70, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='铁幕', withinRange=70, greaterThan=0)) and not self.tags(includes='铁幕保护')   
+temporarilyAddTags: 铁幕保护
+addResources: 铁幕保护计时=45
+
+
+[hiddenAction_铁幕保护计时2]
+autoTrigger: if self.resource(type='铁幕保护计时', greaterThan=0)
+addResources: 铁幕保护计时=-1
+spawnEffects: CUSTOM:铁幕保护
+
+
+[hiddenAction_铁幕保护计时3]
+autoTrigger: if self.resource(type='铁幕保护计时', empty=true) and self.tags(includes='铁幕保护')
+temporarilyRemoveTags: 铁幕保护
+
+
+[hiddenAction_铁幕保护转换修正]
+autoTrigger: if self.resource(type='铁幕保护计时', greaterThan=0) and not self.tags(includes='铁幕保护')
+temporarilyAddTags: 铁幕保护
+
+
+[hiddenAction_Ai铁幕跟随]
+autoTrigger: if not self.tags(includes='建筑') and not self.tags(includes='矿车') and self.hasUnitInTeam(withTag='铁幕引子') and not self.tags(includes='铁幕跟随Ai')
+temporarilyAddTags: 铁幕跟随Ai
+
+
+[hiddenAction_Ai铁幕跟随2]
+autoTrigger: if self.tags(includes='铁幕跟随Ai') and not self.hasUnitInTeam(withTag='铁幕引子')
+temporarilyRemoveTags: 铁幕跟随Ai
+
+
+[hiddenAction_Ai铁幕保护]
+autoTrigger: if self.isControlledByAI() and not self.globalTeamTags(includes='Ai铁幕保护') and self.hasUnitInTeam(withTag='铁幕引子', withinRange=70) and (self.isAttacking() or self.hasTakenDamage(withinSeconds=1))
+addGlobalTeamTags: Ai铁幕保护
+#showMessageToAllPlayers: ＋Ai铁幕保护
+
+
+[resource_铁幕保护计时]
+displayName: 铁幕保护计时
+
+
+[effect_铁幕保护]
+image: ROOT:\共享文件\1类\映射.png
+color: #7F270000
+scaleFrom: ${core.radius*0.04}
+scaleTo: ${core.radius*0.04}
+alpha: 1.2
+life: 180
+hOffset: -10
+fadeInTime: 20
+fadeOut: true
+attachedToUnit: true
+drawUnderUnits: false
+alwayStartDirAtZero: true

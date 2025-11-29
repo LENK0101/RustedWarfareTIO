@@ -1,0 +1,139 @@
+[core]
+@global hpGrowPerMinute: 0
+@global attackGrowPerMinute: 0
+@global AttackRange: 10
+explodeOnDeath:false
+
+[graphics]
+disableLowHpFire: true
+disableLowHpSmoke: true
+
+[turret_baseAttack]
+x:0
+y:0
+canOnlyAttackUnitsWithoutTags: minion, Cristal, CristalProtector, Totem
+
+[projectile_baseAttack]
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.71
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.55
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.38
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.71
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.55
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.38
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.71
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.55
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.38
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.71
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.55
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.38
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.71
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.55
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.38
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.71
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.55
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.38
+
+[hiddenAction_initialize0]
+autoTriggerOnEvent: created
+setCustomTarget2: nearestUnit(withinRange=200, withTag="Totem")
+alsoTriggerAction: initialize
+
+[hiddenAction_initialize]
+setUnitStats: maxHp = int(${core.maxHp}*(1 + (select(self.resource.tenMinute>3,3.1,self.resource.tenMinute-0.1))*${hpGrowPerMinute}*10 + select(self.resource.tenMinute>3,0.1,self.resource.minute-0.1)*${hpGrowPerMinute})), shootDamageMultiplier = 1 + select(self.resource.tenMinute>3,3.1,self.resource.tenMinute-0.1)*${attackGrowPerMinute}*10 +  select(self.resource.tenMinute>3,0.1,self.resource.minute-0.1)*${attackGrowPerMinute}
+alsoTriggerAction: initialize2, totemUpgrade
+
+[hiddenAction_initialize2]
+setUnitStats: hp = self.maxHp
+
+[hiddenAction_totemUpgrade]
+requireConditional: if customTarget2.resource.totemUpgrade12 == 1
+temporarilyAddTags: monsterDamageUp
+
+[hiddenAction_regen]
+autoTrigger: if self.resource.attackAble == 0
+setUnitStats: hp =  self.hp() + (self.maxHp()/10)
+
+[hiddenAction_sendMessage]
+autoTrigger: if self.hasTakenDamage(withinSeconds=1)
+sendMessageTo: customTarget2
+sendMessageWithTags: isAttacked
+
+[hiddenAction_reciveMessage]
+autoTriggerOnEvent: tookDamage(withTag="attackCommand")
+alsoTriggerAction:attack
+
+[hiddenAction_attack]
+setResourcesWithLogic:attackAble = 1
+setUnitStats: maxAttackRange = ${AttackRange}
+
+[hiddenAction_noAttack]
+autoTrigger: if distanceBetween(self, customTarget2) > 170 and not (self.customTarget2 == null)
+clearAllWaypoints:true
+addWaypoint_type:move
+addWaypoint_target_fromReference:customTarget2
+setResourcesWithLogic:attackAble = 0
+setUnitStats: maxAttackRange = 999
+
+[hiddenAction_attack2]
+autoTrigger: if self.resource.attackAble == 1
+addWaypoint_type: attackMove
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 步兵轻甲, 步兵中甲, 步兵重甲, 载具轻甲, 载具中甲, 载具重甲, 建筑轻甲, 建筑防甲, 建筑重甲
+addWaypoint_target_nearestUnit_maxRange: 300
+addWaypoint_target_nearestUnit_team: enemy
+addWaypoint_target_mapMustBeReachable: true
+
+[hiddenAction_noAttack2]
+autoTrigger: if self.numberOfUnitsInEnemyTeam(withinRange=300) == 0 and not (self.customTarget2 == null) and self.resource.attackAble ==1
+setResourcesWithLogic:attackAble = 0
+setUnitStats: maxAttackRange = 999
+
+[hiddenAction_noTotem]
+autoTrigger: if (self.customTarget2 == null) and (self.resource.rage == 0)
+setResourcesWithLogic:rage = 1, attackAble = 1
+setUnitStats: moveSpeed = self.maxMoveSpeed()*1.2, maxAttackRange = ${AttackRange}
+addWaypoint_type: attackMove
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 步兵轻甲, 步兵中甲, 步兵重甲, 载具轻甲, 载具中甲, 载具重甲, 建筑轻甲, 建筑防甲, 建筑重甲
+addWaypoint_target_nearestUnit_maxRange: 300
+
+[hiddenAction_rage]
+autoTrigger: if self.resource.rage == 1
+setUnitStats: hp = self.hp() - self.maxHp()/10
+
+
+[resource_attackAble]
+hidden:true
+
+[resource_rage]
+hidden:false
+
+[resource_tenMinuteL]
+hidden:true
+
+[resource_minuteL]
+hidden:true
+
+[resource_tenSecL]
+hidden:true
+
+[resource_secL]
+hidden:true

@@ -1,0 +1,101 @@
+[attachment_buffCounter]
+x:0
+y:0
+onCreateSpawnUnitOf:buffCounter
+setDrawLayerOnTop: false
+lockLegMovement:false
+canBeAttackedAndDamaged: false
+isUnselectable: true
+showAllActionsFrom: false
+lockRotation: true
+createIncompleteIfParentIs: false
+setDrawLayerOnBottom: true
+
+#------------------------
+[hiddenAction_updateBuff]
+addResourcesWithLogic: """
+AdditionalAttackSpeed = select(self.tags(includes="OrangeBuff"), ${OrangeBuffAttackSpeed}, 0),
+AdditionalAttackPower = select(self.tags(includes="OrangeBuff") and customTarget1.resource.AttackPower >= customTarget1.resource.SkillPower, ${OrangeBuffPower}, 0),
+AdditionalSkillPower = select(self.tags(includes="OrangeBuff") and customTarget1.resource.AttackPower < customTarget1.resource.SkillPower, ${OrangeBuffPower}, 0),
+AdditionalSkillHaste = select(self.tags(includes="BlueBuff"), ${BlueBuffSkillHaste}, 0),
+AdditionalHPRegen = select(self.tags(includes="BlueBuff") and self.maxEnergy() == 0, ${BlueBuffRegen}, 0),
+AdditionalManaRegen = select(self.tags(includes="BlueBuff") and self.maxEnergy() > 0, ${BlueBuffRegen}, 0),
+AdditionalDefence = select(self.tags(includes="FallenAngelSkill3"), 10, 0),
+BoostedMovementSpeed = select(self.tags(includes="FallenAngelSkill2"), 0.2, 0) + select(self.tags(includes="FallenAngelSkill3"), 0.2, 0),
+BoostedAttackSpeed = select(self.tags(includes="FallenAngelSkill2"), 0.1, 0) + select(self.tags(includes="FallenAngelSkill3"), 0.1, 0)
+"""
+
+#------------------------
+[hiddenAction_preBuffInit]
+autoTriggerOnEvent: tookDamage(withTag="preBuff")
+temporarilyAddTags: notThisTarget
+sendMessageTo: self.attachment(withTag="buffCounter")
+sendMessageWithTags: preBuff
+
+[hiddenAction_preBuffOver]
+autoTriggerOnEvent: newMessage(withTag="preBuffOver")
+temporarilyRemoveTags: notThisTarget
+
+#---
+[hiddenAction_buffInitFallenAngelSkill2]
+autoTriggerOnEvent: tookDamage(withTag="FallenAngelSkill2")
+requireConditional: if not self.tags(includes="notThisTarget")
+temporarilyAddTags: FallenAngelSkill2
+sendMessageTo: self.attachment(withTag="buffCounter")
+sendMessageWithTags: FallenAngelSkill2
+alsoTriggerAction: initialize
+
+[hiddenAction_buffOverFallenAngelSkill2]
+autoTriggerOnEvent: newMessage(withTag="FallenAngelSkill2Over")
+temporarilyRemoveTags: FallenAngelSkill2
+alsoTriggerAction: initialize
+
+#---
+[hiddenAction_debuffFallenAngelSkill3Init]
+autoTriggerOnEvent: newMessage(withTag="FallenAngelSkill3Init")
+setUnitStats: energy = 0
+
+
+#---
+[hiddenAction_buffInitFallenAngelSkill3]
+autoTriggerOnEvent: tookDamage(withTag="FallenAngelSkill3")
+requireConditional: if not self.tags(includes="notThisTarget")
+temporarilyAddTags: FallenAngelSkill3
+sendMessageTo: self.attachment(withTag="buffCounter")
+sendMessageWithTags: FallenAngelSkill3
+alsoTriggerAction: initialize
+
+[hiddenAction_buffOverFallenAngelSkill3]
+autoTriggerOnEvent: newMessage(withTag="FallenAngelSkill3Over")
+temporarilyRemoveTags: FallenAngelSkill3
+alsoTriggerAction: initialize
+
+#---
+[hiddenAction_buffInitBlueBuff]
+@global BlueBuffSkillHaste: 5
+@global BlueBuffRegen: 3 + self.resource.Level/2
+autoTriggerOnEvent: newMessage(withTag="blueBuff")
+temporarilyAddTags: blueBuff
+sendMessageTo: self.attachment(withTag="buffCounter")
+sendMessageWithTags: blueBuff
+alsoTriggerAction: initialize
+
+[hiddenAction_buffInitBlueOver]
+autoTriggerOnEvent: newMessage(withTag="blueBuffOver")
+temporarilyRemoveTags: blueBuff
+alsoTriggerAction: initialize
+
+#---
+[hiddenAction_buffInitOrangeBuff]
+@global OrangeBuffAttackSpeed: 0.1
+@global OrangeBuffPower: 15 + self.resource.Level*2
+autoTriggerOnEvent: newMessage(withTag="OrangeBuff")
+temporarilyAddTags: OrangeBuff
+sendMessageTo: self.attachment(withTag="buffCounter")
+sendMessageWithTags: OrangeBuff
+alsoTriggerAction: initialize
+
+[hiddenAction_buffInitOrangeOver]
+autoTriggerOnEvent: newMessage(withTag="OrangeBuffOver")
+temporarilyRemoveTags: OrangeBuff
+alsoTriggerAction: initialize

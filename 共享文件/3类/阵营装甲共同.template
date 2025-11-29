@@ -1,0 +1,179 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\超时空传送.template, ROOT:\共享文件\3类\铁幕保护.template, ROOT:\共享文件\3类\禁入.template, ROOT:\共享文件\3类\炸弹限制.template, ROOT:\共享文件\3类\生命保险.template, ROOT:\共享文件\3类\临时救援.template, ROOT:\共享文件\3类\单位停留.template, ROOT:\共享文件\3类\抗甲粒子.template, ROOT:\共享文件\3类\抗甲和脉冲Ai.template, ROOT:/DATA/total/debuffs.template
+explodeOnDeath: false
+soundOnDeath: ROOT:\音频\语音+音效\vgendiea.wav, ROOT:\音频\语音+音效\vgendieb.wav, ROOT:\音频\语音+音效\vgendiec.wav, ROOT:\音频\语音+音效\vgendied.wav, ROOT:\音频\语音+音效\vgendiee.wav, ROOT:\音频\语音+音效\vgendief.wav
+effectOnDeath: CUSTOM:死亡, CUSTOM:炸毁
+softCollisionOnAll: 5
+
+
+[attack]
+canOnlyAttackUnitsWithoutTags: 伪装, 驾驶
+
+
+[hiddenAction_被黏杀]
+autoTrigger: if numberOfUnitsInEnemyTeam(withTag='撞击2', greaterThan=0, withinRange=45) and self.tags(includes='小型')
+addResources: hp=-9999
+
+
+[hiddenAction_坠亡]
+autoTrigger: if not self.hasParent() and not self.tags(includes='坠亡') and self.isFlying()
+temporarilyAddTags: 坠亡
+
+
+[hiddenAction_坠亡2]
+autoTrigger: if self.tags(includes='坠亡') and not self.isFlying()
+addResources: hp=-99999
+
+
+[hiddenAction_维修完]
+autoTrigger: if self.hp(full=true) and self.hasParent(withTag='维修') and not self.hasParent(withTag='回收') and not self.tags(includes='禁入')
+disconnectFromParent: true
+
+
+[hiddenAction_Ai前往维修]
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='维修', withinRange=500) and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='move') and not self.isAttacking() and (numberOfUnitsInEnemyTeam(withTag='恐怖机器人', greaterThan=0, withinRange=15) or self.hp(lessThan=${core.maxHp*0.5})) and not self.hasParent()
+clearActiveWaypoint: true
+addWaypoint_type: loadInto
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 维修
+
+
+[hiddenAction_回收卸载]
+autoTrigger: if not self.transportingCount(empty=true) and self.hasParent(withTag='回收')
+forceUnloadTransportNow: true
+
+
+[hiddenAction_回收盟]
+autoTrigger: if self.hasParent(withTag='回收') and self.globalTeamTags(includes='盟军') and not self.tags(includes='生命保险') 
+allowMultipleInQueue: false
+alsoQueueAction: 回收盟2
+
+
+[hiddenAction_回收苏]
+autoTrigger: if self.hasParent(withTag='回收') and self.globalTeamTags(includes='苏联') and not self.tags(includes='生命保险') 
+allowMultipleInQueue: false
+alsoQueueAction: 回收苏2
+
+
+[hiddenAction_回收盟2]
+buildSpeed: ${core.maxHp*0.01}s
+whenBuilding_cannotMove: true
+addResources: 资金=${int(template_zijin.price*0.5)}
+playSoundAtUnit: ROOT:\音频\语音+音效\uselbuil.wav
+produceUnits: 防卫大兵
+deleteSelf: true
+
+
+[hiddenAction_回收苏2]
+@copyFromSection: hiddenAction_回收盟2
+produceUnits: 动员兵
+
+
+#[hiddenAction_生命保险计时]
+#requireConditional: if not self.hasParent(withTag='身体')
+
+
+[hiddenAction_重置方向]
+autoTriggerOnEvent: created
+setBodyRotation: 45
+
+
+[hiddenAction_驾驶]
+autoTrigger: if self.hasFlag(id=27) or (numberOfUnitsInNeutralTeam(withTag='生成空载具', greaterThan=0, withinRange=100) and not self.hasFlag(id=28))
+switchToAggressiveTeam: true
+addResources: setFlag=28, unsetFlag=27
+temporarilyAddTags: 驾驶
+
+
+[hiddenAction_驾驶2]
+requireConditional: if self.timeAlive(laterThanSeconds=1) and self.hasFlag(id=28)
+autoTriggerOnEvent: teamChanged
+addResources: unsetFlag=28
+temporarilyRemoveTags: 驾驶
+
+
+[hiddenAction_驾驶3]
+autoTrigger: if self.hasFlag(id=28) and not self.tags(includes='驾驶')
+temporarilyAddTags: 驾驶
+
+
+[hiddenAction_Ai被动移动]
+autoTrigger: if self.isControlledByAI() and not self.isAttacking() and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='guard') and not self.hasActiveWaypoint(type='loadInto') and not self.isMoving() and not self.hasParent() and self.hasTakenDamage(withinSeconds=1) and not hasUnitInTeam(withTag='救援', withinRange=150, greaterThan=0) and not hasUnitInTeam(withTag='生命+满', withinRange=50, greaterThan=0) and not self.tags(includes='铁幕保护')
+addWaypoint_type: attackMove
+addWaypoint_prepend: true
+addWaypoint_maxTime: 2s 
+addWaypoint_position_randomOffsetFromSelf: 100,100
+
+
+[hiddenAction_Ai原地守卫]
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='Ai守卫点', withinRange=50) and not self.hasActiveWaypoint(type='guard') and not self.hasParent()
+clearActiveWaypoint: true
+addWaypoint_type: guard
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: Ai守卫点
+
+
+[hiddenAction_跟随-移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='move') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.hasFlag(id=28)
+clearActiveWaypoint: true
+addWaypoint_type: move
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_tagged: 跟随-移动
+addWaypoint_target_mapMustBeReachable: false
+
+
+[hiddenAction_跟随-攻击移动]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='attackMove') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.hasFlag(id=28)
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: attackMove
+addWaypoint_target_nearestUnit_tagged: 跟随-攻击移动
+
+
+[hiddenAction_跟随-守卫]
+autoTrigger: if numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0) and not numberOfUnitsInTeam(withTag='跟随-移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-攻击移动', greaterThan=0, withinRange=150) and not numberOfUnitsInTeam(withTag='跟随-守卫', greaterThan=0, withinRange=150) and not self.hasActiveWaypoint(type='guard') and not self.hasActiveWaypoint(type='attack') and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='reclaim') and not self.hasActiveWaypoint(type='touchTarget') and not self.hasParent() and not self.hasFlag(id=28)
+@copyFromSection: hiddenAction_跟随-移动
+addWaypoint_type: guard
+addWaypoint_target_nearestUnit_tagged: 跟随-守卫
+
+[hiddenAction_创建]
+autoTriggerOnEvent: created
+alsoTriggerAction: 创建2
+
+[hiddenAction_创建2]
+requireConditional: if numberOfUnitsInTeam(withTag='生产建筑', greaterThan=0, withinRange=80)
+setResourcesWithLogic: 单位变化 = 1
+
+[hiddenAction_消失]
+autoTriggerOnEvent: destroyed
+setResourcesWithLogic: 单位变化 = -1
+
+[movement]
+moveYAxisScaling: 0.9
+
+
+[effect_死亡]
+image: ROOT:\共享文件\1类\死亡.png
+life: 1200
+createWhenOverLiquid: false
+scaleFrom: 1
+scaleTo: 1
+xOffsetRelative: 0
+yOffsetRelative: 0
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits: true
+alwayStartDirAtZero: true
+
+
+[effect_炸毁]
+image: ROOT:\共享文件\1类\炸毁4.png
+scaleFrom: 0.85
+scaleTo: 0.85
+total_frames: 10
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.22
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits:false
+alwayStartDirAtZero: true

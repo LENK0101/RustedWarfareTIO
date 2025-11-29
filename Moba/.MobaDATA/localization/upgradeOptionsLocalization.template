@@ -1,0 +1,271 @@
+#兵线：11自恢复 12增加视野 ; 21增加移动速度 22反隐 ; 31增加攻击速度 32小兵击杀给钱; 41超级小兵 42奶妈跑车
+
+[action_minionUpgrade11]
+text_zh:兵线 I
+description_zh: 自恢复
+
+[action_minionUpgrade12]
+text_zh:兵线 I
+description_zh: 增加视野
+
+[action_minionUpgrade21]
+text_zh:兵线 II
+description_zh: 增加移动速度
+
+[action_minionUpgrade22]
+text_zh:兵线 II
+description_zh: 反隐
+
+[action_minionUpgrade31]
+text_zh:兵线 III
+description_zh: 增加攻击速度
+
+[action_minionUpgrade32]
+text_zh:兵线 III
+description_zh: 小兵击杀给钱
+
+[action_minionUpgrade41]
+text_zh:兵线 IV
+description_zh: 超级小兵
+
+[action_minionUpgrade42]
+text_zh:兵线 IV
+description_zh: 奶妈跑车
+
+
+#图腾：11加血 12英雄对野怪伤害提升; 21增加视野 22更快的野怪刷新; 31反隐 32野怪价值提升; 41增加图腾上限 42传送到图腾
+
+[action_totemUpgrade11]
+text_zh:图腾 I
+description_zh: 加血
+
+[action_totemUpgrade12]
+text_zh:图腾 I
+description_zh: 英雄对野怪伤害提升
+
+[action_totemUpgrade21]
+text_zh:图腾 II
+description_zh: 增加视野
+
+[action_totemUpgrade22]
+text_zh:图腾 II
+description_zh: 更快的野怪刷新
+
+[action_totemUpgrade31]
+text_zh:图腾 III
+description_zh: 反隐
+
+[action_totemUpgrade32]
+text_zh:图腾 III
+description_zh: 野怪价值提升
+
+[action_totemUpgrade41]
+text_zh:图腾 IV
+description_zh: 图腾防御塔&增加图腾上限
+
+[action_totemUpgrade42]
+text_zh:图腾 IV
+description_zh: 可传送到图腾
+
+
+#水晶：11自恢复 12增强泉水效果; 21加血 22加被动收入 ; 31低血无敌 32花钱买活 ; 41范围攻击 42第七个装备栏
+
+[action_cristalUpgrade11]
+text_zh:水晶 I
+description_zh: 自恢复
+
+[action_cristalUpgrade12]
+text_zh:水晶 I
+description_zh: 增强泉水效果
+
+[action_cristalUpgrade21]
+text_zh:水晶 II
+description_zh: 加血
+
+[action_cristalUpgrade22]
+text_zh:水晶 II
+description_zh: 加被动收入
+
+[action_cristalUpgrade31]
+text_zh:水晶 III
+description_zh: 低血无敌
+
+[action_cristalUpgrade32]
+text_zh:水晶 III
+description_zh: 花钱买活 
+
+[action_cristalUpgrade41]
+text_zh:水晶 IV
+description_zh: 解锁范围攻击
+
+[action_cristalUpgrade42]
+text_zh:水晶 IV
+description_zh: 解锁第七个装备栏
+
+
+
+#守护者：11加血 12增加视野; 21自恢复 22击杀给钱; 31加伤害 32被摧毁时给予水晶护盾; 41群体子弹 42自动重建
+
+[action_protectorUpgrade11]
+text_zh:守护者 I
+description_zh: 加血
+
+[action_protectorUpgrade12]
+text_zh:守护者 I
+description_zh: 增加视野
+
+[action_protectorUpgrade21]
+text_zh:守护者 II
+description_zh: 自恢复
+
+[action_protectorUpgrade22]
+text_zh:守护者 II
+description_zh: 击杀给钱
+
+[action_protectorUpgrade31]
+text_zh:守护者 III
+description_zh: 加伤害
+
+[action_protectorUpgrade32]
+text_zh:守护者 III
+description_zh: 被摧毁时给予水晶护盾
+
+[action_protectorUpgrade41]
+text_zh:守护者 IV
+description_zh: 群伤子弹
+
+[action_protectorUpgrade42]
+text_zh:守护者 IV
+description_zh: 自动重建
+
+
+#--------------Russian Localization--------------
+[action_minionUpgrade11]
+text_ru: Миньон I
+description_ru: Автовосстановление
+
+[action_minionUpgrade12]
+text_ru: Миньон I
+description_ru: Увеличение обзора
+
+[action_minionUpgrade21]
+text_ru: Миньон II
+description_ru: Повышение скорости
+
+[action_minionUpgrade22]
+text_ru: Миньон II
+description_ru: Обнаружение невидимок
+
+[action_minionUpgrade31]
+text_ru: Миньон III
+description_ru: Ускорение атак
+
+[action_minionUpgrade32]
+text_ru: Миньон III
+description_ru: Золото за убийства
+
+[action_minionUpgrade41]
+text_ru: Миньон IV
+description_ru: Супер-миньоны
+
+[action_minionUpgrade42]
+text_ru: Миньон IV
+description_ru: Поддерживающий катапульт
+
+[action_totemUpgrade11]
+text_ru: Тотем I
+description_ru: Усиленное здоровье
+
+[action_totemUpgrade12]
+text_ru: Тотем I
+description_ru: Бонус к урону по нейтралам
+
+[action_totemUpgrade21]
+text_ru: Тотем II
+description_ru: Увеличенный обзор
+
+[action_totemUpgrade22]
+text_ru: Тотем II
+description_ru: Ускоренное возрождение нейтралов
+
+[action_totemUpgrade31]
+text_ru: Тотем III
+description_ru: Обнаружение невидимок
+
+[action_totemUpgrade32]
+text_ru: Тотем III
+description_ru: Повышенная награда
+
+[action_totemUpgrade41]
+text_ru: Тотем IV
+description_ru: Турели + лимит тотемов
+
+[action_totemUpgrade42]
+text_ru: Тотем IV
+description_ru: Телепортация к тотему
+
+#-----Кристалл-----
+[action_cristalUpgrade11]
+text_ru: Кристалл I
+description_ru: Автовосстановление
+
+[action_cristalUpgrade12]
+text_ru: Кристалл I
+description_ru: Усиление источника
+
+[action_cristalUpgrade21]
+text_ru: Кристалл II
+description_ru: Усиленное здоровье
+
+[action_cristalUpgrade22]
+text_ru: Кристалл II
+description_ru: Пассивный доход
+
+[action_cristalUpgrade31]
+text_ru: Кристалл III
+description_ru: Неуязвимость при низком здоровье
+
+[action_cristalUpgrade32]
+text_ru: Кристалл III
+description_ru: Покупка возрождения
+
+[action_cristalUpgrade41]
+text_ru: Кристалл IV
+description_ru: Атака по области
+
+[action_cristalUpgrade42]
+text_ru: Кристалл IV
+description_ru: Открыть 7-й слот
+
+#-----Защитник-----
+[action_protectorUpgrade11]
+text_ru: Защитник I
+description_ru: Усиленное здоровье
+
+[action_protectorUpgrade12]
+text_ru: Защитник I
+description_ru: Увеличение обзора
+
+[action_protectorUpgrade21]
+text_ru: Защитник II
+description_ru: Автовосстановление
+
+[action_protectorUpgrade22]
+text_ru: Защитник II
+description_ru: Золото за убийства
+
+[action_protectorUpgrade31]
+text_ru: Защитник III
+description_ru: Повышение урона
+
+[action_protectorUpgrade32]
+text_ru: Защитник III
+description_ru: Щит кристаллу при разрушении
+
+[action_protectorUpgrade41]
+text_ru: Защитник IV
+description_ru: Урон по области
+
+[action_protectorUpgrade42]
+text_ru: Защитник IV
+description_ru: Автовосстановление

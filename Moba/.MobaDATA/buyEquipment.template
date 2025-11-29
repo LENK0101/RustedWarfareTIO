@@ -1,0 +1,458 @@
+[core]
+copyFrom: ROOT:/MOBA/.MobaDATA/localization/buyEquipmentLocalization.template
+
+[template_equipmentInfo]
+pos:2
+buildSpeed:0s
+extraLagHidingInUI: true
+temporarilyAddTags: newEquipment
+sendMessageTo: parent
+sendMessageWithTags: newEquipment
+convertTo_keepCurrentTags: true
+isVisible:true
+isLocked: if not self.numberOfUnitsInTeam(withTag='hero', withinRange=280, greaterThan=0) and self.noUnitInTeam(withTag="deadHero")
+isLockedMessage: Your hero must be near the Cristal!
+isLockedAlt: if parent.resource.cristalShopLock == 1
+isLockedAltMessage: Prevent accidental action
+
+[resource_cristalShopLock]
+hidden: true
+
+[template_bootInfo]
+@copyFromSection: template_equipmentInfo
+isLockedAlt2: if customTarget1.resource.BootsCount > 0
+isLockedAlt2Message: You can only have one boot at a time!
+
+[template_actveEquipmentInfo]
+@copyFromSection: template_equipmentInfo
+isLockedAlt2: if customTarget1.resource.activeEquipmentNum > 0
+isLockedAlt2Message: You can only have one active equipment at a time!
+
+#------------------Tier I------------------#
+#---Movement Equipment---
+
+[action_leatherBoots]
+price:Gold=300
+text:Leather Boots
+description:+40 Movement Speed 
+convertTo:moba_leatherBoots
+@copyFromSection: template_bootInfo
+
+
+
+#---Attack Equipment---
+
+[action_smallDagger]
+price:Gold=350
+text:Small Dagger
+description:+10 Attack Damage
+convertTo:moba_smallDagger
+@copyFromSection: template_equipmentInfo
+
+
+[action_bow]
+price:Gold=250
+text:Bow
+description:+10% Attack Speed
+convertTo:moba_bow
+@copyFromSection: template_equipmentInfo
+
+[action_spear]
+price:Gold=400
+text:Spear
+description:+10% Critical Chance
+convertTo:moba_spear
+@copyFromSection: template_equipmentInfo
+
+
+#---Skill Equipment---
+
+[action_woodenWand]
+price:Gold=450
+text:Wooden Wand
+description:+20 Skill Power \n+5 Movement Speed 
+convertTo:moba_woodenWand
+@copyFromSection: template_equipmentInfo
+
+[action_wornGrimoire]
+price:Gold=500
+text:Worn Grimoire
+description:+25 Skill Power
+convertTo:moba_wornGrimoire
+@copyFromSection: template_equipmentInfo
+
+[action_ironRing]
+price:Gold=300
+text:Iron Ring
+description:+2 Mana Regen
+convertTo:moba_ironRing
+@copyFromSection: template_equipmentInfo
+
+#---Defence Equipment---
+[action_leatherHood]
+price:Gold=240
+text:Leather Hood
+description:+80 Max HP
+convertTo:moba_leatherHood
+@copyFromSection: template_equipmentInfo
+
+[action_leatherVest]
+price:Gold=300
+text:Leather Vest
+description:+50 Max HP\n +1 HP Regen
+convertTo:moba_leatherVest
+@copyFromSection: template_equipmentInfo
+
+[action_woodenShield]
+price:Gold=300
+text:Wooden Shield
+description:+1 Defence
+convertTo:moba_woodenShield
+@copyFromSection: template_equipmentInfo
+
+
+#------------------Tier II------------------#
+#---Movement Equipment---
+
+[action_aquaWalker]
+price:Gold=1300
+text:Aqua Walker
+description: +40 Movement Speed \n\n-----Unique Passive-----\nWater walking: Grants the ability to walk on water 
+convertTo:moba_aquaWalker
+@copyFromSection: template_bootInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_rapidBoots]
+price:Gold=1030
+text:Rapid Boots
+description: +35% Attack Speed \n+50 Movement Speed 
+convertTo:moba_rapidBoots
+@copyFromSection: template_bootInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_velocityBoots]
+price:Gold=1160
+text:Velocity Boots
+description:+55 Movement Speed \n\n-----Unique Passive-----\nSprint: Increase your Movement Speed by 10%
+convertTo:moba_velocityBoots
+@copyFromSection: template_bootInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_mysticBoots]
+price:Gold=1460
+text:Mystic Boots
+description:+10 Skill Haste \n+45 Movement Speed \n\n-----Unique Passive-----\nInsights: Increases skill damage against low armor units
+convertTo:moba_mysticBoots
+@copyFromSection: template_bootInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_ironhideBoots]
+price:Gold=1390
+text:Ironhide Boots
+description:+100 Max HP\n +1 Defence\n +40 Movement Speed\n\n-----Unique Passive-----\nFortress Guard (Active): Activate to gain a shield equal to 50-900 (+10% maximum health) for 5 seconds. (Cooldown 120 seconds)
+convertTo:moba_ironhideBoots
+@copyFromSection: template_equipmentInfo
+isLockedAlt2: if customTarget1.resource.BootsCount > 0 or customTarget1.resource.activeEquipmentNum > 0
+isLockedAlt2Message: You can only have one boot/active equipment at a time!
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_regenerationBoots]
+price:Gold=1240
+text:Regeneration Boots
+description:+4 HP Regen \n+4 Mana Regen \n+45 Movement Speed
+convertTo:moba_regenerationBoots
+@copyFromSection: template_bootInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+#---Attack Equipment---
+
+[action_roguesDagger]
+price:Gold=1450
+text:Rogue's Dagger
+description:+35 Attack Damage \n+10 Movement Speed
+convertTo:moba_roguesDagger
+@copyFromSection: template_equipmentInfo
+
+[action_sharpBlade]
+price:Gold=1920
+text:Sharp Blade
+description:+50 Attack Power
+convertTo:moba_sharpBlade
+@copyFromSection: template_equipmentInfo
+
+[action_recurveBow]
+price:Gold=1230
+text:Recurve Bow
+description:+25% Attack Speed
+convertTo:moba_recurveBow
+@copyFromSection: template_equipmentInfo
+
+[action_steelCrossbow]
+price:Gold=1430
+text:Recurve Bow
+description:+30 Attack Damage \n+10% Attack Speed
+convertTo:moba_steelCrossbow
+@copyFromSection: template_equipmentInfo
+
+[action_crusaderSpear]
+price:Gold=1430
+text:Crusader's Spear
+description:+20 Attack Power \n+15% Critical Chance 
+convertTo:moba_crusaderSpear
+@copyFromSection: template_equipmentInfo
+
+[action_ironAxe]
+price:Gold=1290
+text:Iron Axe
+description:+15 Attack Power \n+10% Critical Chance \n+2.5% Life Steal
+convertTo:moba_ironAxe
+@copyFromSection: template_equipmentInfo
+
+
+#---Skill Equipment---
+
+[action_mysticWand]
+price:Gold=1430
+text:Mystic Wand
+description:+45 Skill Power \n+10 Movement Speed \n+3% Skill Vamp
+convertTo:moba_mysticWand
+@copyFromSection: template_equipmentInfo
+
+[action_steeltippedWand]
+price:Gold=1370
+text:Steel-tipped Wand
+description:+60 Skill Power \n+5 Movement Speed 
+convertTo:moba_steeltippedWand
+@copyFromSection: template_equipmentInfo
+
+[action_sorcererGrimoire]
+price:Gold=1870
+text:Sorcerer’s Grimoire
+description:+85 Skill Power
+convertTo:moba_sorcererGrimoire
+@copyFromSection: template_equipmentInfo
+
+[action_adeptCodex]
+price:Gold=1480
+text:Adept’s Codex
+description:+30 Skill Power \n+15 Skill Haste
+convertTo:moba_adeptCodex
+@copyFromSection: template_equipmentInfo
+
+[action_mithrilGemRing]
+price:Gold=1100
+text:Mithril Gem Ring
+description:+150 Max Mana \n+5 Skill Haste \n+2 Mana Regen
+convertTo:moba_mithrilGemRing
+@copyFromSection: template_equipmentInfo
+
+[action_enchanterEarrings]
+price:Gold=1480
+text:Enchanter Earrings
+description:+200 Max Mana \n+5 Mana Regen
+convertTo:moba_enchanterEarrings
+@copyFromSection: template_equipmentInfo
+
+
+#---Defence Equipment---
+
+[action_ironHelmet]
+price:Gold=1260
+text:Iron Helmet
+description:+350 Max HP
+convertTo:moba_ironHelmet
+@copyFromSection: template_equipmentInfo
+
+[action_magicalHood]
+price:Gold=1260
+text:Magical Hood
+description:+350 Max HP
+convertTo:moba_magicalHood
+@copyFromSection: template_equipmentInfo
+
+[action_ironChestplate]
+price:Gold=1510
+text:Iron Chestplate
+description:+220 Max HP\n +2 HP Regen\n +1 Defence
+convertTo:moba_ironChestplate
+@copyFromSection: template_equipmentInfo
+
+[action_mysticRobes]
+price:Gold=1510
+text:Mystic Robes
+description:+220 Max HP\n +2 HP Regen\n +1 Defence
+convertTo:moba_mysticRobes
+@copyFromSection: template_equipmentInfo
+
+[action_warriorsShield]
+price:Gold=1440
+text:Warrior's Shield
+description:+4 Defence
+convertTo:moba_warriorsShield
+@copyFromSection: template_equipmentInfo
+
+[action_barbarianShield]
+price:Gold=1440
+text:Barbarian Shield
+description:+4 Defence
+convertTo:moba_barbarianShield
+@copyFromSection: template_equipmentInfo
+
+#------------------Tier III------------------#
+#---Attack Equipment---
+
+[action_moltenFang]
+price:Gold=2800
+text:Molten Fang
+description:+55 Attack Power \n+20 Movement Speed\n\n-----Unique Passive-----\nRupture: Allow you deal higher damage to low armor enemy
+convertTo:moba_moltenFang
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_bladeOfDoom]
+price:Gold=4150
+text:Blade Of Doom
+description:+90 Attack Power \n\n-----Unique Passive-----\nDestruction: Increases your Attack Power from equipment by 30%
+convertTo:moba_bladeOfDoom
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_heavenFeather]
+price:Gold=2600
+text:Heaven Feather
+description:+20 Attack Power\n +45% Attack Speed \n+15 Movement Speed\n\n-----Unique Passive-----\nHawkeye: Increases your basic attack range by 15%.
+convertTo:moba_heavenFeather
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_nightfireCrossbow]
+price:Gold=3260
+text:Nightfire Crossbow
+description:+60 Attack Power \n+15% Attack Speed \n\n-----Unique Passive-----\nPiercing Arrow: Allow you deal higher damage to armored enemy
+convertTo:moba_nightfireCrossbow
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_divinePlume]
+price:Gold=3890
+text:Divine Plume
+description:+50 Attack Power\n +30% Critical Chance \n\n-----Unique Passive-----\nPunish: Critical damage increased by 40%
+convertTo:moba_divinePlume
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_berserkerFury]
+price:Gold=2900
+text:Berserker's Fury
+description:+40 Attack Power\n+20% Critical Chance \n\n-----Unique Passive-----\nBloodthirst: Increases your Life steal by 10%
+convertTo:moba_berserkerFury
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+
+#---Skill Equipment---
+
+[action_infernoScepter]
+price:Gold=2770
+text:Inferno Scepter
+description:+70 Skill Power \n+10 Skill Haste \n+20 Movement Speed \n\n-----Unique Passive-----\nIngesting Flame: +10% Skill Vamp
+convertTo:moba_infernoScepter
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_technoArcaneScepter]
+price:Gold=2700
+text:Techno Arcane Scepter
+description:+100 Skill Power \n+5 Movement Speed \n\n-----Unique Passive-----\nQuantum Disruption: Increases skill damage against high armor units
+convertTo:moba_technoArcaneScepter
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_grimoireOfEternity]
+price:Gold=4350
+text:Grimoire of Eternity
+description:+165 Skill Power \n\n-----Unique Passive-----\nIncessant: Increases your Total Skill Power by 45%
+convertTo:moba_grimoireOfEternity
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_codexOfTheArcane]
+price:Gold=3690
+text:Codex of the Arcane
+description:+40 Skill Power \n+40 Skill Haste \n\n-----Unique Passive-----\nOverload: Reduce skill cooldown by 1 second (calculated after skill haste)
+convertTo:moba_codexOfTheArcane
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_gildedSerpentRing]
+price:Gold=2640
+text:Gilded Serpent Ring
+description:+40 Skill Power \n+10 Skill Haste \n+300 Max Mana \n+2 Mana Regen \n\n-----Unique Passive-----\nMidas Touch (Active): Transform yourself into a golden body that can not move, becoming untargetable and immune to all damage for 1 seconds (Cooldown 150 seconds, cost 300 Mana). (Can be used multiple times during the cooldown period, but each time will increase the mana cost by 2 times)
+convertTo:moba_gildedSerpentRing
+@copyFromSection: template_actveEquipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_frostboundOrb]
+price:Gold=3960
+text:Frostbound Orb
+description:+500 Max Mana\n +10 Mana Regen \n\n-----Unique Passive-----\nMagic Shield: Gain a shield based on 50% of your Max Mana. When your mana is full, the shield will be restored based on Mana Regen.
+convertTo:moba_frostboundOrb
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+
+#---Defence Equipment---
+
+[action_helmofGlory]
+price:Gold=3360
+text:Helm of Glory
+description:+850 Max HP\n\n-----Unique Passive-----\nBreath of Glory: Regenerates 2.5% of Max HP per second after leaving combat.
+convertTo:moba_helmofGlory
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_etherealCowl]
+price:Gold=3360
+text:Ethereal Cowl
+description:+850 Max HP\n\n-----Unique Passive-----\nEthereal Decay: Continuously deals (+1% Max HP) true damage to nearby enemies.
+convertTo:moba_etherealCowl
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_dragonScaleArmor]
+price:Gold=3360
+text:Dragon Scale Armor
+description:+450 Max Hp\n +2 HP Regen\n +3 Defence\n\n-----Unique Passive-----\nDraconic Rebirth: Upon death, revive at the same location with 40% of Max HP. (Cooldown 300 seconds)
+convertTo:moba_dragonScaleArmor
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_celestialMantle]
+price:Gold=3360
+text:Celestial Mantle
+description:+450 Max Hp\n +2 HP Regen\n +3 Defence\n\n-----Unique Passive-----\n Astral Reprisal (Active):  Enter Counterattack Mode for 5 seconds. While active, any incoming damage will trigger a retaliation, dealing 10 (+200% Defense) (+0.5% Max HP) true damage to the attacker. (Cooldown 90 seconds)
+convertTo:moba_celestialMantle
+@copyFromSection: template_actveEquipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_crimsonAegis]
+price:Gold=3160
+text:Crimson Aegis
+description:+8 Defence\n\n-----Unique Passive-----\nCrimson Resurge: Basic attacks restore 3 (+20% of Defense)% of max HP and permanently increase little amount of max HP. This effect triggers once every 10 seconds but can have its cooldown reduced when taking damage.
+convertTo:moba_crimsonAegis
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[action_wailingWard]
+price:Gold=3160
+text:Wailing Ward
+description:+8 Defence\n\n-----Unique Passive-----\nEchoing Tremor: When attacked by enemy 10 times, the next Basic Attack will trigger an Echo, dealing (+500% Defense) true damage to all nearby enemies and knocking them back.
+convertTo:moba_wailingWard
+@copyFromSection: template_equipmentInfo
+setResourcesWithLogic: mobaBuyEquipment = 1
+
+[resource_BootsCount]
+hidden: true
+
+[resource_activeEquipmentNum]
+hidden: true

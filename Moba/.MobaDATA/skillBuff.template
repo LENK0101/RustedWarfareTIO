@@ -1,0 +1,97 @@
+[core]
+copyFrom: ROOT:/Moba/.MobaDATA/skillCommon.template
+createOnAggressiveTeam: true
+tags: buff
+energyMax:1
+energyRegen:-0.06
+
+[graphics]
+total_frames: 1
+image: ROOT:/DATA/total/null.png
+image_wreak:  NONE
+image_turret: NONE
+image_shadow: NONE
+image_offsetX: 0
+image_offsetY: 0
+shadowOffsetX:0
+shadowOffsetY:0
+scaleImagesTo: 0
+
+[turret_buff]
+invisible: true
+x: 0
+y:0
+idleDir:0
+projectile: buff
+shoot_sound: NONE
+shoot_sound_vol: 0.8
+turnSpeed:99999
+turnSpeedAcceleration:999
+
+[projectile_buff]
+areaDamage:1
+areaRadiusFromEdge: true
+areaDamageNoFalloff: true
+life:0
+speed:999
+explodeEffect:NONE
+invisible:true
+explodeOnEndOfLife:true
+targetGround:true
+areaHitAirAndLandAtSameTime: true
+areaHitUnderwaterAlways: true
+mutator13_ifUnitWithTags: notThisTarget
+mutator13_directDamageMultiplier: 0
+mutator14_ifUnitWithTags: notThisTarget
+mutator14_areaDamageMultiplier: 0
+spawnProjectilesOnExplode: restore1HP(recursionLimit = 1)
+buildingDamageMultiplier:1
+armourIgnoreAmount:9999
+
+[turret_heal]
+invisible: true
+x: 0
+y:0
+idleDir:0
+projectile: heal
+shoot_sound: NONE
+shoot_sound_vol: 0.8
+turnSpeed:99999
+turnSpeedAcceleration:999
+
+[projectile_heal]
+@copyFromSection: projectile_buff
+tags: NONE
+areaDamage: -100
+spawnProjectilesOnExplode: NONE
+mutator13_ifUnitWithTags: notThisTarget
+mutator13_directDamageMultiplier: 0
+mutator14_ifUnitWithTags: notThisTarget
+mutator14_areaDamageMultiplier: 0
+
+[projectile_restore1HP]
+@copyFromSection: projectile_buff
+tags: NONE
+areaDamage:-1
+mutator13_ifUnitWithTags: notThisTarget
+mutator13_directDamageMultiplier: 1
+mutator14_ifUnitWithTags: notThisTarget
+mutator14_areaDamageMultiplier: 1
+
+[movement]
+movementType: NONE
+targetHeight:0
+targetHeightDrift:0
+reverseSpeedPercentage: 0
+moveSpeed:0
+moveAccelerationSpeed:0
+moveDecelerationSpeed:0
+maxTurnSpeed:999
+turnAcceleration:99
+moveIgnoringBody:false
+moveSlidingMode:false
+moveSlidingDir: 0
+
+[hiddenAction_deleteSelf]
+deleteSelf: true
+

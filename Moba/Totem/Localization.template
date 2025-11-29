@@ -1,0 +1,15 @@
+[core]
+displayText_zh: 图腾
+displayDescription_zh:野怪会在图腾周围刷新。每30秒你会获得1个图腾，可同时持有2个
+
+[action_delete]
+text_zh:删除
+description_zh:点击自毁
+
+[core]
+displayText_ru: Тотем
+displayDescription_ru: Нейтралы будут возрождаться вокруг тотема. Получайте 1 тотем каждые 30 сек. Макс. запас: 2
+
+[action_delete]
+text_ru: Уничтожить
+description_ru: Мгновенно уничтожает объект при нажатии

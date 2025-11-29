@@ -1,0 +1,73 @@
+
+[hiddenAction_生命保险] 
+requireConditional: if self.tags(includes='生命保险')
+autoTriggerOnEvent: destroyed
+addResources: 资金=${int(template_zijin.price)}
+spawnEffects: CUSTOM:钱
+playSoundToPlayer: ROOT:\音频\语音+音效\gcrafree.wav
+
+
+[hiddenAction_生命保险计时]
+autoTrigger: if (hasUnitInTeam(withTag='保险', withinRange=100, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='保险', withinRange=100, greaterThan=0)) and not self.tags(includes='生命保险')   
+temporarilyAddTags: 生命保险
+addResources: 生命保险计时=45
+
+
+[hiddenAction_生命保险计时2]
+autoTrigger: if self.resource(type='生命保险计时', greaterThan=0)
+addResources: 生命保险计时=-1
+spawnEffects: CUSTOM:钱2
+
+
+[hiddenAction_生命保险计时3]
+autoTrigger: if self.resource(type='生命保险计时', empty=true) and self.tags(includes='生命保险')
+temporarilyRemoveTags: 生命保险
+
+
+[hiddenAction_生命保险转换修复]
+autoTrigger: if self.lastConverted(withinSeconds=1) and not self.tags(includes='生命保险') and self.resource(type='生命保险计时', greaterThan=0)
+temporarilyAddTags: 生命保险
+
+
+[hiddenAction_生命保险-Ai] 
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='生命保险Ai') and not self.tags(includes='保险Ai') and self.hasTakenDamage(withinSeconds=1)
+temporarilyAddTags: 保险Ai
+
+
+[hiddenAction_生命保险-Ai2] 
+autoTrigger: if (self.noUnitInTeam(withTag='生命保险Ai') or self.hasTakenDamage(laterThanSeconds=5)) and self.tags(includes='保险Ai')
+temporarilyRemoveTags: 保险Ai
+
+
+[effect_钱]
+image: ROOT:\共享文件\1类\钱.png
+priority: high
+life: 300
+scaleFrom: 1.05
+scaleTo: 1.05
+total_frames: 21
+animateFrameStart: 0
+animateFrameEnd: 20
+animateFrameSpeed: 0.2
+fadeOut: false
+drawUnderUnits:false
+alwayStartDirAtZero: true
+
+
+[effect_钱2]
+image: ROOT:\共享文件\1类\图标-钱.png
+scaleFrom: 0.8
+scaleTo: 0.8
+alpha: 1.2
+life: 180
+hOffset: 40
+fadeInTime: 20
+fadeOut: true
+attachedToUnit: true
+drawUnderUnits: false
+alwayStartDirAtZero: true
+liveAfterAttachedDies: false
+
+
+[resource_生命保险计时]
+displayName: 生命保险计时

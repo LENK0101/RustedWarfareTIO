@@ -1,0 +1,335 @@
+[core]
+copyFrom: ROOT:/MOBA/.MobaDATA/localization/upgradeOptionsLocalization.template
+
+[template_upgradeOption]
+isLocked: if self.queueSize() == 1
+buildSpeed: 1s
+pos:1
+allowMultipleInQueue: false
+
+
+
+[action_minionUpgrade11]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 0
+text:Minion I
+description: Self regen
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade11 = 1
+
+[action_minionUpgrade12]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 0
+text:Minion I
+description: High fog view
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade12 = 1
+
+[action_minionUpgrade21]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 1
+text:Minion II
+description: Increase movement speed
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade21 = 1
+
+[action_minionUpgrade22]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 1
+text:Minion II
+description: Detector
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade22 = 1
+
+[action_minionUpgrade31]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 2
+text:Minion III
+description: Increase attack speed
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade31 = 1
+
+[action_minionUpgrade32]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 2
+text:Minion III
+description: Kill gain gold
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade32 = 1
+
+[action_minionUpgrade41]
+@copyFromSection: template_upgradeOption
+displayType: none
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 3
+text:Minion IV
+description: Super minion
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade41 = 1
+
+[action_minionUpgrade42]
+@copyFromSection: template_upgradeOption
+price: Gold = 4000
+displayType: none
+isVisible: if self.resource.select == 3 and self.resource.minionUpgrade == 3
+text:Minion IV
+description: Healer minion
+addResources: minionUpgrade = 1
+setResourcesWithLogic: minionUpgrade42 = 1
+
+
+
+[action_totemUpgrade11]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 0
+text:Totem I
+description: Increase HP
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade11 = 1
+
+[action_totemUpgrade12]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 0
+text:Totem I
+description: Higher Damage to Monster
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade12 = 1
+
+[action_totemUpgrade21]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 1
+text:Totem II
+description: High fog view
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade21 = 1
+
+[action_totemUpgrade22]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 1
+text:Totem II
+description: Faster Monster Spawn
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade22 = 1
+
+[action_totemUpgrade31]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 2
+text:Totem III
+description: Detector
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade31 = 1
+
+[action_totemUpgrade32]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 2
+text:Totem III
+description: Increase Monster Gold
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade32 = 1
+
+[action_totemUpgrade41]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 3
+text:Totem IV
+description: More Totem & Totem Tower
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade41 = 1
+
+[action_totemUpgrade42]
+@copyFromSection: template_upgradeOption
+displayType: upgrade
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.totemUpgrade == 3
+text:Totem IV
+description: Can Teleport to Totem
+addResources: totemUpgrade = 1
+setResourcesWithLogic: totemUpgrade42 = 1
+
+
+
+[action_cristalUpgrade11]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 0
+text:Cristal I
+description: Self regen
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade11 = 1
+
+[action_cristalUpgrade12]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 0
+text:Cristal I
+description: Better Fountain
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade12 = 1
+
+[action_cristalUpgrade21]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 1
+text:Cristal II
+description: Increase HP
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade21 = 1
+
+[action_cristalUpgrade22]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 1
+text:Cristal II
+description: Increase Income
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade22 = 1
+
+[action_cristalUpgrade31]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 2
+text:Cristal III
+description: Low Hp Gain Shield
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade31 = 1
+
+[action_cristalUpgrade32]
+@copyFromSection: template_upgradeOption
+displayType: rally
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 2
+text:Cristal III
+price: Gold = 2000
+description: Use Gold to Reduce Respawn Time
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade32 = 1
+
+[action_cristalUpgrade41]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 3
+text:Cristal IV
+description: Unlock Attack
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade41 = 1
+
+[action_cristalUpgrade42]
+@copyFromSection: template_upgradeOption
+displayType: rally
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.cristalUpgrade == 3
+text:Cristal IV
+description: Unlock The Seventh Equipment Slot
+addResources: cristalUpgrade = 1
+setResourcesWithLogic: cristalUpgrade42 = 1
+
+
+[action_protectorUpgrade11]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 0
+text:Protector I
+description: Increase Hp
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade11 = 1
+
+[action_protectorUpgrade12]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 500
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 0
+text:Protector I
+description: High fog view
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade12 = 1
+
+[action_protectorUpgrade21]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 1
+text:Protector II
+description: Self Regen
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade21 = 1
+
+[action_protectorUpgrade22]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 1000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 1
+text:Protector II
+description: Kill gain gold
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade22 = 1
+
+[action_protectorUpgrade31]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 2
+text:Protector III
+description: Higher Damage
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade31 = 1
+
+[action_protectorUpgrade32]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 2000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 2
+text:Protector III
+description: Protect Cristal After Death
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade32 = 1
+
+[action_protectorUpgrade41]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 3
+text:Protector IV
+description: Attack Become Area
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade41 = 1
+
+[action_protectorUpgrade42]
+@copyFromSection: template_upgradeOption
+displayType: infoOnly
+price: Gold = 4000
+isVisible: if self.resource.select == 3 and self.resource.protectorUpgrade == 3
+description: Auto Respawn & Faster Respawn
+text:Protector IV
+addResources: protectorUpgrade = 1
+setResourcesWithLogic: protectorUpgrade42 = 1

@@ -1,0 +1,58 @@
+[hiddenAction_EMP_S] 
+autoTrigger: if not self.tags(includes='EMPed') or not self.tags(includes='bio') or not self.tags(includes='building') or self.tags(includes='haveShield') and numberOfUnitsInEnemyTeam(withTag='EMP', greaterThan=0, withinRange=10)
+addResourcesWithLogic:emp=+2
+setUnitStats: maxShield -= 200
+spawnEffects: CUSTOM:EMP
+
+
+[hiddenAction_EMP_M] 
+autoTrigger: if not self.tags(includes='EMPed') or not self.tags(includes='bio') or not self.tags(includes='building') or self.tags(includes='haveShield') and numberOfUnitsInEnemyTeam(withTag='EMP2', greaterThan=0, withinRange=50)
+addResourcesWithLogic:emp=+5
+setUnitStats: maxShield -= 500
+spawnEffects: CUSTOM:EMP
+
+
+[hiddenAction_EMP_L] 
+autoTrigger: if not self.tags(includes='EMPed') or not self.tags(includes='bio') or not self.tags(includes='building') or self.tags(includes='haveShield') and numberOfUnitsInEnemyTeam(withTag='EMP3', greaterThan=0, withinRange=100)
+addResourcesWithLogic:emp=+10
+setUnitStats: maxShield -= 1000
+spawnEffects: CUSTOM:EMP
+
+[hiddenAction_EMPed1] 
+autoTrigger: if self.resource.emp>0 and self.tags(includes='haveShield')
+temporarilyAddTags:EMPed
+setUnitStats: shieldRegen = 0
+
+
+[hiddenAction_EMPed2] 
+autoTrigger: if self.resource.emp>0 and not self.tags(includes='haveShield')
+temporarilyAddTags:EMPed
+clearAllWaypoints:true
+setUnitStats: moveSpeed=0, maxTurnSpeed=0, maxAttackRange=0, mass=999999999, shootDelayMultiplier=0, shootDamageMultiplier=0
+
+
+[hiddenAction_EMPreduce] 
+autoTrigger: if self.tags(includes='EMPed')
+addResourcesWithLogic:emp=-0.1
+
+[hiddenAction_removeEMP]
+autoTrigger: if self.resource.emp<=0 and self.tags(includes="EMPed")
+resetUnitStats:true
+temporarilyRemoveTags: EMPed
+
+
+[effect_EMP]
+image: ROOT:\共享文件\1类\EMP.png
+life: 600
+scaleFrom:1
+scaleTo:1
+total_frames: 17
+animateFrameStart: 0
+animateFrameEnd: 16
+animateFrameSpeed: 0.12
+attachedToUnit: true
+drawUnderUnits: false
+alwayStartDirAtZero:true
+
+[resource_emp]
+hidden:true

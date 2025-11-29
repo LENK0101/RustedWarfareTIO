@@ -1,0 +1,22 @@
+[effect_血溅]
+image: ROOT:\共享文件\1类\灰.png
+color: #FFFF0000
+scaleFrom: 0.6
+scaleTo: 4
+alpha: 1.2
+life: 60
+hSpeed: 0.6
+hOffsetRandom: 0.2
+dirOffsetRandom: 180
+xOffsetRelativeRandom: 2
+yOffsetRelativeRandom: 3
+xSpeedAbsoluteRandom: 0.1
+ySpeedAbsoluteRandom: 0.1
+fadeInTime: 0
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits: false
+createWhenZoomedOut: false
+physics: true
+physicsGravity: 0.2
+atmospheric: true

@@ -1,0 +1,68 @@
+[graphics]
+showShieldBar: false
+
+
+[hiddenAction_initialize] 
+autoTriggerOnEvent: created
+setResourcesWithLogic: currentEvolve = 0, EvolveState = 0, DiffEvolve = 0, QueenAlive = 1
+
+[hiddenAction_QueenNoMore] 
+autoTrigger: if self.noUnitInTeam(withTag='Queen') and self.resource(type='QueenAlive') == 1
+setResourcesWithLogic: QueenAlive = 0, currentEvolve = 0
+resetUnitStats: true
+resetToDefaultTags: true
+setUnitStats: shootDelayMultiplier = 2, moveSpeed = ${template_stats.moveSpeed}*0.4, maxTurnSpeed = ${template_stats.maxTurnSpeed}*0.4, fogOfWarSightRange = 7
+
+[hiddenAction_QueenIsHere] 
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='QueenAlive') == 0
+setResourcesWithLogic: QueenAlive = 1
+resetUnitStats: true
+
+[hiddenAction_startEvolve] 
+autoTrigger: if self.resource(type='currentEvolve') < self.resource(type='EndlessEvolve') and self.resource(type='EvolveState') == 0 and self.resource(type='QueenAlive') == 1
+setResourcesWithLogic: DiffEvolve = self.resource(type='EndlessEvolve') - self.resource(type='currentEvolve'), EvolveState = 1
+alsoTriggerAction: startEvolve2
+
+[hiddenAction_startEvolve2] 
+setResourcesWithLogic: currentEvolve = self.resource(type='EndlessEvolve')
+
+[hiddenAction_EndlessEvolve] 
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='EvolveState') == 1 and self.resource(type='QueenAlive') == 1
+setUnitStats: shootDamageMultiplier = 1 + (self.resource(type='EndlessEvolve')/20), maxHp = int(${template_stats.maxHp} + (${template_stats.maxHp}*(self.resource(type='EndlessEvolve')/20)))
+setResourcesWithLogic: EvolveState = 0
+alsoTriggerAction: EndlessEvolve2
+
+[hiddenAction_EndlessEvolve2] 
+setUnitStats: hp += int(${template_stats.maxHp}*(self.resource(type='DiffEvolve')/20))
+
+[hiddenAction_EndlessEvolveLevel1] 
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='EndlessEvolve') >= 25 and not self.tags(includes='Level1') and self.resource(type='QueenAlive') == 1
+setUnitStats: selfRegenRate = ${core.selfRegenRate} * 2
+temporarilyAddTags: Level1
+
+[hiddenAction_EndlessEvolveLevel2]  
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='EndlessEvolve') >= 50 and not self.tags(includes='Level2') and self.resource(type='QueenAlive') == 1
+setUnitStats: moveSpeed = ${template_stats.moveSpeed}*1.5, maxTurnSpeed = ${template_stats.maxTurnSpeed}*1.5, selfRegenRate = ${core.selfRegenRate} * 3
+temporarilyAddTags: Level2
+
+[hiddenAction_EndlessEvolveLevel3] 
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='EndlessEvolve') >= 75 and not self.tags(includes='Level3') and self.resource(type='QueenAlive') == 1
+setUnitStats: fogOfWarSightRange = 20, selfRegenRate = ${core.selfRegenRate} * 4
+temporarilyAddTags: Level3
+
+[hiddenAction_EndlessEvolveLevel4] 
+autoTrigger: if self.hasUnitInTeam(withTag='Queen') and self.resource(type='EndlessEvolve') >= 100 and not self.tags(includes='Level4') and self.resource(type='QueenAlive') == 1
+setUnitStats: shootDelayMultiplier = 0.5, selfRegenRate = ${core.selfRegenRate} * 5, maxShield = int(${template_stats.maxHp}/200.1) + 1, shieldRegen = 10
+temporarilyAddTags: Level4
+
+[resource_currentEvolve]
+hidden: false
+
+[resource_DiffEvolve]
+hidden: false
+
+[resource_EvolveState]
+hidden: false
+
+[resource_QueenAlive]
+hidden: false

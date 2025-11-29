@@ -1,0 +1,13 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\血.template
+unitsSpawnedOnDeath: 人尸
+
+
+[hiddenAction_人死]
+autoTrigger: if not self.hp(greaterThan=50) and not self.tags(includes='人电死')
+temporarilyAddTags: 人电死, 人辐射死
+
+
+[hiddenAction_人死2]
+autoTrigger: if self.hp(greaterThan=50) and self.tags(includes='人电死')
+temporarilyRemoveTags: 人电死, 人辐射死

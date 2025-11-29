@@ -1,0 +1,10 @@
+[hiddenAction_炸弹限制]
+autoTrigger: if numberOfUnitsInEnemyTeam(withTag='定时炸弹', greaterThan=0, withinRange=20) and not self.tags(includes='炸弹限制') 
+temporarilyAddTags: 炸弹限制
+#showMessageToAllPlayers: 触发
+
+
+[hiddenAction_炸弹限制2]
+autoTrigger: if not numberOfUnitsInEnemyTeam(withTag='定时炸弹', greaterThan=0, withinRange=20) and self.tags(includes='炸弹限制') 
+temporarilyRemoveTags: 炸弹限制
+#showMessageToAllPlayers: 触发2

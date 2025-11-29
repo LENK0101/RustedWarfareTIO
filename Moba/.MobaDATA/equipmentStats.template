@@ -1,0 +1,584 @@
+[core]
+copyFrom: ROOT:/Moba/.MobaDATA/stats.template
+
+[hiddenAction_notifyChange]
+sendMessageTo: nearestUnit(withinRange=300, withTag='hero', relation='own')
+sendMessageWithTags: statsChange
+
+#---------Movement Equipment--------
+[hiddenAction_buy_leatherBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_leatherBoots')
+addResourcesWithLogic: MovementSpeed = 40, BootsCount = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_leatherBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_leatherBoots')
+addResourcesWithLogic: MovementSpeed = -40, BootsCount = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_aquaWalker]
+autoTriggerOnEvent:newMessage(withTag='buy_aquaWalker')
+addResourcesWithLogic: MovementSpeed = 40, BootsCount = 1, aquaWalker = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_aquaWalker]
+autoTriggerOnEvent:newMessage(withTag='sell_aquaWalker')
+addResourcesWithLogic: MovementSpeed = -40, BootsCount = -1, aquaWalker = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_rapidBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_rapidBoots')
+addResourcesWithLogic: AttackSpeed = 0.35, MovementSpeed = 50,  BootsCount = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_rapidBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_rapidBoots')
+addResourcesWithLogic: AttackSpeed = -0.35, MovementSpeed = -50,  BootsCount = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_velocityBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_velocityBoots')
+addResourcesWithLogic: MovementSpeed = 55, BootsCount = 1, velocityBoots = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_velocityBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_velocityBoots')
+addResourcesWithLogic: MovementSpeed = -55, BootsCount = -1, velocityBoots = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_mysticBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_mysticBoots')
+addResourcesWithLogic: SkillHaste = 10, MovementSpeed = 45, BootsCount = 1, mysticBoots = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_mysticBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_mysticBoots')
+addResourcesWithLogic: SkillHaste = -10, MovementSpeed = -45, BootsCount = -1, mysticBoots = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_ironhideBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_ironhideBoots')
+addResourcesWithLogic: MaxHP = 100, Defence = 1, BootsCount = 1, MovementSpeed = 40, ironhideBoots = 1, activeEquipmentNum = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_ironhideBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_ironhideBoots')
+addResourcesWithLogic: MaxHP = -100, Defence = -1, BootsCount = -1, MovementSpeed = -40, ironhideBoots = -1, activeEquipmentNum = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_regenerationBoots]
+autoTriggerOnEvent:newMessage(withTag='buy_regenerationBoots')
+addResourcesWithLogic: HPRegen = 4, ManaRegen = 4, BootsCount = 1, MovementSpeed = 45, regenerationBoots = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_regenerationBoots]
+autoTriggerOnEvent:newMessage(withTag='sell_regenerationBoots')
+addResourcesWithLogic: HPRegen = -4, ManaRegen = -4, BootsCount = -1, MovementSpeed = -45, regenerationBoots = -1
+alsoTriggerAction: notifyChange
+
+#---------Attack Equipment--------
+
+[hiddenAction_buy_smallDagger]
+autoTriggerOnEvent:newMessage(withTag='buy_smallDagger')
+addResourcesWithLogic: AttackPower = 10
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_smallDagger]
+autoTriggerOnEvent:newMessage(withTag='sell_smallDagger')
+addResourcesWithLogic: AttackPower = -10
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_roguesDagger]
+autoTriggerOnEvent:newMessage(withTag='buy_roguesDagger')
+addResourcesWithLogic: AttackPower = 35, MovementSpeed = 10
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_roguesDagger]
+autoTriggerOnEvent:newMessage(withTag='sell_roguesDagger')
+addResourcesWithLogic: AttackPower = -35, MovementSpeed = -10
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_sharpBlade]
+autoTriggerOnEvent:newMessage(withTag='buy_sharpBlade')
+addResourcesWithLogic: AttackPower = 50
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_sharpBlade]
+autoTriggerOnEvent:newMessage(withTag='sell_sharpBlade')
+addResourcesWithLogic: AttackPower = -50
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_bladeOfDoom]
+autoTriggerOnEvent:newMessage(withTag='buy_bladeOfDoom')
+addResourcesWithLogic: AttackPower = 90, bladeOfDoom = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_bladeOfDoom]
+autoTriggerOnEvent:newMessage(withTag='sell_bladeOfDoom')
+addResourcesWithLogic: AttackPower = -90, bladeOfDoom = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_moltenFang]
+autoTriggerOnEvent:newMessage(withTag='buy_moltenFang')
+addResourcesWithLogic: AttackPower = 55, MovementSpeed = 20, moltenFang = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_moltenFang]
+autoTriggerOnEvent:newMessage(withTag='sell_moltenFang')
+addResourcesWithLogic: AttackPower = -55, MovementSpeed = -20, moltenFang = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_bow]
+autoTriggerOnEvent:newMessage(withTag='buy_bow')
+addResourcesWithLogic: AttackSpeed = 0.1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_bow]
+autoTriggerOnEvent:newMessage(withTag='sell_bow')
+addResourcesWithLogic: AttackSpeed = -0.1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_recurveBow]
+autoTriggerOnEvent:newMessage(withTag='buy_recurveBow')
+addResourcesWithLogic: AttackPower = 20, AttackSpeed = 0.25
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_recurveBow]
+autoTriggerOnEvent:newMessage(withTag='sell_recurveBow')
+addResourcesWithLogic: AttackPower = -20, AttackSpeed = -0.25
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_steelCrossbow]
+autoTriggerOnEvent:newMessage(withTag='buy_steelCrossbow')
+addResourcesWithLogic: AttackPower = 30, AttackSpeed = 0.1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_steelCrossbow]
+autoTriggerOnEvent:newMessage(withTag='sell_steelCrossbow')
+addResourcesWithLogic: AttackPower = -30, AttackSpeed = -0.1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_heavenFeather]
+autoTriggerOnEvent:newMessage(withTag='buy_heavenFeather')
+addResourcesWithLogic: AttackPower = 20, AttackSpeed = 0.45, MovementSpeed = 15, heavenFeather = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_heavenFeather]
+autoTriggerOnEvent:newMessage(withTag='sell_heavenFeather')
+addResourcesWithLogic: AttackPower = -20, AttackSpeed = -0.45, MovementSpeed = -15, heavenFeather = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_nightfireCrossbow]
+autoTriggerOnEvent:newMessage(withTag='buy_nightfireCrossbow')
+addResourcesWithLogic: AttackPower = 60, AttackSpeed = 0.15, nightfireCrossbow = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_nightfireCrossbow]
+autoTriggerOnEvent:newMessage(withTag='sell_nightfireCrossbow')
+addResourcesWithLogic: AttackPower = -60, AttackSpeed = -0.15, nightfireCrossbow = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_spear]
+autoTriggerOnEvent:newMessage(withTag='buy_spear')
+addResourcesWithLogic: CriticalChance = 0.1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_spear]
+autoTriggerOnEvent:newMessage(withTag='sell_spear')
+addResourcesWithLogic: CriticalChance = -0.1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_crusaderSpear]
+autoTriggerOnEvent:newMessage(withTag='buy_crusaderSpear')
+addResourcesWithLogic: AttackPower = 20, CriticalChance = 0.15 
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_crusaderSpear]
+autoTriggerOnEvent:newMessage(withTag='sell_crusaderSpear')
+addResourcesWithLogic: AttackPower = -20, CriticalChance = -0.15
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_ironAxe]
+autoTriggerOnEvent:newMessage(withTag='buy_ironAxe')
+addResourcesWithLogic:  AttackPower = 15, CriticalChance = 0.1, LifeSteal = 0.025
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_ironAxe]
+autoTriggerOnEvent:newMessage(withTag='sell_ironAxe')
+addResourcesWithLogic: AttackPower = -15, CriticalChance = -0.1, LifeSteal = -0.025
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_divinePlume]
+autoTriggerOnEvent:newMessage(withTag='buy_divinePlume')
+addResourcesWithLogic: AttackPower = 50, CriticalChance = 0.3, divinePlume = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_divinePlume]
+autoTriggerOnEvent:newMessage(withTag='sell_divinePlume')
+addResourcesWithLogic: AttackPower = -50, CriticalChance = -0.3, divinePlume = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_berserkerFury]
+autoTriggerOnEvent:newMessage(withTag='buy_berserkerFury')
+addResourcesWithLogic: AttackPower = 40, CriticalChance = 0.2, berserkerFury = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_berserkerFury]
+autoTriggerOnEvent:newMessage(withTag='sell_berserkerFury')
+addResourcesWithLogic: AttackPower = -40, CriticalChance = -0.2, berserkerFury = -1
+alsoTriggerAction: notifyChange
+
+
+#---------Skill Equipment--------
+
+[hiddenAction_buy_woodenWand]
+autoTriggerOnEvent:newMessage(withTag='buy_woodenWand')
+addResourcesWithLogic: SkillPower = 20, MovementSpeed = 5 
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_woodenWand]
+autoTriggerOnEvent:newMessage(withTag='sell_woodenWand')
+addResourcesWithLogic:  SkillPower = -20, MovementSpeed = -5 
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_mysticWand]
+autoTriggerOnEvent:newMessage(withTag='buy_mysticWand')
+addResourcesWithLogic: SkillPower = 45, MovementSpeed = 10, SkillVamp = 0.03
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_mysticWand]
+autoTriggerOnEvent:newMessage(withTag='sell_mysticWand')
+addResourcesWithLogic: SkillPower = -45, MovementSpeed = -10, SkillVamp = -0.03
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_steeltippedWand]
+autoTriggerOnEvent:newMessage(withTag='buy_steeltippedWand')
+addResourcesWithLogic: SkillPower = 60, MovementSpeed = 5
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_steeltippedWand]
+autoTriggerOnEvent:newMessage(withTag='sell_steeltippedWand')
+addResourcesWithLogic: SkillPower = -60, MovementSpeed = -5
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_infernoScepter]
+autoTriggerOnEvent:newMessage(withTag='buy_infernoScepter')
+addResourcesWithLogic: SkillPower = 70, SkillHaste = 10, MovementSpeed = 20, infernoScepter = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_infernoScepter]
+autoTriggerOnEvent:newMessage(withTag='sell_infernoScepter')
+addResourcesWithLogic: SkillPower = -70, SkillHaste = -10, MovementSpeed = -20, infernoScepter = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_technoArcaneScepter]
+autoTriggerOnEvent:newMessage(withTag='buy_technoArcaneScepter')
+addResourcesWithLogic: SkillPower = 100, MovementSpeed = 5, technoArcaneScepter = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_technoArcaneScepter]
+autoTriggerOnEvent:newMessage(withTag='sell_technoArcaneScepter')
+addResourcesWithLogic: SkillPower = -100, MovementSpeed = -5, technoArcaneScepter = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_wornGrimoire]
+autoTriggerOnEvent:newMessage(withTag='buy_wornGrimoire')
+addResourcesWithLogic: SkillPower = 25
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_wornGrimoire]
+autoTriggerOnEvent:newMessage(withTag='sell_wornGrimoire')
+addResourcesWithLogic:  SkillPower = -25
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_sorcererGrimoire]
+autoTriggerOnEvent:newMessage(withTag='buy_sorcererGrimoire')
+addResourcesWithLogic: SkillPower = 85
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_sorcererGrimoire]
+autoTriggerOnEvent:newMessage(withTag='sell_sorcererGrimoire')
+addResourcesWithLogic: SkillPower = -85
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_adeptCodex]
+autoTriggerOnEvent:newMessage(withTag='buy_adeptCodex')
+addResourcesWithLogic: SkillPower = 30, SkillHaste = 15
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_adeptCodex]
+autoTriggerOnEvent:newMessage(withTag='sell_adeptCodex')
+addResourcesWithLogic: SkillPower = -30, SkillHaste = -15
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_grimoireOfEternity]
+autoTriggerOnEvent:newMessage(withTag='buy_grimoireOfEternity')
+addResourcesWithLogic: SkillPower = 165, grimoireOfEternity = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_grimoireOfEternity]
+autoTriggerOnEvent:newMessage(withTag='sell_grimoireOfEternity')
+addResourcesWithLogic: SkillPower = -165, grimoireOfEternity = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_codexOfTheArcane]
+autoTriggerOnEvent:newMessage(withTag='buy_codexOfTheArcane')
+addResourcesWithLogic: SkillPower = 40, SkillHaste = 40, codexOfTheArcane = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_codexOfTheArcane]
+autoTriggerOnEvent:newMessage(withTag='sell_codexOfTheArcane')
+addResourcesWithLogic: SkillPower = -40, SkillHaste = -40, codexOfTheArcane = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_ironRing]
+autoTriggerOnEvent:newMessage(withTag='buy_ironRing')
+addResourcesWithLogic: ManaRegen = 2
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_ironRing]
+autoTriggerOnEvent:newMessage(withTag='sell_ironRing')
+addResourcesWithLogic: ManaRegen = -2
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_mithrilGemRing]
+autoTriggerOnEvent:newMessage(withTag='buy_mithrilGemRing')
+addResourcesWithLogic: MaxMana = 150, SkillHaste = 5, ManaRegen = 2
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_mithrilGemRing]
+autoTriggerOnEvent:newMessage(withTag='sell_mithrilGemRing')
+addResourcesWithLogic: MaxMana = -150, SkillHaste = -5, ManaRegen = -2
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_enchanterEarrings]
+autoTriggerOnEvent:newMessage(withTag='buy_enchanterEarrings')
+addResourcesWithLogic: MaxMana = 200, ManaRegen = 5
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_enchanterEarrings]
+autoTriggerOnEvent:newMessage(withTag='sell_enchanterEarrings')
+addResourcesWithLogic: MaxMana = -200, ManaRegen = -5
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_gildedSerpentRing]
+autoTriggerOnEvent:newMessage(withTag='buy_gildedSerpentRing')
+addResourcesWithLogic: SkillPower = 40, SkillHaste = 10, MaxMana = 300, ManaRegen = 2, gildedSerpentRing = 1, activeEquipmentNum = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_gildedSerpentRing]
+autoTriggerOnEvent:newMessage(withTag='sell_gildedSerpentRing')
+addResourcesWithLogic: SkillPower = -40, SkillHaste = -10, MaxMana = -300, ManaRegen = -2, gildedSerpentRing = -1, activeEquipmentNum = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_frostboundOrb]
+autoTriggerOnEvent:newMessage(withTag='buy_frostboundOrb')
+addResourcesWithLogic: MaxMana = 500, ManaRegen = 10, frostboundOrb = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_frostboundOrb]
+autoTriggerOnEvent:newMessage(withTag='sell_frostboundOrb')
+addResourcesWithLogic: MaxMana = -500, ManaRegen = -10, frostboundOrb = -1
+alsoTriggerAction: notifyChange
+
+
+
+#---------Defence Equipment--------
+
+[hiddenAction_buy_leatherHood]
+autoTriggerOnEvent:newMessage(withTag='buy_leatherHood')
+addResourcesWithLogic: MaxHP = 80 
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_leatherHood]
+autoTriggerOnEvent:newMessage(withTag='sell_leatherHood')
+addResourcesWithLogic: MaxHP = -80 
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_leatherVest]
+autoTriggerOnEvent:newMessage(withTag='buy_leatherVest')
+addResourcesWithLogic: MaxHP = 50, HPRegen = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_leatherVest]
+autoTriggerOnEvent:newMessage(withTag='sell_leatherVest')
+addResourcesWithLogic: MaxHP = -50, HPRegen = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_woodenShield]
+autoTriggerOnEvent:newMessage(withTag='buy_woodenShield')
+addResourcesWithLogic: Defence = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_woodenShield]
+autoTriggerOnEvent:newMessage(withTag='sell_woodenShield')
+addResourcesWithLogic: Defence = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_barbarianShield]
+autoTriggerOnEvent:newMessage(withTag='buy_barbarianShield')
+addResourcesWithLogic: Defence = 4
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_barbarianShield]
+autoTriggerOnEvent:newMessage(withTag='sell_barbarianShield')
+addResourcesWithLogic: Defence = -4
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_ironChestplate]
+autoTriggerOnEvent:newMessage(withTag='buy_ironChestplate')
+addResourcesWithLogic: MaxHP = 220, HPRegen = 2, Defence = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_ironChestplate]
+autoTriggerOnEvent:newMessage(withTag='sell_ironChestplate')
+addResourcesWithLogic: MaxHP = -220, HPRegen = -2, Defence = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_ironHelmet]
+autoTriggerOnEvent:newMessage(withTag='buy_ironHelmet')
+addResourcesWithLogic: MaxHP = 350 
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_ironHelmet]
+autoTriggerOnEvent:newMessage(withTag='sell_ironHelmet')
+addResourcesWithLogic: MaxHP = -350 
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_magicalHood]
+autoTriggerOnEvent:newMessage(withTag='buy_magicalHood')
+addResourcesWithLogic: MaxHP = 350 
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_magicalHood]
+autoTriggerOnEvent:newMessage(withTag='sell_magicalHood')
+addResourcesWithLogic: MaxHP = -350 
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_mysticRobes]
+autoTriggerOnEvent:newMessage(withTag='buy_mysticRobes')
+addResourcesWithLogic: MaxHP = 220, HPRegen = 2, Defence = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_mysticRobes]
+autoTriggerOnEvent:newMessage(withTag='sell_mysticRobes')
+addResourcesWithLogic: MaxHP = -220, HPRegen = -2, Defence = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_warriorsShield]
+autoTriggerOnEvent:newMessage(withTag='buy_warriorsShield')
+addResourcesWithLogic: Defence = 4
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_warriorsShield]
+autoTriggerOnEvent:newMessage(withTag='sell_warriorsShield')
+addResourcesWithLogic: Defence = -4
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_celestialMantle]
+autoTriggerOnEvent:newMessage(withTag='buy_celestialMantle')
+addResourcesWithLogic: MaxHP = 450, HPRegen = 2, Defence = 3, celestialMantle = 1, activeEquipmentNum = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_celestialMantle]
+autoTriggerOnEvent:newMessage(withTag='sell_celestialMantle')
+addResourcesWithLogic: MaxHP = -450, HPRegen = -2, Defence = -3, celestialMantle = -1, activeEquipmentNum = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_crimsonAegis]
+autoTriggerOnEvent:newMessage(withTag='buy_crimsonAegis')
+addResourcesWithLogic: Defence = 8, crimsonAegis = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_crimsonAegis]
+autoTriggerOnEvent:newMessage(withTag='sell_crimsonAegis')
+addResourcesWithLogic: Defence = -8, crimsonAegis = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_dragonScaleArmor]
+autoTriggerOnEvent:newMessage(withTag='buy_dragonScaleArmor')
+addResourcesWithLogic: MaxHP = 450, HPRegen = 2, Defence = 3, dragonScaleArmor = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_dragonScaleArmor]
+autoTriggerOnEvent:newMessage(withTag='sell_dragonScaleArmor')
+addResourcesWithLogic: MaxHP = -450, HPRegen = -2, Defence = -3, dragonScaleArmor = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_etherealCowl]
+autoTriggerOnEvent:newMessage(withTag='buy_etherealCowl')
+addResourcesWithLogic: MaxHP = 850, etherealCowl = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_etherealCowl]
+autoTriggerOnEvent:newMessage(withTag='sell_etherealCowl')
+addResourcesWithLogic: MaxHP = -850, etherealCowl = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_helmofGlory]
+autoTriggerOnEvent:newMessage(withTag='buy_helmofGlory')
+addResourcesWithLogic: MaxHP = 850, helmofGlory = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_helmofGlory]
+autoTriggerOnEvent:newMessage(withTag='sell_helmofGlory')
+addResourcesWithLogic: MaxHP = -850, helmofGlory = -1
+alsoTriggerAction: notifyChange
+
+
+[hiddenAction_buy_wailingWard]
+autoTriggerOnEvent:newMessage(withTag='buy_wailingWard')
+addResourcesWithLogic: Defence = 8, wailingWard = 1
+alsoTriggerAction: notifyChange
+
+[hiddenAction_sell_wailingWard]
+autoTriggerOnEvent:newMessage(withTag='sell_wailingWard')
+addResourcesWithLogic: Defence = -8, wailingWard = -1
+alsoTriggerAction: notifyChange

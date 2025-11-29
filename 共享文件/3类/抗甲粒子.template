@@ -1,0 +1,40 @@
+[hiddenAction_抗甲粒子计时]
+autoTrigger: if numberOfUnitsInEnemyTeam(withTag='抗甲粒子', withinRange=100, greaterThan=0) and not self.tags(includes='加伤')   
+temporarilyAddTags: 加伤
+addResources: 抗甲粒子计时=20
+
+
+[hiddenAction_抗甲粒子计时2]
+autoTrigger: if self.resource(type='抗甲粒子计时', greaterThan=0)
+addResources: 抗甲粒子计时=-1
+spawnEffects: CUSTOM:抗甲粒子
+
+
+[hiddenAction_抗甲粒子计时3]
+autoTrigger: if self.resource(type='抗甲粒子计时', empty=true) and self.tags(includes='加伤')
+temporarilyRemoveTags: 加伤
+
+
+[hiddenAction_抗甲粒子转换修正]
+autoTrigger: if self.resource(type='抗甲粒子计时', greaterThan=0) and not self.tags(includes='加伤')
+temporarilyAddTags: 加伤
+
+
+[resource_抗甲粒子计时]
+displayName: 抗甲粒子计时
+
+
+[effect_抗甲粒子]
+image: ROOT:\共享文件\1类\灰.png
+color: #FF00FFFF
+scaleFrom: ${core.radius*0.3}
+scaleTo: ${core.radius*0.1}
+alpha: 1.2
+life: 240
+hOffset: 10
+dirOffsetRandom: 360
+dirSpeedRandom: 6
+fadeInTime: 30
+fadeOut: true
+attachedToUnit: true
+drawUnderUnits: false

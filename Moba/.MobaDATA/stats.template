@@ -1,0 +1,477 @@
+#-------Check Death-------
+[global_resource_deathIsConfirmed]
+hidden:true
+
+#-------Main Stats-------
+[resource_AttackPower]
+hidden: true
+
+[resource_SkillPower]
+hidden: true
+
+[resource_CriticalChance]
+hidden: true
+
+[resource_CriticalPower]
+hidden: true
+
+[resource_AttackSpeed]
+hidden: true
+
+[resource_SkillHaste]
+hidden: true
+
+[resource_MaxHP]
+hidden: true
+
+[resource_MaxMana]
+hidden: true
+
+[resource_HPRegen]
+hidden: true
+
+[resource_ManaRegen]
+hidden: true
+
+[resource_Defence]
+hidden: true
+
+[resource_MovementSpeed]
+hidden: true
+
+[resource_LifeSteal]
+hidden: true
+
+[resource_SkillVamp]
+hidden: true
+
+[resource_AttackRange]
+hidden: true
+
+#-------Extra Stats--------
+[resource_ExtraAttackPower]
+hidden: true
+
+[resource_ExtraSkillPower]
+hidden: true
+
+[resource_ExtraCriticalChance]
+hidden: true
+
+[resource_ExtraCriticalPower]
+hidden: true
+
+[resource_ExtraAttackSpeed]
+hidden: true
+
+[resource_ExtraAttackRange]
+hidden: true
+
+[resource_ExtraSkillHaste]
+hidden: true
+
+[resource_ExtraMaxHP]
+hidden: true
+
+[resource_ExtraMaxMana]
+hidden: true
+
+[resource_ExtraHPRegen]
+hidden: true
+
+[resource_ExtraManaRegen]
+hidden: true
+
+[resource_ExtraDefence]
+hidden: true
+
+[resource_ExtraMovementSpeed]
+hidden: true
+
+[resource_ExtraLifeSteal]
+hidden: true
+
+[resource_ExtraSkillVamp]
+hidden: true
+
+#-------Final Stats--------
+[resource_TotalAttackPower]
+hidden: true
+
+[resource_TotalSkillPower]
+hidden: true
+
+[resource_TotalAttackSpeed]
+hidden: true
+
+[resource_TotalMaxHP]
+hidden: true
+
+[resource_TotalMaxMana]
+hidden: true
+
+[resource_TotalHPRegen]
+hidden: true
+
+[resource_TotalManaRegen]
+hidden: true
+
+[resource_TotalDefence]
+hidden: true
+
+[resource_TotalMovementSpeed]
+hidden: true
+
+[resource_TotalMaxAttackRange]
+hidden: true
+
+[resource_TotalMaxShield]
+hidden: true
+
+[resource_TotalLifeSteal]
+hidden: true
+
+[resource_TotalCriticalChance]
+hidden: true
+
+[resource_TotalCriticalPower]
+hidden: true
+
+[resource_TotalSkillHaste]
+hidden: true
+
+[resource_TotalSkillVamp]
+hidden: true
+
+#-------Buff Stats-------
+[resource_AdditionalMaxHP]
+hidden: true
+
+[resource_AdditionalMaxMana]
+hidden: true
+
+[resource_AdditionalDefence]
+hidden: true
+
+[resource_AdditionalAttackPower]
+hidden: true
+
+[resource_AdditionalAttackSpeed]
+hidden: true
+
+[resource_AdditionalSkillPower]
+hidden: true
+
+[resource_AdditionalShield]
+hidden: true
+
+[resource_AdditionalMovementSpeed]
+hidden: true
+
+[resource_AdditionalHPRegen]
+hidden: true
+
+[resource_AdditionalManaRegen]
+hidden: true
+
+[resource_AdditionalSkillHaste]
+hidden: true
+
+[resource_AdditionalCriticalChance]
+hidden: true
+
+[resource_AdditionalCriticalPower]
+hidden: true
+
+[resource_AdditionalLifeSteal]
+hidden: true
+
+[resource_AdditionalSkillVamp]
+hidden: true
+
+#-
+
+[resource_BoostedMovementSpeed]
+hidden: true
+
+[resource_BoostedAttackRange]
+hidden: true
+
+[resource_BoostedExtraAttackPower]
+hidden: true
+
+[resource_BoostedSkillPower]
+hidden: true
+
+[resource_BoostedAttackSpeed]
+hidden: true
+
+#-------Other-------
+[resource_activeEquipmentNum]
+hidden: false
+
+#---Boots---
+[resource_BootsCount]
+hidden: false
+
+[resource_aquaWalker]
+hidden: false
+
+[resource_velocityBoots]
+hidden: false
+
+[resource_mysticBoots]
+hidden: false
+
+[resource_ironhideBoots]
+hidden: false
+
+[resource_regenerationBoots]
+hidden: false
+
+#---Other---
+[resource_eyeofTruth]
+hidden: false
+
+#---Attack---
+[resource_bladeOfDoom]
+hidden: false
+
+[resource_moltenFang]
+hidden: false
+
+[resource_heavenFeather]
+hidden: false
+
+[resource_nightfireCrossbow]
+hidden: false
+
+[resource_divinePlume]
+hidden: false
+
+[resource_berserkerFury]
+hidden: false
+
+#---Skill---
+[resource_codexOfTheArcane]
+hidden: false
+
+[resource_frostboundOrb]
+hidden: false
+
+[resource_gildedSerpentRing]
+hidden: false
+
+[resource_grimoireOfEternity]
+hidden: false
+
+[resource_infernoScepter]
+hidden: false
+
+[resource_technoArcaneScepter]
+hidden: false
+
+#---Defence---
+
+[resource_helmofGlory]
+hidden: false
+#-
+[resource_etherealCowl]
+hidden: false
+
+#-
+[resource_dragonScaleArmor]
+hidden: false
+
+[resource_dragonScaleArmorCD]
+hidden: false
+
+[resource_isReviving]
+hidden: false
+
+#-
+
+[resource_celestialMantle]
+hidden: false
+
+#-
+[resource_crimsonAegis]
+hidden: false
+
+[resource_crimsonAegisStacks]
+hidden: false
+
+#-
+[resource_wailingWard]
+hidden: false
+
+[resource_wailingWardCount]
+hidden: false
+
+
+#-------Used For Skills-------
+[resource_hpPerLevel]
+hidden: true
+
+[resource_manaPerLevel]
+hidden: true
+
+[resource_attackPowerPerLevel]
+hidden: true
+
+[resource_attackSpeedPerLevel]
+hidden: true
+
+[resource_defencePerLevel]
+hidden: true
+
+[global_resource_recallCountDown]
+hidden:true
+
+#-------Used For Consumables-------
+
+[global_resource_consumablesNum]
+hidden: true
+
+[global_resource_abyssalSkill]
+hidden: true
+
+[global_resource_hpPotion]
+hidden: true
+
+[global_resource_manaPotion]
+hidden: true
+
+[global_resource_visionPotion]
+hidden: true
+
+[global_resource_ward]
+hidden: true
+
+[global_resource_arrivalStone]
+hidden: true
+
+[global_resource_arrivalCountDown]
+hidden:true
+
+[global_resource_arrivalStone]
+hidden: true
+
+[global_resource_shadowleap]
+hidden: true
+
+
+#-------Used For Upgrade-------
+[resource_curUpgrade]
+hidden: true
+
+[global_resource_cristalUpgrade]
+hidden: true
+
+[global_resource_cristalUpgrade11]
+hidden: true
+
+[global_resource_cristalUpgrade12]
+hidden: true
+
+[global_resource_cristalUpgrade21]
+hidden: true
+
+[global_resource_cristalUpgrade22]
+hidden: true
+
+[global_resource_cristalUpgrade31]
+hidden: true
+
+[global_resource_cristalUpgrade32]
+hidden: true
+
+[global_resource_cristalUpgrade41]
+hidden: true
+
+[global_resource_cristalUpgrade42]
+hidden: true
+
+
+[global_resource_totemUpgrade]
+hidden: true
+
+[global_resource_totemUpgrade11]
+hidden: true
+
+[global_resource_totemUpgrade12]
+hidden: true
+
+[global_resource_totemUpgrade21]
+hidden: true
+
+[global_resource_totemUpgrade22]
+hidden: true
+
+[global_resource_totemUpgrade31]
+hidden: true
+
+[global_resource_totemUpgrade32]
+hidden: true
+
+[global_resource_totemUpgrade41]
+hidden: true
+
+[global_resource_totemUpgrade42]
+hidden: true
+
+
+[global_resource_minionUpgrade]
+hidden: true
+
+[global_resource_minionUpgrade11]
+hidden: true
+
+[global_resource_minionUpgrade12]
+hidden: true
+
+[global_resource_minionUpgrade21]
+hidden: true
+
+[global_resource_minionUpgrade22]
+hidden: true
+
+[global_resource_minionUpgrade31]
+hidden: true
+
+[global_resource_minionUpgrade32]
+hidden: true
+
+[global_resource_minionUpgrade41]
+hidden: true
+
+[global_resource_minionUpgrade42]
+hidden: true
+
+
+[global_resource_protectorUpgrade]
+hidden: true
+
+[global_resource_protectorUpgrade11]
+hidden: true
+
+[global_resource_protectorUpgrade12]
+hidden: true
+
+[global_resource_protectorUpgrade21]
+hidden: true
+
+[global_resource_protectorUpgrade22]
+hidden: true
+
+[global_resource_protectorUpgrade31]
+hidden: true
+
+[global_resource_protectorUpgrade32]
+hidden: true
+
+[global_resource_protectorUpgrade41]
+hidden: true
+
+[global_resource_protectorUpgrade42]
+hidden: true

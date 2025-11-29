@@ -1,0 +1,27 @@
+[turret_1]
+canOnlyAttackUnitsWithoutTags: 驾驶, 伪装
+
+
+[turret_驾驶]
+x: 0
+y: 0
+
+showRangeUIGuide: false
+limitingRange: 50
+canOnlyAttackUnitsWithTags: 驾驶
+canOnlyAttackUnitsWithoutTags: 无
+onShoot_triggerActions: 驾驶后
+projectile: 驾驶
+
+
+[projectile_驾驶]
+directDamage: 0
+life: 60
+
+instant: true
+explodeEffect: NONE
+convertHitToSourceTeam: true
+
+
+[hiddenAction_驾驶后]
+deleteSelf: true

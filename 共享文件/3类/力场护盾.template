@@ -1,0 +1,35 @@
+[hiddenAction_力场护盾开始]
+autoTrigger: if (hasUnitInTeam(withTag='力场护盾', withinRange=200, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='力场护盾', withinRange=200, greaterThan=0)) and not self.tags(includes='力场保护')   
+temporarilyAddTags: 力场保护
+
+
+[hiddenAction_力场护盾进行]
+autoTrigger: if hasUnitInTeam(withTag='力场护盾', withinRange=200, greaterThan=0) or self.numberOfUnitsInAllyNotOwnTeam(withTag='力场护盾', withinRange=200, greaterThan=0)
+spawnEffects: CUSTOM:力场保护
+
+
+[hiddenAction_力场护盾结束]
+autoTrigger: if not hasUnitInTeam(withTag='力场护盾', withinRange=200, greaterThan=0) and not self.numberOfUnitsInAllyNotOwnTeam(withTag='力场护盾', withinRange=200, greaterThan=0) and self.tags(includes='力场保护')
+temporarilyRemoveTags: 力场保护
+
+
+[hiddenAction_力场护盾Ai建筑]
+autoTrigger: if self.isControlledByAI() and self.globalTeamTags(includes='力场护盾2Ai2') and self.hasTakenDamage(withinSeconds=1) and self.resource(type="电力",greaterThan=100)
+removeGlobalTeamTags: 力场护盾2Ai2
+spawnUnits: 力场护盾
+
+
+[effect_力场保护]
+image: ROOT:\共享文件\1类\映射.png
+color: #FF00FFFF
+scaleFrom: ${core.radius*0.04}
+scaleTo: ${core.radius*0.04}
+alpha: 1.2
+life: 180
+hOffset: -10
+xOffsetRelative: 10
+fadeInTime: 20
+fadeOut: true
+attachedToUnit: true
+drawUnderUnits: true
+alwayStartDirAtZero: true

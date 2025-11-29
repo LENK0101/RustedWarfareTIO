@@ -1,0 +1,132 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\阵营装甲共同.template, ROOT:\共享文件\3类\水圈.template, ROOT:/DATA/total/debuffs.template
+effectOnDeath: CUSTOM:毁-水花, CUSTOM:炸毁
+
+
+[hiddenAction_离开船坞]
+autoTrigger: if self.hp(full=true) and self.hasParent(withTag='船坞')
+disconnectFromParent: true
+
+
+[hiddenAction_Ai前往维修]
+autoTrigger: if self.isControlledByAI() and self.hasUnitInTeam(withTag='船坞', withinRange=500) and not self.hasActiveWaypoint(type='loadInto') and not self.hasActiveWaypoint(type='move') and not self.isAttacking() and self.hp(lessThan=${core.maxHp*0.5}) and not self.hasParent() and self.tags(includes='船坞维修')
+addWaypoint_target_nearestUnit_tagged: 船坞
+
+
+[hiddenAction_自杀]
+autoTrigger: if not self.isOverwater() and not self.tags(includes='两栖')
+
+[hiddenAction_创建]
+autoTriggerOnEvent: created
+alsoTriggerAction: 创建2
+
+[hiddenAction_创建2]
+requireConditional: if numberOfUnitsInTeam(withTag='生产建筑', greaterThan=0, withinRange=80)
+setResourcesWithLogic: 单位变化 = 1
+
+[hiddenAction_消失]
+autoTriggerOnEvent: destroyed
+setResourcesWithLogic: 单位变化 = -1
+
+[movement]
+moveYAxisScaling: 0.9
+
+[effect_水花]
+image: ROOT:\共享文件\1类\水花.png
+createWhenOverLiquid: true
+createWhenOverLand: false
+scaleFrom: 1
+scaleTo: 1
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.2
+fadeInTime: 0
+fadeOut: false
+attachedToUnit: false
+drawUnderUnits:false
+alwayStartDirAtZero: true
+spawnChance: 0.3
+ifSpawnFailsEmitEffects: CUSTOM:水花2
+
+
+[effect_水花2]
+@copyFromSection: effect_水花
+image: ROOT:\共享文件\1类\水花2.png
+ifSpawnFailsEmitEffects: CUSTOM:水花3
+
+
+[effect_水花3]
+@copyFromSection: effect_水花
+image: ROOT:\共享文件\1类\水花3.png
+spawnChance: 1
+
+
+[effect_毁-水花]
+@copyFromSection: effect_水花
+scaleFrom: 1.75
+scaleTo: 1.75
+delayedStartTimer: 50
+animateFrameSpeed: 0.16
+hOffset: -5
+ifSpawnFailsEmitEffects: CUSTOM:毁-水花2
+
+
+[effect_毁-水花2]
+@copyFromSection: effect_毁-水花
+image: ROOT:\共享文件\1类\水花2.png
+ifSpawnFailsEmitEffects: CUSTOM:毁-水花3
+
+
+[effect_毁-水花3]
+@copyFromSection: effect_毁-水花
+image: ROOT:\共享文件\1类\水花3.png
+spawnChance: 1
+
+
+[effect_炸毁]
+image: ROOT:\共享文件\1类\炸毁5.png
+scaleFrom: 0.95
+scaleTo: 0.95
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 10
+animateFrameSpeed: 0.15
+hOffset: -5
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits:false
+alwayStartDirAtZero: true
+
+
+[effect_映射]
+image: ROOT:\共享文件\1类\映射.png
+scaleFrom:1
+scaleTo: 0.8
+alpha: 0.3
+life: 30
+hOffset: -10
+attachedToUnit: true
+drawUnderUnits: true
+alwayStartDirAtZero: true
+
+
+[effect_映射2]
+image: ROOT:\共享文件\1类\映射.png
+life: 30
+scaleFrom: 0.5
+scaleTo: 0.2
+alpha: 0.2
+hOffset: -20
+attachedToUnit: true
+drawUnderUnits: true
+alwayStartDirAtZero: true
+
+
+[effect_映射3]
+@copyFromSection: effect_映射
+#scaleTo: 0.8
+alpha: 0.3
+life: 20
+fadeOut: true
+attachedToUnit: false

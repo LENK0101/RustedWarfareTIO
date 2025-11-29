@@ -1,0 +1,24 @@
+[core]
+displayText_zh:小刀
+displayDescription_zh:+10攻击强度
+
+[action_upgrade1]
+text_zh:盗贼匕首
+description_zh:+35攻击强度 \n+10移动速度
+
+[action_upgrade2]
+text_zh:锐利之刃
+description_zh:+50攻击强度
+
+
+[core]
+displayText_ru: Кортик
+displayDescription_ru: +10 к силе атаки
+
+[action_upgrade1]
+text_ru: Кинжал разбойника
+description_ru: +35 к силе атаки \n+10 к скорости передвижения
+
+[action_upgrade2]
+text_ru: Острый клинок
+description_ru: +50 к силе атаки

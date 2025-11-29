@@ -1,0 +1,19 @@
+[graphics]
+movementEffect: CUSTOM:水圈
+movementEffectRate: 15
+
+
+[effect_水圈]
+image: ROOT:\共享文件\1类\圈.png
+createWhenOverLiquid: true
+createWhenOverLand: false
+life: 240
+fadeOut: true
+attachedToUnit: false
+color: #20FFFFFF
+fadeInTime: 0
+scaleFrom: 1
+scaleTo: 10
+alpha: 0.5
+drawUnderUnits: true
+alwayStartDirAtZero: true

@@ -1,0 +1,253 @@
+[core]
+@global baseDamage: 1
+@global levelDamage: 1
+@global multiplierBasicAttack: 0.1
+@global multiplierSkillPower: 0.1
+copyFrom: ROOT:/Moba/.MobaDATA/stats.template
+hideScorchMark: true
+showInEditor: false
+price: 0
+maxHp:1
+mass: 3000
+radius:0
+displayRadius:0
+disableAllUnitCollisions: true
+canNotBeDamaged:true
+canNotBeDirectlyAttacked:true
+canNotBeGivenOrdersByPlayer: true
+isUnselectable:true
+fogOfWarSightRange:4
+showOnMinimap:false
+techLevel: 1
+explodeOnDeath:false
+isBio: false
+
+[graphics]
+disableLowHpFire: true
+disableLowHpSmoke: true
+showHealthBar: false
+showEnergyBar: false
+showShieldBar: false
+showQueueBar: false
+showTransportBar: false
+showShotDelayBar: false
+
+[attack]
+turretRotateWithBody: false
+canAttack: false
+
+[hiddenAction_timeUp]
+autoTrigger: if self.isEnergyEmpty()
+convertTo:SkillMark
+
+[hiddenAction_notify]
+autoTriggerOnEvent:newMessage(withTag='deadPrice')
+sendMessageTo:customTarget1
+sendMessageWithTags:deadPrice
+sendMessageWithData: price = eventData(name='price',type='float')
+
+
+#---------skillAttack---------
+
+[turret_skillAttack]
+
+invisible: true
+x: 0
+y:0
+idleDir:0
+canAttackCondition:if customTarget1.resource.mysticBoots == 0 and customTarget1.resource.technoArcaneScepter == 0
+shoot_flame:NONE
+projectile: skillAttack
+
+[projectile_skillAttack]
+areaDamage:0
+life:0
+speed:0
+buildingDamageMultiplier:0.25
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.71
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.55
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.38
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.71
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.55
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.38
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.71
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.55
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.38
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.71
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.55
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.38
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.71
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.55
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.38
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.71
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.55
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.38
+mutator42_ifUnitWithTags: monsterDamageUp
+mutator42_directDamageMultiplier: 1.2
+mutator43_ifUnitWithTags: monsterDamageUp
+mutator43_areaDamageMultiplier: 1.2
+
+[turret_skillAttackS]
+
+x: 0
+y: 0
+copyFrom: skillAttack
+canAttackCondition:if customTarget1.resource.mysticBoots >= 1 and customTarget1.resource.technoArcaneScepter == 0
+projectile: skillAttackS
+
+[projectile_skillAttackS]
+@copyFromSection: projectile_skillAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.91
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.67
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.43
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.91
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.67
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.43
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.91
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.67
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.43
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.91
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.67
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.43
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.91
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.67
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.43
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.91
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.67
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.43
+
+
+[turret_skillAttackL]
+
+x: 0
+y: 0
+copyFrom: skillAttack
+canAttackCondition:if customTarget1.resource.mysticBoots == 0 and customTarget1.resource.technoArcaneScepter >= 1
+projectile: skillAttackL
+
+[projectile_skillAttackL]
+@copyFromSection: projectile_skillAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 0.81
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.68
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.51
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 0.81
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.68
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.51
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.81
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.68
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.51
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 0.81
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.68
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.51
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 0.81
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.68
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.51
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 0.81
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.68
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.51
+
+
+[turret_skillAttackS+L]
+
+x: 0
+y: 0
+copyFrom: skillAttack
+canAttackCondition:if customTarget1.resource.mysticBoots >= 1 and customTarget1.resource.technoArcaneScepter >=1
+projectile: skillAttackS+L
+
+[projectile_skillAttackS+L]
+@copyFromSection: projectile_skillAttack
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 1.06
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 0.85
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 0.6
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 1.06
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.85
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.6
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 1.06
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.85
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.6
+mutator33_ifUnitWithTags: 步兵轻甲
+mutator33_directDamageMultiplier: 1.06
+mutator34_ifUnitWithTags: 步兵中甲
+mutator34_directDamageMultiplier: 0.85
+mutator35_ifUnitWithTags: 步兵重甲
+mutator35_directDamageMultiplier: 0.6
+mutator36_ifUnitWithTags: 载具轻甲
+mutator36_directDamageMultiplier: 1.06
+mutator37_ifUnitWithTags: 载具中甲
+mutator37_directDamageMultiplier: 0.85
+mutator38_ifUnitWithTags: 载具重甲
+mutator38_directDamageMultiplier: 0.6
+mutator39_ifUnitWithTags: 建筑轻甲
+mutator39_directDamageMultiplier: 1.06
+mutator40_ifUnitWithTags: 建筑防甲
+mutator40_directDamageMultiplier: 0.85
+mutator41_ifUnitWithTags: 建筑重甲
+mutator41_directDamageMultiplier: 0.6
+#----Buff----
+
+[resource_damage]
+hidden:false

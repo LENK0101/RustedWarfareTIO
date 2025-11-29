@@ -1,0 +1,22 @@
+[core]
+copyFrom: ROOT:/Moba/.MobaDATA/skillCommon.template
+
+[hiddenAction_initialize3]
+autoTriggerOnEvent:created
+setResourcesWithLogic: damage = ${baseDamage} + ${levelDamage} * (customTarget1.resource.Level-6) + ${multiplierBasicAttack} * customTarget1.resource.TotalAttackPower + ${multiplierSkillPower} * customTarget1.resource.TotalSkillPower
+setUnitStats:shootDamageMultiplier = self.resource.damage / 100
+
+[hiddenAction_notify3] 
+autoTriggerOnEvent: newMessage(withTag='SkillVamp3')
+sendMessageTo:customTarget1
+sendMessageWithTags: SkillVamp3
+sendMessageWithData: SkillVamp3 = self.resource.damage
+
+[projectile_skillAttack]
+tags:skill3
+[projectile_skillAttackS]
+tags:skill3
+[projectile_skillAttackL]
+tags:skill3
+[projectile_skillAttackS+L]
+tags:skill3

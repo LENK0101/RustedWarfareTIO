@@ -1,0 +1,48 @@
+[core]
+displayText_zh:皮革靴
+displayDescription_zh:+40移动速度
+
+[action_upgrade]
+text_zh:水神靴
+description_zh:+40移动速度\n\n-----唯一被动-----\n水上行走: 获得可以在水面上行动的能力
+
+[action_upgrade2]
+text_zh:急迫之靴
+description_zh:+35%攻击速度\n+50移动速度
+
+[action_upgrade3]
+text_zh:速度之靴
+description_zh:+55移动速度\n\n-----唯一被动-----\n冲刺: 提升10%的移动速度
+
+[action_upgrade4]
+text_zh:神秘之靴
+description_zh:+10技能急速\n+45移动速度\n\n-----唯一被动-----\n洞穿: 技能对低护甲的单位造成更高的伤害
+
+[action_upgrade5]
+text_zh:钢铁战靴
+description_zh:+100最大生命值\n+1防御力\n+40移动速度\n\n-----唯一被动-----\n堡垒护卫 (主动): 激活后获得一个护盾，护盾值为50-900 (+10% 最大生命值), 持续5秒 (冷却时间90秒)
+
+[action_upgrade6]
+text_zh:再生之靴
+description_zh:+4生命回复\n+4魔力回复\n+45移动速度
+
+#--------------Russian Localization--------------
+[core]
+displayText_ru: Кожаные ботинки
+displayDescription_ru: +40 к скорости передвижения
+
+[action_upgrade]
+text_ru: Сапоги Водного духа
+description_ru: +40 к скорости передвижения\n\n-----Уникальный пассив-----\nХождение по воде: Позволяет перемещаться по водной поверхности
+
+[action_upgrade2]
+text_ru: Поспешные ботфорты
+description_ru: +35% к скорости атаки\n+50 к скорости передвижения
+
+[action_upgrade3]
+text_ru: Ботинки скорости
+description_ru: +55 к скорости передвижения\n\n-----Уникальный пассив-----\nРывок: Увеличивает скорость передвижения на 10%
+
+[action_upgrade4]
+text_ru: Мистические сандалии
+description_ru: +10 к скорости умений\n+45 к скорости передвижения\n\n-----Уникальный пассив-----\nПробивание: Умения наносят повышенный урон целям с низкой защитой

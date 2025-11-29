@@ -1,0 +1,96 @@
+#--------------Chinese Localization--------------
+[core]
+displayText_zh: 夜之子
+displayDescription_zh:伟大的夜之子
+
+[action_basicAttack]
+text_zh:普通攻击
+description_zh:"""
+普通攻击造成%{${baseAttack1}+${baseAttack2}}% (%{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel}) })点伤害, 并对周围的敌人造成%{${baseAttack2}}% (%{(self.resource.AttackPower+((self.resource.Level-1)*${attackPowerPerLevel}))*0.4})点伤害. \n
+-等级:%{self.resource.Level} \n
+-生命值: %{${core.maxHp} + self.resource.MaxHp + ((self.resource.Level-1) * ${hpPerLevel})} (%{self.resource.HPRegen + ((self.resource.Level-1) * ${regenPerLevel})}/秒)\n 
+-魔力值: %{self.resource.MaxMana + ${core.energyMax} + (self.resource.Level-1)*${manaPerLevel}} (%{self.resource.ManaRegen + ((self.resource.Level-1) * ${manaRegenPerLevel})}/秒)\n 
+-防御力: %{${core.armour} + self.resource.Defence + ((self.resource.Level-1)*${defencePerLevel})}\n 
+-攻击强度: %{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel})}\n 
+-攻击速度: %{(self.resource.AttackSpeed + ((self.resource.Level-1)*${attackSpeedPerLevel}))*100}%\n 
+-攻击吸血: %{self.resource.LifeSteal*100}%\n
+-技能强度: %{self.resource.SkillPower}\n 
+-技能急速: %{self.resource.SkillHaste}\n 
+-技能吸血: %{self.resource.SkillVamp*100}%\n
+-暴击率: %{self.resource.CriticalChance*100}%\n 
+-暴击伤害: %{self.resource.CriticalPower*100}%\n 
+-移动速度: %{self.resource.MovementSpeed}\n
+"""
+
+[action_skill1Description]
+text_zh:暗夜斩
+description_zh:挥动剑对周围所有敌人造成%{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 16} (+%{${multiplierBasicAttack1}*100}% 攻击强度) (+%{${multiplierSkillPower1}*100}% 技能强度)点伤害\n -冷却时间: ${cd1}秒
+
+[action_skill1]
+text_zh:暗夜斩(%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_zh:挥动剑对周围所有敌人造成%{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower})点伤害\n -冷却时间: %{self.resource.skill1CDCount}秒
+
+[action_skill2Description]
+text_zh:乌影疾步
+description_zh:向指定方向冲刺并获得%{${baseBuff2}}-%{${baseBuff2} + ${levelBuff2} * 15} (+%{${multiplierSkillPower2}*100}% 技能强度)的护盾\n -冷却时间: ${cd2}秒
+
+[action_skill2]
+text_zh:乌影疾步(%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_zh:向指定方向冲刺并获得%{${baseBuff2} + ${levelBuff2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower})的护盾 \n-冷却时间: %{self.resource.skill2CDCount}秒
+
+[action_skill3Description]
+text_zh:深渊裂旋
+description_zh:短暂吟唱后将周围的所有敌人拉向自己，并施展剑舞。剑舞期间的每道剑气会对所有敌人造成%{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 12} (+%{${multiplierBasicAttack3}*100}% 攻击强度) (+%{${multiplierSkillPower3}*100}% 技能强度)点伤害，共9道剑气\n(每100点技能强度将增加3道的剑气)\n -冷却时间: ${cd3}秒
+
+[action_skill3]
+text_zh:深渊裂旋(%{int(select(memory.skillCD3>0, memory.skillCD3+1, 0))})
+description_zh:短暂吟唱后将周围的所有敌人拉向自己，并施展剑舞。剑舞期间的每道剑气会对所有敌人造成%{${baseDamage3} + ${levelDamage3} * (self.resource.Level-6)} (+%{${multiplierBasicAttack3} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower3} * self.resource.SkillPower})点伤害，共9道剑气\n(每100点技能强度将增加3道的剑气)\n -冷却时间: %{self.resource.skill3CDCount}秒
+
+
+#--------------Russian Localization--------------
+[core]
+displayText_ru: Ночное чадо
+displayDescription_ru: Великий из Ночного рода
+
+[action_basicAttack]
+text_ru: Обычная атака
+description_ru:"""
+Наносит %{${baseAttack1}+${baseAttack2}}% (%{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel}) }) урона основной цели и %{${baseAttack2}}% (%{(self.resource.AttackPower+((self.resource.Level-1)*${attackPowerPerLevel}))*0.4}) урона окружающим врагам.\n
+-Уровень: %{self.resource.Level} \n
+-Здоровье: %{${core.maxHp} + self.resource.MaxHp + ((self.resource.Level-1) * ${hpPerLevel})} (%{self.resource.HPRegen + ((self.resource.Level-1) * ${regenPerLevel})}/сек)\n
+-Мана: %{self.resource.MaxMana + ${core.energyMax} + (self.resource.Level-1)*${manaPerLevel}} (%{self.resource.ManaRegen + ((self.resource.Level-1) * ${manaRegenPerLevel})}/сек)\n
+-Защита: %{${core.armour} + self.resource.Defence + ((self.resource.Level-1)*${defencePerLevel})}\n
+-Сила атаки: %{self.resource.AttackPower + ((self.resource.Level-1)*${attackPowerPerLevel})}\n
+-Скорость атаки: %{(self.resource.AttackSpeed + ((self.resource.Level-1)*${attackSpeedPerLevel}))*100}%\n
+-Вампиризм атаки: %{self.resource.LifeSteal*100}%\n
+-Сила умений: %{self.resource.SkillPower}\n
+-Скорость умений: %{self.resource.SkillHaste}\n
+-Вампиризм умений: %{self.resource.SkillVamp*100}%\n
+-Шанс крита: %{self.resource.CriticalChance*100}%\n
+-Урон крита: %{self.resource.CriticalPower*100}%\n
+-Скорость передвижения: %{self.resource.MovementSpeed}\n
+"""
+
+[action_skill1Description]
+text_ru: Рассечение тьмы
+description_ru: Наносит %{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 16} (+%{${multiplierBasicAttack1}*100}% силы атаки) (+%{${multiplierSkillPower1}*100}% силы умений) урона всем врагам вокруг\n -Перезарядка: ${cd1} сек
+
+[action_skill1]
+text_ru: Рассечение тьмы(%{int(select(memory.skillCD1>0, memory.skillCD1+1, 0))})
+description_ru: Наносит %{${baseDamage1} + ${levelDamage1} * (self.resource.Level-2)} (+%{${multiplierBasicAttack1} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower1} * self.resource.SkillPower}) урона всем врагам вокруг\n -Перезарядка: %{self.resource.skill1CDCount} сек
+
+[action_skill2Description]
+text_ru: Теневой рывок
+description_ru: Совершает рывок в направлении и получает щит на %{${baseBuff2}}-%{${baseBuff2} + ${levelBuff2} * 15} (+%{${multiplierSkillPower2}*100}% силы умений)\n -Перезарядка: ${cd2} сек
+
+[action_skill2]
+text_ru: Теневой рывок(%{int(select(memory.skillCD2>0, memory.skillCD2+1, 0))})
+description_ru: Совершает рывок в направлении и получает щит на %{${baseBuff2} + ${levelBuff2} * (self.resource.Level-3)} (+%{${multiplierSkillPower2} * self.resource.SkillPower})\n -Перезарядка: %{self.resource.skill2CDCount} сек
+
+[action_skill3Description]
+text_ru: Вихрь Бездны
+description_ru: После краткого каста притягивает всех врагов к себе и выпускает 9 энергетических клинков. Каждый клинок наносит %{${baseDamage1}}-%{${baseDamage1} + ${levelDamage1} * 12} (+%{${multiplierBasicAttack3}*100}% силы атаки) (+%{${multiplierSkillPower3}*100}% силы умений) урона\n(Каждые 100 силы умений добавляют 3 дополнительных клинка)\n -Перезарядка: ${cd3} сек
+
+[action_skill3]
+text_ru: Вихрь Бездны(%{int(select(memory.skillCD3>0, memory.skillCD3+1, 0))})
+description_ru: После каста притягивает врагов и выпускает 9 клинков. Каждый наносит %{${baseDamage3} + ${levelDamage3} * (self.resource.Level-6)} (+%{${multiplierBasicAttack3} * (self.resource.AttackPower + (self.resource.Level-1) * ${attackPowerPerLevel})}) (+%{${multiplierSkillPower3} * self.resource.SkillPower}) урона\n(Каждые 100 силы умений +3 клинка)\n -Перезарядка: %{self.resource.skill3CDCount} сек

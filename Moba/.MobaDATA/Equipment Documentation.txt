@@ -1,0 +1,53 @@
+--------------
+Cost-effectiveness
+--------------
+(Round down To 2 digit)
+T1 = 110% T2
+T2 = 120% T3 (Without Unique Passive) 
+T1 = 132% T3 (Without Unique Passive) 
+
+Boots = 133%T1
+
+--------------
+Price
+--------------
+T1 (0-999)
+T2 (1000-1999)
+T3 (2400-5000)
+
+T2Boots (700-1400)
+
+Unique Passive ~ 1000
+--------------
+States - Price
+--------------
+1 Attack Power= 35		(+10 Attack Power = 350)
+1 Skill Power= 20		(+20 Skill Power = 400)
+
+1% Critical Chance = 40		(+10% Critical Chance = 400)
+1% Critical Power = 25
+
+1% Attack Speed = 25		(+10% Attack Speed = 250)
+1 Skill Haste = 50
+
+1 Max HP = 3
+1 Max Mana = 3
+
+1 HP Regen = 150
+1 Mana Regen = 150
+
+1 Defence = 300
+1 Movement Speed = 10
+
+1% Life Steal = 100
+1% Skill Vamp = 100
+
+--------------
+Order
+--------------
+AttackPower- SkillPower- CriticalChance- CriticalPower- AttackSpeed- SkillHaste- 
+MaxHP- MaxMana- HPRegen- ManaRegen- Defence- MovementSpeed- LifeSteal- SkillVamp
+
+
+
+

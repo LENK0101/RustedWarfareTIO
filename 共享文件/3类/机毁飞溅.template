@@ -1,0 +1,214 @@
+[core]
+explodeOnDeath: false
+disableAllUnitCollisions: true
+#isUnselectable: true
+#canNotBeDirectlyAttacked: true
+canOnlyBeAttackedByUnitsWithTags: 无
+effectOnDeath: CUSTOM:炸毁
+fireTurretXAtSelfOnDeath: 坠落伤害
+
+
+[graphics]
+movementEffect: CUSTOM:尾焰3, CUSTOM:尾焰2, CUSTOM:尾焰
+movementEffectRate: 2
+
+
+[turret_坠落伤害]
+x: 0
+y: 0
+
+projectile: 坠落伤害
+
+
+[turret_机毁肢]
+x: 0
+y: 0
+
+canShoot: false
+projectile: 机毁肢
+
+
+[projectile_坠落伤害]
+areaDamage: 20
+life: 0
+
+areaRadius: 50
+targetGround:true
+explodeOnEndOfLife:true
+#instant: true
+friendlyFire: true
+explodeEffect: NONE
+mutator1_ifUnitWithTags: 1级
+mutator1_areaDamageMultiplier: 0.8
+mutator2_ifUnitWithTags: 2级
+mutator2_areaDamageMultiplier: 0.6
+mutator3_ifUnitWithTags: 3级
+mutator3_areaDamageMultiplier: 0.4
+mutator13_ifUnitWithTags: 步兵轻甲
+mutator13_areaDamageMultiplier: 4
+mutator14_ifUnitWithTags: 步兵中甲
+mutator14_areaDamageMultiplier: 2
+mutator15_ifUnitWithTags: 步兵重甲
+mutator15_areaDamageMultiplier: 2
+mutator16_ifUnitWithTags: 载具轻甲
+mutator16_areaDamageMultiplier: 1
+mutator17_ifUnitWithTags: 载具中甲
+mutator17_areaDamageMultiplier: 0.5
+mutator18_ifUnitWithTags: 载具重甲
+mutator18_areaDamageMultiplier: 0.2
+mutator19_ifUnitWithTags: 建筑轻甲
+mutator19_areaDamageMultiplier: 0.5
+mutator20_ifUnitWithTags: 建筑防甲
+mutator20_areaDamageMultiplier: 0.2
+mutator21_ifUnitWithTags: 建筑重甲
+mutator21_areaDamageMultiplier: 0.2
+mutator22_ifUnitWithTags: 恐怖机器人
+mutator22_areaDamageMultiplier: 4
+
+
+[projectile_机毁肢]
+areaDamage: 0
+life: 600
+
+areaRadius: 10
+drawSize:	0
+speed: 0
+targetSpeed: 10
+targetSpeedAcceleration: 0.04
+effectOnCreate: CUSTOM:机毁肢
+explodeEffect: NONE
+trailEffect: CUSTOM:尾焰3, CUSTOM:尾焰2, CUSTOM:尾焰
+trailEffectRate: 2
+targetGround: true
+targetGroundSpread: 100
+lightSize: 0.5
+lightColor: #FF000000
+lightCastOnGround: true
+initialUnguidedSpeedHeight: 1.2
+gravity:0.18
+
+
+[projectile_机毁肢2]
+@copyFromSection: projectile_机毁肢
+areaDamage: 0
+life: 600
+
+effectOnCreate: CUSTOM:机毁肢2
+
+
+[hiddenAction_机毁肢]
+autoTrigger: if not self.isFlying()
+fireTurretXAtGround: 机毁肢
+fireTurretXAtGround_withProjectile: 机毁肢
+spawnEffects: CUSTOM:炸毁映射
+addResources: hp=-9999
+
+
+[hiddenAction_机毁肢2]
+autoTriggerOnEvent: destroyed
+fireTurretXAtGround: 机毁肢
+fireTurretXAtGround_withProjectile: 机毁肢2
+fireTurretXAtGround_withOffset:0,0
+
+
+[effect_炸毁映射]
+image: ROOT:\共享文件\1类\映射.png
+scaleFrom: 2
+scaleTo: 2
+alpha: 0.2
+life: 60
+hOffset: -10
+attachedToUnit: true
+drawUnderUnits: true
+alwayStartDirAtZero: true
+#priority: critical
+priority: veryhigh
+
+
+[effect_炸毁]
+image: ROOT:\共享文件\1类\炸毁2.png
+scaleFrom:1.4
+scaleTo: 1.4
+total_frames: 17
+animateFrameStart: 0
+animateFrameEnd: 16
+animateFrameSpeed: 0.22
+alwayStartDirAtZero: true
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits:false
+
+
+[effect_机毁肢]
+image: ROOT:\盟军\空军\风肢体.png
+scaleFrom: 0.85
+scaleTo: 0.85
+life: 60
+dirSpeedRandom: 10
+fadeInTime: 0
+fadeOut: false
+drawUnderUnits: false
+attachedToUnit: true
+
+
+[effect_机毁肢2]
+@copyFromSection: effect_机毁肢
+image: ROOT:\盟军\空军\风肢体2.png
+
+
+[effect_尾焰]
+createWhenZoomedOut: false
+image:  ROOT:\共享文件\1类\火焰源.png
+fadeInTime: 10
+scaleFrom: 0.3
+#0.5
+scaleTo: 1.08
+#1.8
+alpha: 0.75
+life: 40
+dirOffsetRandom:180
+#hOffset: 5
+xOffsetRelative: 0
+xSpeedAbsoluteRandom:0.05
+ySpeedAbsoluteRandom:0.1
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits: false
+shadow: true
+imageShadow: ROOT:\共享文件\1类\火焰源.png
+
+
+[effect_尾焰2]
+createWhenZoomedOut: false
+stripIndex: effects
+frameIndex: 0
+color: #FF000000
+fadeInTime: 10
+scaleFrom: 0.3
+#0.5
+scaleTo: 1.8
+#3
+alpha: 0.75
+life: 70
+dirOffsetRandom:180
+#hOffset: 5
+xOffsetRelative: 0
+xSpeedAbsoluteRandom:0.10
+ySpeedAbsoluteRandom:0.3
+fadeOut: true
+attachedToUnit: false
+drawUnderUnits:false
+shadow: true
+#delayedStartTimer: 10
+
+
+[effect_尾焰3]
+@copyFromSection: effect_尾焰2
+color: #FFFFFFFF
+scaleFrom: 0.06
+#0.1
+#scaleTo: 2.5
+life: 110
+xSpeedAbsoluteRandom: 0.15
+ySpeedAbsoluteRandom:0.5
+#delayedStartTimer: 10

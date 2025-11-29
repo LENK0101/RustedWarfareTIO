@@ -1,0 +1,54 @@
+
+[action_维修2]
+description: Repair
+description_zh: 维修
+iconImage: ROOT:\共享文件\1类\维修.png
+pos: -1
+buildSpeed:0
+autoTrigger: if not self.hasFlag(id=31) and not self.hp(full=true) and self.resource(type='资金', greaterThan=0) and self.isControlledByAI()
+isVisible: if not self.hasFlag(id=31)
+isActive: if self.queueSize(empty=true)
+isLocked: if self.hp(full=true) and not self.resource(type='资金', greaterThan=0)
+addResources: setFlag=31
+
+
+[action_维修2取消]
+text: Cancel repair
+text_zh: 取消维修
+pos: -1
+buildSpeed:0
+autoTrigger: if self.hasFlag(id=31) and self.hp(full=true)
+isVisible: if self.hasFlag(id=31)
+isActive: if self.queueSize(empty=true)
+addResources: unsetFlag=31
+
+
+[hiddenAction_维修2自动]
+autoTrigger: if self.hasFlag(id=31) and self.resource(type='资金', greaterThan=0) and not self.hp(full=true)
+spawnEffects: CUSTOM:维修2
+addResources: 资金=-1, hp=10
+
+
+
+[effect_维修2]
+image: ROOT:\共享文件\1类\维修.png
+priority: high
+life: 30
+scaleFrom: 0.8
+scaleTo: 0.8
+dirOffset: 200
+dirSpeed: 3
+fadeOut: false
+drawUnderUnits:false
+alwayStartDirAtZero: true
+attachedToUnit: true
+liveAfterAttachedDies: false
+alsoEmitEffectsOnDeath: CUSTOM:维修3
+
+
+[effect_维修3]
+@copyFromSection: effect_维修2
+life: 32
+dirOffset: 290
+dirSpeed: -3
+alsoEmitEffectsOnDeath: NONE

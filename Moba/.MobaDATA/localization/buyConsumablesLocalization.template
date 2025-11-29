@@ -1,0 +1,42 @@
+[template_buyConsumables]
+isLockedMessage_zh: 你的物品栏已满！
+isLockedAltMessage_zh: 你的英雄必须在水晶旁边！
+
+[action_buyHpPotion]
+text_zh: 生命药瓶
+description_zh:10秒内总共恢复100点生命
+
+[action_buyManaPotion]
+text_zh: 魔力药瓶
+description_zh:10秒内总共恢复100点魔力
+
+[action_buyVisionPotion]
+text_zh: 视野药瓶
+description_zh:获得反隐能力，持续10秒
+
+[action_buyArrivalStone]
+text_zh: 传送石
+description_zh: 可传送至图腾
+
+
+#--------------Russian Localization--------------
+
+[template_buyConsumables]
+isLockedMessage_ru: Инвентарь переполнен!
+isLockedAltMessage_ru: Герой должен быть рядом с кристаллом!
+
+[action_buyHpPotion]
+text_ru: Зелье здоровья
+description_ru: Восстанавливает 100 здоровья за 10 секунд
+
+[action_buyManaPotion]
+text_ru: Зелье маны
+description_ru: Восстанавливает 100 маны за 10 секунд
+
+[action_buyVisionPotion]
+text_ru: Зелье зрения
+description_ru: Обнаружение невидимок на 10 секунд
+
+[action_buyArrivalStone]
+text_ru: Камень телепортации
+description_ru: Телепортация к тотему

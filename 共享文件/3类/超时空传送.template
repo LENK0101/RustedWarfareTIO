@@ -1,0 +1,15 @@
+
+[hiddenAction_进入超时空间]
+autoTrigger: if (numberOfUnitsInNeutralTeam(withTag='载入传送', greaterThan=0, withinRange=80) or numberOfUnitsInTeam(withTag='载入传送', greaterThan=0, withinRange=80)) and not self.hasParent() and not self.hasActiveWaypoint(type='move') and not self.isAttacking()
+clearActiveWaypoint: true
+addWaypoint_type: loadInto
+addWaypoint_prepend: true
+addWaypoint_target_nearestUnit_team: any
+addWaypoint_target_nearestUnit_tagged: 载入传送
+#addWaypoint_maxTime: 1s
+
+
+[hiddenAction_自杀]
+autoTrigger: if (self.isOverClift() or (self.isOverLiquid() and not self.tags(includes='两栖'))) and not self.hasParent()
+addResources: hp=-9999
+#showMessageToAllPlayers: 触发

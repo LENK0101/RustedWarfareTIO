@@ -1,0 +1,58 @@
+[action_生产控制]
+text: Hide all
+text_zh: 隐藏全部
+description: Hide all production lists
+description_zh: 隐藏所有生产列表
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isVisible: if not self.hasFlag(id=1) and self.hasUnitInTeam(withTag='沙盒控制')
+addResources: setFlag=1
+
+
+[action_生产控制2]
+text: Hide 1
+text_zh: 隐藏1
+description: Hide first level production list
+description_zh: 隐藏一级生产列表
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isVisible: if not self.hasFlag(id=2) and not self.hasFlag(id=1) and self.hasUnitInTeam(withTag='沙盒控制')
+addResources: setFlag=2
+
+
+[action_生产控制3]
+text: Display 2
+text_zh: 显示2
+description: Display secondary production list
+description_zh: 显示二级生产列表
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isVisible: if not self.hasFlag(id=3) and not self.hasFlag(id=1) and self.hasUnitInTeam(withTag='沙盒控制')
+addResources: setFlag=3
+
+
+[action_生产控制4]
+text: Display 3
+text_zh: 显示3
+description: Display three-level production list
+description_zh: 显示三级生产列表
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isVisible: if not self.hasFlag(id=4) and not self.hasFlag(id=1) and self.hasUnitInTeam(withTag='沙盒控制')
+addResources: setFlag=4
+
+
+[action_生产控制5]
+text: Display 4
+text_zh: 显示4
+description: Display four-level production list
+description_zh: 显示四级生产列表
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isVisible: if not self.hasFlag(id=5) and not self.hasFlag(id=1) and self.hasUnitInTeam(withTag='沙盒控制')
+addResources: setFlag=5

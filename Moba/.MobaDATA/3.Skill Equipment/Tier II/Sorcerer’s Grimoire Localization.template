@@ -1,0 +1,19 @@
+
+[core]
+displayText_zh:巫师的魔导书
+displayDescription_zh:+85技能强度
+
+[action_upgrade]
+text_zh:永恒魔典
+description_zh:+165技能强度 \n\n-----唯一被动-----\n永恒: 提升45%的总技能强度
+
+
+
+[core]
+displayText_ru: Гримуар чародея
+displayDescription_ru: +85 к силе умений
+
+
+[action_upgrade]
+text_ru: Гримуар Вечности
+description_ru: +165 к силе умений \n\n-----Уникальный пассив-----\nБессмертие: Общая сила умений увеличена на 45%

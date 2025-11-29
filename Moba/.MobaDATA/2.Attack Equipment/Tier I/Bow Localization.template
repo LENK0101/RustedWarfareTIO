@@ -1,0 +1,24 @@
+[core]
+displayText_zh:弓
+displayDescription_zh: +10%攻击速度
+
+[action_upgrade]
+text_zh:反曲弓
+description_zh:+20攻击强度 \n+25%攻击速度
+
+[action_upgrade2]
+text_zh:钢弩
+description_zh:+30攻击强度 \n+10%攻击速度
+
+
+[core]
+displayText_ru: Лук
+displayDescription_ru: +10% к скорости атаки
+
+[action_upgrade]
+text_ru: Рефлексный лук
+description_ru: +20 к силе атаки \n+25% к скорости атаки
+
+[action_upgrade2]
+text_ru: Стальной арбалет
+description_ru: +30 к силе атаки \n+10% к скорости атаки

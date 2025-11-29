@@ -1,0 +1,26 @@
+
+[core]
+copyFrom:	ROOT:/Moba/Cristal/slot/nonEmptySlot.ini
+name: moba_NAME
+displayText:
+displayDescription:
+price: Gold=
+
+[hiddenAction_buy]
+sendMessageWithTags: buy_NAME
+
+[hiddenAction_sell]
+sendMessageWithTags: sell_NAME
+
+[graphics]
+image:ROOT:/MOBA/.MobaDATA/icon/Equipment/ .png
+
+[template_price]
+price: 
+
+[action_upgrade]
+price: Gold=
+text:
+description:
+convertTo:moba_NAME
+@copyFromSection: template_equipmentInfo

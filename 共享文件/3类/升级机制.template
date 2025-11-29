@@ -1,0 +1,117 @@
+[core]
+copyFrom: ROOT:\共享文件\3类\血溅.template
+
+[movement]
+moveSpeed: 0
+
+
+[hiddenAction_获取经验值]
+autoTriggerOnEvent:newMessage(withTag='deadPrice')
+addResourcesWithLogic: 经验值 = eventData(name='price',type='float')
+
+
+
+[hiddenAction_禁止攻击] 
+autoTrigger: if not self.tags(includes='禁止攻击') and (self.hasParent(withTag='空军') or self.hasFlag(id=28))
+temporarilyAddTags: 禁止攻击
+
+[hiddenAction_禁止攻击2] 
+autoTrigger: if self.tags(includes='禁止攻击') and not self.hasParent(withTag='空军') and not self.hasFlag(id=28) and not self.tags(includes='电磁脉冲')
+temporarilyRemoveTags: 禁止攻击
+
+
+[hiddenAction_闪时] 
+autoTrigger: if not self.resource(type='闪时', empty=true)
+addResources: 闪时=-1
+
+
+[hiddenAction_修正闪时]
+autoTrigger: if self.lastConverted(withinSeconds=5) and not self.resource(type='闪时', empty=true)
+resourceAmount: 闪时
+resourceAmount_setValue: 0
+
+
+[hiddenAction_升1级] 
+autoTrigger: if (self.numberOfAttachedUnits(withTag='1级', greaterThan=0) or (self.resource(type='经验值') >= ${template_price.price} * 3) or self.hasFlag(id=29)) and not self.tags(includes='1级') and not self.tags(includes='2级')
+temporarilyAddTags: 1级
+addResources: 闪时=10, setFlag=29
+alsoTriggerAction: 升1级2
+
+
+[hiddenAction_升1级2] 
+requireConditional: if self.lastConverted(laterThanSeconds=2) and not self.hasParent(withTag='装甲')
+playSoundAtUnit: ROOT:\音频\语音+音效\gcraprom.wav
+#showMessageToAllPlayers: 触发
+
+
+[hiddenAction_升2级] 
+autoTrigger: if (self.numberOfAttachedUnits(withTag='2级', greaterThan=0) or (self.resource(type='经验值') >= ${template_price.price} * 6) or self.hasFlag(id=30)) and not self.tags(includes='2级')
+temporarilyAddTags: 1级, 2级
+addResources: 闪时=10, setFlag=30, unsetFlag=29
+alsoTriggerAction: 升2级2
+
+
+[hiddenAction_升2级2] 
+requireConditional: if self.lastConverted(laterThanSeconds=2) and not self.hasParent(withTag='装甲')
+playSoundAtUnit: ROOT:\音频\语音+音效\gcraprom.wav
+
+
+[hiddenAction_1级属性] 
+autoTrigger: if self.tags(includes='1级') and not self.tags(includes='1级属性')
+temporarilyAddTags: 1级属性
+setUnitStats: shootDamageMultiplier += 0.1
+
+[hiddenAction_2级属性] 
+autoTrigger: if self.tags(includes='2级') and not self.tags(includes='2级属性')
+temporarilyAddTags: 2级属性
+temporarilyRemoveTags: 被碾压
+setUnitStats: armour+=5,  maxHp += int(${core.maxHp}/2), selfRegenRate += ${core.maxHp} / 10000, shootDelayMultiplier -= 0.25, moveSpeed += ${movement.moveSpeed}/10
+alsoTriggerAction: 2级属性回血
+
+[hiddenAction_2级属性回血] 
+setUnitStats: hp += ${core.maxHp}/2
+
+
+#[hiddenAction_1级显示] 
+#autoTrigger: if self.tags(includes='1级') and not self.tags(includes='2级') and not self.tags(includes='3级') and (not self.hasParent() or self.hasParent(withTag='机场'))
+#spawnEffects: CUSTOM:1级
+
+
+#[hiddenAction_2级显示] 
+#autoTrigger: if self.tags(includes='2级') and not self.tags(includes='3级') and (not self.hasParent() or self.hasParent(withTag='机场'))
+#spawnEffects: CUSTOM:2级
+
+
+#[hiddenAction_3级显示] 
+#autoTrigger: if self.tags(includes='3级') and (not self.hasParent() or self.hasParent(withTag='机场'))
+#spawnEffects: CUSTOM:3级
+
+
+[decal_1级]
+image: ROOT:\共享文件\1类\1级.png
+layer: beforeUI
+order:1
+onlyWhenSelectedByAnyPlayer:false
+onlyOnNonPreview:true
+alwaysStartDirAtZero:true
+teamColors:false
+onlyWhileAlive: true
+isVisible: if self.tags(includes='1级') and not self.tags(includes='2级') and (not self.hasParent() or self.hasParent(withTag='机场'))
+yOffsetAbsolute:int(${core.radius}*0.7)
+xOffsetAbsolute:int(${core.radius}*0.6)
+imageScale: 0.65
+alpha: 1
+
+[decal_2级]
+image: ROOT:\共享文件\1类\2级.png
+@copyFromSection: decal_1级
+isVisible: if self.tags(includes='2级') and (not self.hasParent() or self.hasParent(withTag='机场'))
+
+[resource_闪时]
+displayName: 闪时
+
+[resource_升级状态]
+displayName: 升级状态
+
+[resource_经验值]
+hidden: true

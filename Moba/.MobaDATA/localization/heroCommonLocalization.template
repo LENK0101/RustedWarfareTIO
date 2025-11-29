@@ -1,0 +1,57 @@
+#--------------Chinese Localization--------------
+[action_recall]
+text_zh:回城
+description_zh:6秒钟后传送至水晶
+
+[action_activeSlots]
+text_zh:空
+description_zh: 你没有任何主动装备！
+
+[action_gildedSerpentRing]
+text_zh:点石成金(%{int(select(memory.gildedSerpentRingCD>0, memory.gildedSerpentRingCD+1, 0))})
+description_zh:将自己化为金身，无法移动，期间免疫一切伤害且无法被选中为目标，持续1秒(冷却时间150秒，消耗300魔力)\n(冷却时间内可继续使用，但每次使用将使魔力消耗翻倍)
+
+[action_inventoryOpen]
+text_zh:物品栏
+description_zh: 点击打开物品栏
+
+[action_changeInventoryToAutoClose]
+text_zh:保持开启
+description_zh: 使用物品后保持物品栏开启
+
+[action_changeInventoryToKeepOpen]
+text_zh:自动关闭
+description_zh: 使用物品后自动关闭物品栏
+
+[action_inventoryClose]
+text_zh:关闭
+description_zh: 点击关闭物品栏
+
+
+[action_recall]
+text_ru: Возвращение в базу
+description_ru: Телепортация к кристаллу через 6 секунд
+
+[action_activeSlots]
+text_ru: Пусто
+description_ru: Нет активного снаряжения!
+
+[action_gildedSerpentRing]
+text_ru: Золотое преображение (%{int(select(memory.gildedSerpentRingCD>0, memory.gildedSerpentRingCD+1, 0))})
+description_ru: Превращает в золотую статую. Неподвижность, неуязвимость и невидимость для целей на 1 сек. (Перезарядка: 150 сек. Расход: 300 маны)\n(При использовании во время перезарядки расход маны удваивается)
+
+[action_inventoryOpen]
+text_ru: Инвентарь
+description_ru: Открыть инвентарь
+
+[action_changeInventoryToAutoClose]
+text_ru: Не закрывать
+description_ru: Оставлять инвентарь открытым после использования предметов
+
+[action_changeInventoryToKeepOpen]
+text_ru: Автозакрытие
+description_ru: Автоматически закрывать инвентарь после использования
+
+[action_inventoryClose]
+text_ru: Закрыть
+description_ru: Закрыть инвентарь

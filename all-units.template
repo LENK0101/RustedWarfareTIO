@@ -1,0 +1,483 @@
+[core]
+strictLevel: 1
+
+[graphics]
+showQueueBar: false
+
+[global_resource_Minerals]
+
+iconImage:ROOT:/DATA/total/icon_minerals.png
+displayName_ru:Минералы
+displayName:Minerals
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#FF18D626
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+appendResourceInHUD:Gas
+displayTextAppendResourceWithGap: true
+
+[resource_localMinerals]
+displayName_ru:Минералы
+displayName:Minerals
+hidden:false
+equivalentGlobalResourceForAI: Minerals
+
+[global_resource_Gas]
+iconImage:ROOT:/DATA/total/icon_gas.png
+displayName_ru:Газ
+displayName:Gas
+displayWhenZero:false
+displayRoundedDown: true
+hidden:true
+displayColor:#FF18D626
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+appendResourceInHUD:displaySupply
+displayTextAppendResourceWithGap: true
+
+[resource_localGas]
+displayName_ru:Газ
+displayName:Gas
+hidden:false
+equivalentGlobalResourceForAI: Gas
+
+[resource_localGas2]
+displayName_ru:Газ
+displayName:Gas
+hidden:false
+equivalentGlobalResourceForAI: Gas
+
+[global_resource_supply]
+iconImage:ROOT:/DATA/total/icon_supply.png
+displayName_ru:Лимит
+displayName:Limit
+hidden:true
+displayColor:#FF18D626
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+
+[global_resource_displaySupply]
+iconImage:ROOT:/DATA/total/icon_supply.png
+displayName_ru:Лимит
+displayName:Limit
+displayTextAppendResource: maxSupply
+displayWhenZero:false
+displayRoundedDown: true
+hidden:true
+displayColor:#FF18D626
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+
+[global_resource_maxSupply]
+displayName:
+displayTextPrefix:/
+displayWhenZero:false
+displayRoundedDown: true
+hidden:true
+displayColor:#FF18D626
+displayColorUseInText:false
+
+[global_resource_nuke]
+displayName_ru:Ядерные ракеты
+displayName:Nukes
+hidden:true
+displayColor:#ff800000
+
+[resource_select]
+displayName_ru: Выбор
+displayName: Select
+hidden:true
+
+[global_resource_baseAttack]
+hidden:true
+
+[global_resource_forcesAttack]
+hidden:true
+
+[global_resource_Ai智商]
+displayName: Ai level
+hidden:true
+displayName_zh: 🖥智商
+displayColor: #FF00FF00
+displayRoundedDown: true
+displayPos: 0
+
+
+[global_resource_电力]
+iconImage:ROOT:\共享文件\1类\总电力.png
+displayName: Power
+displayName_zh:电力
+displayColor: #FF00FFFF
+displayWhenZero:false
+displayRoundedDown: true
+displayPos: 1
+displayColor: #FFFFFF00
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+appendResourceInHUD:资金
+displayTextAppendResourceWithGap: true
+
+[global_resource_资金]
+iconImage:ROOT:\共享文件\1类\总资金.png
+displayName: Funds
+displayName_zh:资金
+hidden:true
+displayWhenZero:false
+displayRoundedDown: true
+displayPos: 2
+displayColor:#FF18D626
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+
+
+[global_resource_优势]
+displayName: Advantage
+hidden:true
+displayName_zh:优势
+displayColor: #FF7FFF00
+displayWhenZero:false
+displayRoundedDown: true
+displayPos: 3
+
+
+[resource_失败标志]
+displayName: Failure sign
+displayName_zh: 失败标志
+
+
+[action_失败目标]
+text: Failure target
+text_zh: 失败目标
+description: As a failure target. When this unit dies or disappears, this faction also disappears
+description_zh: 作为失败目标，当此单位死亡或消失时，此阵营也会消失
+pos: 0
+displayType: upgrade
+buildSpeed: 0s
+isActive: if not self.tags(includes='失败目标')
+isVisible: if self.hasUnitInTeam(withTag='沙盒控制')
+temporarilyAddTags: 失败目标
+
+
+[hiddenAction_失败目标2]
+autoTrigger: if self.tags(includes='失败目标')
+spawnEffects: CUSTOM:失败目标
+
+
+[hiddenAction_失败目标判断]
+autoTrigger: if numberOfUnitsInTeam(withTag='失败目标', greaterThan=0) and not self.resource(type='失败标志', greaterThan=0)
+addResources: 失败标志=1
+
+
+[hiddenAction_失败目标判断2]
+autoTrigger: if not numberOfUnitsInTeam(withTag='失败目标', greaterThan=0) and self.resource(type='失败标志', greaterThan=0)
+deleteSelf: true
+
+
+[hiddenAction_沙盒清除]
+autoTrigger: if numberOfUnitsInAggressiveTeam(withTag='沙盒清除', greaterThan=0)
+deleteSelf: true
+
+
+[hiddenAction_变成捕获性中立]
+autoTrigger: if numberOfUnitsInNeutralTeam(withTag='捕获中立', greaterThan=0, withinRange=100)
+switchToNeutralTeam: true
+
+
+[hiddenAction_变成空载具]
+autoTrigger: if self.tags(includes='可空') and numberOfUnitsInNeutralTeam(withTag='变成空载具', greaterThan=0, withinRange=100)
+addResources: setFlag=27
+switchToAggressiveTeam: true
+
+
+[hiddenAction_减伤]
+autoTrigger: if numberOfUnitsInTeam(withTag='迷雾', greaterThan=0, withinRange=150) and not self.tags(includes='减伤') and not self.isFlying()
+temporarilyAddTags: 减伤
+
+
+[hiddenAction_减伤2]
+autoTrigger: if self.tags(includes='减伤') and not numberOfUnitsInTeam(withTag='迷雾', greaterThan=0, withinRange=100)
+temporarilyRemoveTags: 减伤
+
+
+[projectile_1]
+directDamage: 0
+areaDamage: 0
+life: 60
+
+mutator6_ifUnitWithTags: 特殊免伤
+mutator6_areaDamageMultiplier: 0
+mutator10_ifUnitWithTags: 减伤
+mutator10_directDamageMultiplier: 0.5
+mutator10_areaDamageMultiplier: 0.5
+mutator11_ifUnitWithTags: 免伤
+mutator11_areaDamageMultiplier: 0
+mutator12_ifUnitWithTags: 力场保护, 铁幕保护
+mutator12_directDamageMultiplier: 0
+mutator12_areaDamageMultiplier: 0
+mutator31_ifUnitWithTags: 加伤
+mutator31_directDamageMultiplier: 2
+mutator31_areaDamageMultiplier: 2
+
+
+[projectile_2]
+directDamage: 0
+areaDamage: 0
+life: 60
+
+mutator6_ifUnitWithTags: 特殊免伤
+mutator6_areaDamageMultiplier: 0
+mutator10_ifUnitWithTags: 减伤
+mutator10_directDamageMultiplier: 0.5
+mutator10_areaDamageMultiplier: 0.5
+mutator11_ifUnitWithTags: 免伤
+mutator11_areaDamageMultiplier: 0
+mutator12_ifUnitWithTags: 力场保护, 铁幕保护
+mutator12_directDamageMultiplier: 0
+mutator12_areaDamageMultiplier: 0
+mutator31_ifUnitWithTags: 加伤
+mutator31_directDamageMultiplier: 2
+mutator31_areaDamageMultiplier: 2
+
+
+[effect_失败目标]
+stripIndex: effects2
+frameIndex: 7
+life: 100
+hOffset: 40
+scaleFrom: 2
+scaleTo: 2
+fadeInTime: 20
+fadeOut: true
+#alpha: 0.75
+alwayStartDirAtZero:true
+attachedToUnit: true
+drawUnderUnits: false
+
+
+[template_quanjudiaoyong]
+@global gameSpeedRate: 0.44
+
+[global_resource_单位变化]
+hidden: true
+
+[global_resource_开始建造]
+hidden: true
+
+[global_resource_取消建造]
+hidden: true
+
+[global_resource_建造完成]
+hidden: true
+
+[global_resource_新建筑]
+hidden: true
+
+[global_resource_维修]
+hidden: true
+
+[global_resource_基地遭受进攻]
+hidden: true
+
+[global_resource_雷神炮艇]
+hidden: true
+
+[global_resource_超级天启]
+hidden: true
+
+[global_resource_EndlessEvolve]
+displayName:Endless Evolve Level
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ff800000
+displayColorUseInText:true
+
+[global_resource_盟军]
+hidden: true
+
+[global_resource_苏联]
+hidden: true
+
+[global_resource_Terran]
+hidden: true
+
+[global_resource_Protoss]
+hidden: true
+
+[global_resource_Zerg]
+hidden: true
+
+#-------------
+
+
+[global_resource_tenMinute]
+displayName:
+displayTextPrefix:
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffe500
+displayColorUseInText:false
+appendResourceInHUD:minute
+
+[global_resource_minute]
+hidden:true
+displayName:
+displayTextPrefix:
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffe500
+displayColorUseInText:false
+appendResourceInHUD:tenSec
+
+[global_resource_tenSec]
+displayName:
+hidden:true
+displayTextPrefix::
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffe500
+displayColorUseInText:false
+appendResourceInHUD:sec
+
+[global_resource_sec]
+hidden:true
+displayName:
+displayTextPrefix:
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffe500
+displayColorUseInText:false
+displayTextAppendResourceWithGap:true
+appendResourceInHUD:mobaKill
+
+
+[global_resource_mobaKill]
+hidden:true
+displayName:
+displayTextPrefix:
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffffff
+displayColorUseInText:false
+appendResourceInHUD:mobaDeath
+
+[global_resource_mobaDeath]
+hidden:true
+displayName:
+displayTextPrefix:/
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffffff
+displayColorUseInText:false
+appendResourceInHUD:mobaCreepScore
+
+[global_resource_mobaCreepScore]
+hidden:true
+displayName:
+displayTextPrefix:/
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffffff
+displayColorUseInText:false
+
+
+[global_resource_Gold]
+iconImage:ROOT:/Moba/.MobaDATA/icon/Gold.png
+displayName:Gold
+displayWhenZero:false
+displayRoundedDown: true
+displayColor:#ffe500
+displayColorUseInText:false
+displayNameHideWhenIconShownInText:true
+displayNameHideWhenIconShownInHUD:true
+
+[global_resource_totem]
+hidden: true
+
+[hiddenAction_ded]
+autoTriggerOnEvent:destroyed
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: deadPrice
+sendMessageWithData: price=${template_price.price}
+
+[hiddenAction_giveLifeSteal1] 
+autoTriggerOnEvent: tookDamage(withTag="attack1")
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: LifeSteal1
+
+[hiddenAction_giveLifeSteal2] 
+autoTriggerOnEvent: tookDamage(withTag="attack2")
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: LifeSteal2
+
+[hiddenAction_giveSkillVamp1] 
+autoTriggerOnEvent: tookDamage(withTag="skill1")
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: SkillVamp1
+
+[hiddenAction_giveSkillVamp2] 
+autoTriggerOnEvent: tookDamage(withTag="skill2")
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: SkillVamp2
+
+[hiddenAction_giveSkillVamp3] 
+autoTriggerOnEvent: tookDamage(withTag="skill3")
+sendMessageTo:lastDamagedBy
+sendMessageWithTags: SkillVamp3
+
+[template_price]
+price:0
+
+[global_resource_heroRespawnTime]
+displayName: Respawn Time
+displayName_zh: 重生时间
+displayColor:#f00000
+displayWhenZero: False
+displayRoundedDown: true
+
+[global_resource_mobaBuyEquipment]
+hidden: true
+
+[global_resource_firstMeet]
+hidden: true
+
+[global_resource_XP]
+hidden: true
+
+[global_resource_Level]
+hidden: true
+
+[global_resource_currentLevel]
+hidden: true
+
+[global_resource_diffLevel]
+hidden: true
+
+[global_resource_buy]
+hidden: true
+
+[global_resource_sell]
+hidden: true
+
+[global_resource_mobaKillCount]
+hidden: true
+
+[global_resource_mobaKillStreak]
+hidden: true
+
+[global_resource_isKillingStreak]
+hidden: true
+
+[global_resource_mobaDeathCount]
+hidden: true
+
+[global_resource_protectorDestroy]
+hidden: true
+
+[global_resource_CristalUnderAttack]
+hidden: true

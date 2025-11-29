@@ -1,0 +1,283 @@
+[core]
+copyFrom: ROOT:/MOBA/.MobaDATA/localization/useConsumablesLocalization.template
+
+[template_useConsumables]
+isLocked: if self.resource.gildedSerpentRingActivate == 1
+isLockedMessage: null
+buildSpeed: 0s
+pos:1
+displayType: none
+addResources: consumablesNum = -1
+isGuiBlinking: true
+alwaysSinglePress: true
+alsoTriggerAction: inventoryAutoClose
+
+#---Empty---
+
+[action_emptySlot1]
+isLocked: if self.resource.gildedSerpentRingActivate == 1
+isLockedMessage: null
+displayType: infoOnly
+buildSpeed: 0s
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 6 
+text: \n_
+pos:2
+
+[action_emptySlot2]
+@copyFromSection: action_emptySlot1
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 5
+
+[action_emptySlot3]
+@copyFromSection: action_emptySlot1
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 4
+
+[action_emptySlot4]
+@copyFromSection: action_emptySlot1
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 3
+
+[action_emptySlot5]
+@copyFromSection: action_emptySlot1
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 2
+
+[action_emptySlot6]
+@copyFromSection: action_emptySlot1
+isVisible: if self.resource.inventoryState == 1 and self.resource.consumablesNum < 1
+
+#------Abyssal Skill------
+#---Shadowleap---
+[action_shadowleap]
+@copyFromSection: template_useConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Shadowleap.png
+isVisible: if self.resource.inventoryState == 1 and self.resource.shadowleap >= 1
+text: Shadowleap
+description: Leap yourself to the selected location
+addResourcesWithLogic: shadowleap = -1, abyssalSkill = -1
+fireTurretXAtGround:shadowleap
+fireTurretXAtGround_withProjectile:shadowleap
+clearAllWaypoints:true
+spawnEffects: CUSTOM:shadowleap1
+
+[action_shadowleapAlt]
+@copyFromSection: action_shadowleap
+isVisible: if self.resource.inventoryState == 0 and self.resource.shadowleap >= 1 and self.resource.activeEquipmentNum == 0
+isGuiBlinking: false
+pos: 3
+
+[turret_shadowleap]
+x: 0
+y: 0
+onShoot_freezeBodyMovementFor: 0s
+shoot_sound: ROOT:/Moba/.MobaDATA/sfx/Shadowleap.ogg
+shoot_sound_vol: 0.7
+shoot_flame:NONE
+shoot_light:#FFEECCCC
+canAttackCondition: false
+showRangeUIGuide: false
+limitingRange:200
+
+[projectile_shadowleap]
+areaDamage:0
+instant: true
+life: 10
+speed: 10
+drawSize:0
+explodeEffect: CUSTOM:shadowleap2
+explodeOnEndOfLife:true
+teleportSource: true
+
+
+[effect_shadowleap1]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 60
+alpha: 1
+image:ROOT:/Moba/.MobaDATA/effect/Shadowleap1.png
+priority: critical
+drawUnderUnits: true
+total_frames:7
+animateFrameStart:0
+animateFrameEnd:7
+animateFrameSpeed:0.3
+frame_width:  64
+frame_height: 32
+yOffsetAbsolute: -10
+scaleFrom: 1.5	
+scaleTo: 1.5
+
+[effect_shadowleap2]
+alwayStartDirAtZero:true
+attachedToUnit: false
+life: 60
+alpha: 1
+image:ROOT:/Moba/.MobaDATA/effect/Shadowleap2.png
+priority: critical
+drawUnderUnits: false
+total_frames:7
+animateFrameStart:0
+animateFrameEnd:7
+animateFrameSpeed:0.3
+frame_width:  64
+frame_height: 64
+yOffsetAbsolute: -10
+xOffsetAbsolute: 5
+scaleFrom: 1.5	
+scaleTo: 1.5
+
+
+#------Normal Consumables------
+#---Hp Potion---
+[resource_hpPotionEffectSec]
+hidden:true
+
+[action_useHpPotion1]
+@copyFromSection: template_useConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Hp Potion.png
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion >= 1
+text: Hp Potion
+description:Restore a total of 100 Hp in 10 seconds
+addResourcesWithLogic: hpPotion = -1
+setResourcesWithLogic: hpPotionEffectSec = 10
+alsoTriggerAction: hpPotionEffect, inventoryAutoClose
+
+[action_useHpPotion2]
+@copyFromSection: action_useHpPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion >= 2
+
+[action_useHpPotion3]
+@copyFromSection: action_useHpPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion >= 3
+
+[action_useHpPotion4]
+@copyFromSection: action_useHpPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion >= 4
+
+[action_useHpPotion5]
+@copyFromSection: action_useHpPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion >= 5
+
+[action_useHpPotion6]
+@copyFromSection: action_useHpPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.hpPotion == 6
+
+[hiddenAction_hpPotionEffect]
+autoTrigger: if self.resource.hpPotionEffectSec > 0
+addResourcesWithLogic: hpPotionEffectSec = -1
+setUnitStats: hp = self.hp() + 10
+
+#---Mana Potion---
+[resource_manaPotionEffectSec]
+hidden:true
+
+[action_useManaPotion1]
+@copyFromSection: template_useConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Mana Potion.png
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion >= 1
+text: Mana Potion
+description:Restore a total of 100 Mana in 10 seconds
+addResourcesWithLogic: manaPotion = -1
+setResourcesWithLogic: manaPotionEffectSec = 10
+alsoTriggerAction: manaPotionEffect, inventoryAutoClose
+
+[action_useManaPotion2]
+@copyFromSection: action_useManaPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion >= 2
+
+[action_useManaPotion3]
+@copyFromSection: action_useManaPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion >= 3
+
+[action_useManaPotion4]
+@copyFromSection: action_useManaPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion >= 4
+
+[action_useManaPotion5]
+@copyFromSection: action_useManaPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion >= 5
+
+[action_useManaPotion6]
+@copyFromSection: action_useManaPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.manaPotion == 6
+
+[hiddenAction_manaPotionEffect]
+autoTrigger: if self.resource.manaPotionEffectSec > 0
+addResourcesWithLogic: manaPotionEffectSec = -1
+setUnitStats: energy = self.energy() + 10
+
+#---Vision Potion---
+[resource_visionPotionUsed]
+hidden:true
+
+[resource_visionPotionEffectSec]
+hidden:true
+
+[action_useVisionPotion1]
+@copyFromSection: template_useConsumables
+iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Vision Potion.png
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion >= 1
+text: Vision Potion
+description:Gain the ability to see invisible units for 10 seconds
+addResourcesWithLogic: visionPotion = -1
+setResourcesWithLogic: visionPotionEffectSec = 10, visionPotionUsed = 1
+temporarilyAddTags: detector
+alsoTriggerAction: visionPotionEffect, inventoryAutoClose
+
+[action_useVisionPotion2]
+@copyFromSection: action_useVisionPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion >= 2
+
+[action_useVisionPotion3]
+@copyFromSection: action_useVisionPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion >= 3
+
+[action_useVisionPotion4]
+@copyFromSection: action_useVisionPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion >= 4
+
+[action_useVisionPotion5]
+@copyFromSection: action_useVisionPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion >= 5
+
+[action_useVisionPotion6]
+@copyFromSection: action_useVisionPotion1
+isVisible: if self.resource.inventoryState == 1 and self.resource.visionPotion == 6
+
+[hiddenAction_visionPotionEffect]
+autoTrigger: if self.resource.visionPotionEffectSec > 0
+addResourcesWithLogic: visionPotionEffectSec = -1
+
+[hiddenAction_visionPotionOff]
+autoTrigger: if self.resource.visionPotionEffectSec == 0 and self.resource.visionPotionUsed == 1 and self.resource.eyeofTruth == 0
+temporarilyRemoveTags: detector
+setResourcesWithLogic: visionPotionUsed = 0
+
+
+#---Arrival---
+[canBuild_arrivalStone]
+#iconImage: ROOT:/MOBA/.MobaDATA/icon/Consumables/Arrival Stone.png
+isVisible: if self.resource.inventoryState == 1 and self.resource.arrivalStone >= 1
+price: arrivalStone = 1
+pos:1
+name: arrivalMark
+isGuiBlinking: true
+
+[hiddenAction_arrival1]
+autoTriggerOnEvent:newMessage(withTag='arrivalSetup')
+setResourcesWithLogic: interruptRecall = 0
+clearAllWaypoints:true
+addResources: consumablesNum = -1
+alsoTriggerAction: inventoryAutoClose
+
+[hiddenAction_arrival2]
+autoTriggerOnEvent:newMessage(withTag='arrivalComplete')
+teleportTo: eventData(name = 'location',type = 'unit')
+setHeight: 300
+
+
+
+
+
+
+
+
+
+

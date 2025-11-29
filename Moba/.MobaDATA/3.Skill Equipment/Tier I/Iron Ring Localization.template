@@ -1,0 +1,27 @@
+
+[core]
+displayText_zh:钢铁指环
+displayDescription_zh:+2魔力恢复
+
+[action_upgrade]
+text_zh:秘银宝石指环
+description_zh:+150魔力值 \n+5技能急速 \n+2魔力恢复
+
+[action_upgrade2]
+text_zh:附魔师耳环
+description_zh:+200魔力值 \n+5魔力恢复
+
+
+
+[core]
+displayText_ru: Стальное кольцо
+displayDescription_ru: +2 к восстановлению маны
+
+[action_upgrade]
+text_ru: Мифриловое кольцо с камнем
+description_ru: +150 к мане \n+5 к скорости умений \n+2 к восстановлению маны
+
+[action_upgrade2]
+text_ru: Серьги зачарователя
+description_ru: +200 к мане \n+5 к восстановлению маны
+
